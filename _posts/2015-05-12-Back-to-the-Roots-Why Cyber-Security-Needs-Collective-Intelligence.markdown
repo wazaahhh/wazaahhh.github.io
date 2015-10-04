@@ -48,7 +48,7 @@ In many ways, the collaborative approach at the roots of the Internet is also su
 
 Yet cybersecurity itself has been deeply impregnated by a culture of secrecy, perhaps inherited from its inception in the defense industry.
 
-![“Quadratic Koch 3D (type2 stage3)” by Robert Dickau — Own work. Licensed under CC BY-SA 3.0 via Wikimedia Commons —](https://commons.wikimedia.org/wiki/File:Quadratic_Koch_3D_(type2_stage3).png)
+![“Quadratic Koch 3D (type2 stage3)” by Robert Dickau — Own work. Licensed under CC BY-SA 3.0 via Wikimedia Commons —](https://upload.wikimedia.org/wikipedia/commons/f/ff/Quadratic_Koch_3D_%28type2_stage1%29.png)
 
 
 ###For cybersecurity, go back to the roots
