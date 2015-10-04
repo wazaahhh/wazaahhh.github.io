@@ -3,6 +3,7 @@ layout: post
 title:  "Back to the Roots: Why Cyber Security Needs Collective Intelligence"
 date:   2015-05-12 22:45:41
 categories: cyber security, collective intelligence
+excerpt_separator: <!--more-->
 ---
 
 At the beginning, there was nothing. A few monster computers would heat the basement of some prestigious universities, crunching numbers for mathematicians and physicists.
