@@ -13,6 +13,8 @@ These early hackers also demonstrated the importance of openess to enhance compl
 
 [tmrc]: http://tmrc.mit.edu
 
+<!--more-->
+
 ### The early years of Internet
 
 Ten years later, the research division of the Pentagon called ARPA (now DARPA), launched ARPANET. It was a project to establish reliable communication protocols between computers — a network that would become the Internet .
