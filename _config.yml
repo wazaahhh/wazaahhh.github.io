@@ -2,7 +2,7 @@
 title: wazaahhh 
 #email: your-email@domain.com
 description: > # this means to ignore newlines until "baseurl:"
-  the homepage of [Thomas Maillart](http://www.ischool.berkeley.edu/people/visitors/thomasmaillart)
+  Thomas Maillart
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://wazaahhh.github.io/" # the base hostname & protocol for your site
 #twitter_username: jekyllrb
