@@ -4,8 +4,4 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
-
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
-
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+This is the project homepage of [Thomas Maillart](http://www.ischool.berkeley.edu/people/visitors/thomasmaillart), where I post about some research I do. Most of my ongoing work is publicly available on my [GitHub account](https://github.com/wazaahhh/).
