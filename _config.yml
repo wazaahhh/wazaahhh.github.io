@@ -1,8 +1,8 @@
 # Site settings
-title: Thomas Maillart 
+title: Thomas Maillart -- research stuff
 #email: your-email@domain.com
 description: > # this means to ignore newlines until "baseurl:"
-  Thomas Maillart
+  Thomas Maillart -- research stuff
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://wazaahhh.github.io/" # the base hostname & protocol for your site
 #twitter_username: jekyllrb
@@ -10,3 +10,6 @@ github_username:  wazaahhh
 
 # Build settings
 markdown: kramdown
+
+
+excerpt_separator: <!--more-->

@@ -13,6 +13,8 @@ These early hackers also demonstrated the importance of openess to enhance compl
 
 [tmrc]: http://tmrc.mit.edu
 
+<!--more-->
+
 ### The early years of Internet
 
 Ten years later, the research division of the Pentagon called ARPA (now DARPA), launched ARPANET. It was a project to establish reliable communication protocols between computers — a network that would become the Internet .
@@ -21,7 +23,7 @@ ARPANET was initially tested and deployed accross universities and research cent
 
 With a culture of community-based open software development, and with the technology to let information travel freely and instantly over larger distances, the basic building blocks for uncontrolled evolution and growth were in place.
 
-{% include image.html url="https://upload.wikimedia.org/wikipedia/commons/f/ff/Quadratic_Koch_3D_%28type2_stage1%29.png" description="Quadratic Koch 3D (type2 stage1)” by Robert Dickau — Own work. Licensed under CC BY-SA 3.0 via Wikimedia Commons" %}
+{% include image.html url="https://upload.wikimedia.org/wikipedia/commons/f/ff/Quadratic_Koch_3D_%28type2_stage1%29.png" description="Quadratic Koch 3D (type2 stage1)” by Robert Dickau — Own work. Licensed under CC BY-SA 3.0 via Wikimedia Commons—" %}
 
 ### Vulnerabilities emerge
 
@@ -30,7 +32,8 @@ ARPANET expanded worldwide as an academic network. Already in 1988, there were c
 A programming error made this program execute on a computer as many times as this computer was contacted, leading to processing overload, and ultimately to the crash of thousands of machines across the netowork. While unintentional, the Morris Worm was the first ever recorded instance of a damaging virus spreading across a computer network. Ironically, since computers crashed following their infection, the Morris Worm also failed in its measurement goals. (And by the way, measuring the exact size Internet has become an increasingly complicated problem, of great scientific interest, and with no definitive answer.)
 
 
-![“Quadratic Koch 3D (type2 stage2)” by Robert Dickau — Own work. Licensed under CC BY-SA 3.0 via Wikimedia Commons —](https://upload.wikimedia.org/wikipedia/commons/0/09/Quadratic_Koch_3D_%28type2_stage2%29.png)
+
+{% include image.html url="https://upload.wikimedia.org/wikipedia/commons/0/09/Quadratic_Koch_3D_%28type2_stage2%29.png" description="Quadratic Koch 3D (type2 stage2)” by Robert Dickau — Own work. Licensed under CC BY-SA 3.0 via Wikimedia Commons—" %}
 
 
 ### Freedom for all meets concerns about cybersecurity
@@ -47,7 +50,8 @@ In many ways, the collaborative approach at the roots of the Internet is also su
 
 Yet cybersecurity itself has been deeply impregnated by a culture of secrecy, perhaps inherited from its inception in the defense industry.
 
-![“Quadratic Koch 3D (type2 stage3)” by Robert Dickau — Own work. Licensed under CC BY-SA 3.0 via Wikimedia Commons—](https://upload.wikimedia.org/wikipedia/commons/2/2f/Quadratic_Koch_3D_%28type2_stage3%29.png)
+{% include image.html url="https://upload.wikimedia.org/wikipedia/commons/2/2f/Quadratic_Koch_3D_%28type2_stage3%29.png" description="Quadratic Koch 3D (type2 stage3)” by Robert Dickau — Own work. Licensed under CC BY-SA 3.0 via Wikimedia Commons—" %}
+
 
 ###For cybersecurity, go back to the roots
 
