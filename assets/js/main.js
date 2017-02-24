@@ -95,15 +95,6 @@
 						$sidebar.removeClass('inactive');
 					});
 
-					// skel
-					//   .on('+large', function() {
-					//     $sidebar.removeClass('inactive');
-					//   })
-					//   .on('-large !large', function() {
-					//     $sidebar.addClass('inactive');
-					//   });
-
-
 			// Hack: Workaround for Chrome/Android scrollbar position bug.
 				if (skel.vars.os == 'android'
 				&&	skel.vars.browser == 'chrome')
