@@ -1,15 +1,36 @@
 # Site settings
-title: thomas maillart -- research stuff
+title: Thomas Maillart
 email: wazaahhh@protonmail.com
-description: > # this means to ignore newlines until "baseurl:"
-  thomas maillart -- research stuff
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://wazaahhh.github.io/" # the base hostname & protocol for your site
-#twitter_username: jekyllrb
-github_username:  wazaahhh
+description: Research, grants & awards, and SDG-aligned hackathon impact
+url: "https://thomasmaillart.org"
+baseurl: ""
+github_username: wazaahhh
 
-# Build settings
-markdown: kramdown
+# Keep theme null; we use lightweight custom HTML/CSS in layouts.
+theme: null
 
+collections:
+  research:
+    output: true
+  grants:
+    output: true
+  sdg_hackathons:
+    output: true
 
-excerpt_separator: <!--more-->
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+  - scope:
+      type: research
+    values:
+      layout: "collection-item"
+  - scope:
+      type: grants
+    values:
+      layout: "collection-item"
+  - scope:
+      type: sdg_hackathons
+    values:
+      layout: "collection-item"
