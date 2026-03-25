@@ -1,10 +1,11 @@
-<header id="header">
-  <h3>
-  <a href="index.html" class="logo"><strong>Thomas Maillart</strong></a>
-</h3>
-  <ul class="icons">
-    <li><a href="https://twitter.com/tmaillart" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-    <li><a href="https://github.com/wazaahhh/" class="icon fa-github"><span class="label">GitHub</span></a></li>
-    <li><a href="https://medium.com/@tmaillart" class="icon fa-medium"><span class="label">Medium</span></a></li>
-  </ul>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="{{ '/research.html' | relative_url }}">Research</a>
+      <a href="{{ '/grants-awards.html' | relative_url }}">Grants & Awards</a>
+      <a href="{{ '/hackathons-sdg.html' | relative_url }}">Hackathons & SDG</a>
+    </nav>
+  </div>
 </header>
+
