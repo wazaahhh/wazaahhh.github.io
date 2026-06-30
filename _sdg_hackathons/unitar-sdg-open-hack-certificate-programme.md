@@ -1,9 +1,9 @@
 ---
-title: "UNITAR SDG Open Hack (certificate programme)"
+title: "SDG Open Hack (certificate programme)"
 year: 2026
 type: "SDG-aligned hackathon + learning certification"
 role: "Program design / institutional partnership contribution"
-summary: "A 4-phase SDG Open Hack programme combining preparation, pre-hack micro-learning, a hackathon for co-designed projects, and follow-up—anchored by UNITAR quality assurance and operational delivery."
+summary: "A 4-phase SDG Open Hack programme combining preparation, pre-hack micro-learning, a hackathon for co-designed projects, and follow-up, with quality assurance and operational delivery."
 published: true
 sdg_tags:
   - "SDG"

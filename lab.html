@@ -32,10 +32,9 @@ permalink: /
   --accent:#2b2b2b; --pop:#cfcfcf; --c3:#9a9a9a; --accent-soft:rgba(0,0,0,.07);
   --wire:#8a8a8a;
 }
-/* greyscale: desaturate page content, but keep the palette swatches colored */
-body.theme-grey .hero,
-body.theme-grey section,
-body.theme-grey footer { filter: grayscale(1); }
+/* greyscale theme = neutral chrome via the grey palette vars; the data
+   visualisations (Venn, citation heatmap, timeline, talk stripes) keep their
+   hardcoded category colors, so no grayscale() filter is applied. */
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -219,11 +218,24 @@ section { padding: 3.2rem 0; }
 .tk-group { font-family:"Space Grotesk"; font-weight:700; font-size:.74rem; text-transform:uppercase; letter-spacing:.1em;
   color:var(--muted); margin:1.2rem 0 .3rem; }
 .tk-group.up { color:var(--wire); margin-top:0; }
-.talk { display:grid; grid-template-columns:84px 1fr; gap:1rem; padding:.7rem 0; border-top:1px solid var(--line); }
+.talk { display:grid; grid-template-columns:84px 1fr; gap:1rem; padding:.7rem 0 .7rem .7rem;
+  border-top:1px solid var(--line); border-left:3px solid var(--cat, transparent); }
 .talk .tk-when { font-family:"Space Grotesk"; font-weight:700; font-size:.9rem; color:var(--accent); }
 .talk.up .tk-when { color:var(--wire); }
 .talk .tk-title { font-family:"Space Grotesk"; font-weight:600; font-size:.95rem; line-height:1.25; }
+.tk-link { color:var(--accent); font-weight:600; text-decoration:none; white-space:nowrap; }
 .talk .tk-meta { font-size:.82rem; color:var(--muted); margin-top:.1rem; }
+.talks-scroll { max-height:420px; overflow-y:auto; padding-right:.5rem;
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line); -webkit-overflow-scrolling:touch; }
+.tfilters { display:flex; flex-wrap:wrap; gap:.4rem; margin:0 0 1rem; }
+.tf { font-family:"Space Grotesk"; font-weight:600; font-size:.74rem; padding:.3rem .7rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--panel); color:var(--muted); cursor:pointer;
+  display:inline-flex; align-items:center; gap:.35rem; transition:all .15s ease; }
+.tf:hover { color:var(--ink); border-color:var(--accent); }
+.tf.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+.tf .dot { width:9px; height:9px; border-radius:50%; background:var(--tfc, var(--muted)); }
+.tk-type { display:inline-block; font-size:.62rem; font-weight:600; text-transform:uppercase; letter-spacing:.04em;
+  padding:.02rem .35rem; border-radius:4px; background:var(--accent-soft); color:var(--accent); margin-right:.45rem; vertical-align:.06em; }
 @media (max-width:680px){ .talk{ grid-template-columns:64px 1fr; gap:.7rem; } }
 
 /* ---------- citation intensity heatmap ---------- */
@@ -319,7 +331,7 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 <a id="top"></a>
 <header class="hero"><div class="wrap">
   <span class="eyebrow">● Tech forecasting · cyber · social interaction</span>
-  <h1>I turn weak signals into <span class="hl">science &amp; innovation</span> you can act on.</h1>
+  <h1>Turning weak signals into <span class="hl">science &amp; innovation</span> you can act on.</h1>
   <p class="lede">Research and translational work connecting technological forecasting, cybersecurity economics, and social-interaction science with applied decision-making.</p>
   <div class="cta">
     <a class="btn btn--solid" href="#activity">See what I'm building →</a>
@@ -375,8 +387,8 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
     <span class="fund-sub">raised across <b id="fund-n">—</b> grants &amp; contracts</span>
   </div>
   <div class="fund-legend">
-    <span><i class="rdot" style="background:var(--accent)"></i> Principal Investigator</span>
-    <span><i class="rdot" style="background:var(--c3)"></i> Project partner</span>
+    <span><i class="rdot" style="background:#6d28d9"></i> Principal Investigator</span>
+    <span><i class="rdot" style="background:#22d3ee"></i> Project partner</span>
     <span><i class="rdot" style="background:#9aa0aa"></i> Co-applicant</span>
   </div>
   <div class="gantt" id="gantt"></div>
@@ -393,8 +405,20 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 </div></section>
 
 <section id="talks"><div class="wrap reveal">
-  <div class="shead"><h2>Public interventions</h2><span class="tag">up next · past</span></div>
-  <p class="sub">Conferences I chair or organise, hackathons, and invited engagements.</p>
+  <div class="shead"><h2>Public interventions</h2><span class="tag">talks · papers · chairing</span></div>
+  <p class="sub">Invited talks, conference papers, and the events I chair or organise — filter by type or research area.</p>
+  <div class="tfilters" id="talks-filter">
+    <button class="tf active" data-filter="all">All</button>
+    <button class="tf" data-filter="type:invited">Invited</button>
+    <button class="tf" data-filter="type:talk">Conference</button>
+    <button class="tf" data-filter="type:role">Chairing</button>
+    <button class="tf" data-filter="cat:forecasting"><span class="dot" style="--tfc:#16e0ff"></span>Forecasting</button>
+    <button class="tf" data-filter="cat:complex"><span class="dot" style="--tfc:#3b82f6"></span>Complex systems</button>
+    <button class="tf" data-filter="cat:hackathons"><span class="dot" style="--tfc:#a855f7"></span>Hackathons</button>
+    <button class="tf" data-filter="cat:collective"><span class="dot" style="--tfc:#ffd23f"></span>Collective</button>
+    <button class="tf" data-filter="cat:cyber"><span class="dot" style="--tfc:#ff2d9b"></span>Cyber</button>
+    <button class="tf" data-filter="cat:social"><span class="dot" style="--tfc:#c6f432"></span>Social</button>
+  </div>
   <div class="talks" id="talks-list"></div>
 </div></section>
 
@@ -520,7 +544,7 @@ const GRANTS=[
   const g=document.getElementById('gantt'); if(!g) return;
   const tip=document.getElementById('tip');
   const Y0=2012, Y1=2027, span=Y1-Y0;
-  const roleColor={PI:'var(--accent)', Partner:'var(--c3)', Co:'#9aa0aa'};
+  const roleColor={PI:'#6d28d9', Partner:'#22d3ee', Co:'#9aa0aa'};  // fixed → stay colored in any theme
   const roleName={PI:'Principal Investigator', Partner:'Project partner', Co:'Co-applicant'};
   const fmt=k=> k>=1000 ? 'CHF '+(k/1000).toFixed(2).replace(/\.?0+$/,'')+'M' : 'CHF '+Math.round(k)+'k';
   const esc=s=> String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
@@ -544,30 +568,33 @@ const GRANTS=[
 })();
 
 // ---- public interventions (up next / past) — editable ----
-const TALKS=[
-  // up:true = upcoming
-  {when:"2026", up:true, title:"UNITAR SDG Open Hack — certificate programme", role:"Programme design", venue:"UNITAR · Geneva"},
-  {when:"2026–27", up:true, title:"Translational Futures Unit (armasuisse foresight)", role:"Lead researcher", venue:"Tech Hub · Geneva"},
-  {when:"2023", title:"HackTheHack — Int'l Conference on Hackathons", role:"General co-chair", venue:"Geneva"},
-  {when:"2023", title:"WEIS — Workshop on Economics of Information Security", role:"General chair", venue:"Geneva"},
-  {when:"2021", title:"CRITIS — Critical Information Infrastructures Security", role:"General chair", venue:"Lausanne"},
-  {when:"2021", title:"Geneva Trialogue", role:"Organiser", venue:"Geneva"},
-  {when:"2018", title:"Geneva Trialogue", role:"Organiser", venue:"Geneva"},
-  {when:"2017", title:"Algorithmic Design for Hybrid Collective Intelligence (CCS satellite)", role:"Organiser", venue:"Cancún"},
-  {when:"2016", title:"Open Science for an Open Society (CCS satellite)", role:"Organiser", venue:"Amsterdam"},
-  {when:"2015", title:"Collective Intelligence", role:"Speaker", venue:"Santa Clara"},
-  {when:"2014", title:"Systems Resilience in the Digital Society (NetSci)", role:"Organiser", venue:"UC Berkeley"},
-];
+// Editable content lives in _data/talks.yml (injected at build).
+const TALKS = {{ site.data.talks | jsonify }};
 (function renderTalks(){
   const box=document.getElementById('talks-list'); if(!box) return;
-  const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  const up=TALKS.filter(t=>t.up);
-  const past=TALKS.filter(t=>!t.up).sort((a,b)=> parseInt(b.when)-parseInt(a.when));
-  const row=t=>`<div class="talk${t.up?' up':''}"><div class="tk-when">${esc(t.when)}</div>
-    <div><div class="tk-title">${esc(t.title)}</div><div class="tk-meta">${esc(t.role)} · ${esc(t.venue)}</div></div></div>`;
-  box.innerHTML =
-    (up.length?`<div class="tk-group up">▲ Up next</div>`+up.map(row).join(''):'')
-    + `<div class="tk-group">Past</div>` + past.map(row).join('');
+  const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const CATC={forecasting:'#16e0ff', complex:'#3b82f6', hackathons:'#a855f7', collective:'#ffd23f', cyber:'#ff2d9b', social:'#c6f432'};
+  const byYear=(a,b)=> parseInt(b.when)-parseInt(a.when);
+  const all=[...TALKS].sort((a,b)=> (b.up?1:0)-(a.up?1:0) || byYear(a,b));  // upcoming first, then year desc
+  const tlabel=t=> t.up?'Up next' : t.type==='invited'?'Invited' : t.type==='talk'?'Conference' : 'Chairing';
+  const row=t=>`<div class="talk${t.up?' up':''}" data-type="${t.type}" data-cat="${t.cat||''}"${t.cat?` style="--cat:${CATC[t.cat]||'transparent'}"`:''}>
+      <div class="tk-when">${esc(t.when)}</div>
+      <div><div class="tk-title">${esc(t.title)}</div>
+        <div class="tk-meta"><span class="tk-type">${tlabel(t)}</span>${t.role&&t.role!=='Talk'?esc(t.role)+' · ':''}${esc(t.venue)}${t.url?` · <a class="tk-link" href="${esc(t.url)}" target="_blank" rel="noopener">preprint ↗</a>`:''}</div></div></div>`;
+  box.innerHTML=`<div class="talks-scroll">`+all.map(row).join('')+`</div>`;
+  // filter bar (single-select; by type or by research category)
+  const fbar=document.getElementById('talks-filter');
+  if(fbar) fbar.addEventListener('click', e=>{
+    const b=e.target.closest('.tf'); if(!b) return;
+    fbar.querySelectorAll('.tf').forEach(x=> x.classList.toggle('active', x===b));
+    const f=b.dataset.filter;
+    box.querySelectorAll('.talk').forEach(r=>{
+      const show = f==='all'
+        || (f.startsWith('type:') && r.dataset.type===f.slice(5))
+        || (f.startsWith('cat:') && r.dataset.cat===f.slice(4));
+      r.style.display = show ? '' : 'none';
+    });
+  });
 })();
 
 // ---- In flight carousel: code · writing · interventions ----
