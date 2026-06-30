@@ -1,6 +1,6 @@
 ---
 layout: null
-title: maillart.xyz
+title: thomas @ maillart.xyz
 permalink: /
 ---
 <!doctype html>
@@ -27,21 +27,15 @@ permalink: /
   --accent-soft: rgba(109,40,217,.12);
   --wire: #ff7a1a;        /* timeline connector + disc outline (orange) */
 }
-.theme-cyber {
-  --bg: #fafbff; --panel:#fff; --ink:#0a0e1f; --muted:#56607a; --line:rgba(10,14,31,.10);
-  --accent:#2563ff; --pop:#ff5c49; --c3:#ffd23f; --accent-soft:rgba(37,99,255,.12);
-}
-.theme-y2k {
-  --bg: #fffafd; --panel:#fff; --ink:#15030f; --muted:#6b5360; --line:rgba(21,3,15,.10);
-  --accent:#ff2d9b; --pop:#16e0ff; --c3:#ffe14d; --accent-soft:rgba(255,45,155,.12);
-}
 .theme-grey {
   --bg:#f6f6f6; --panel:#fff; --ink:#141414; --muted:#6a6a6a; --line:rgba(0,0,0,.12);
   --accent:#2b2b2b; --pop:#cfcfcf; --c3:#9a9a9a; --accent-soft:rgba(0,0,0,.07);
   --wire:#8a8a8a;
 }
-/* greyscale: desaturate everything (covers CDN/inline colors, images, gradients) */
-body.theme-grey { filter: grayscale(1); }
+/* greyscale: desaturate page content, but keep the palette swatches colored */
+body.theme-grey .hero,
+body.theme-grey section,
+body.theme-grey footer { filter: grayscale(1); }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -124,6 +118,11 @@ section { padding: 3.2rem 0; }
 .venn-legend .yc { font-size:.76rem; color:var(--muted); }
 .venn-legend .yc .dimdot { opacity:.22; }
 .venn-legend li .chip { content:""; position:absolute; left:.4rem; top:.55rem; width:13px; height:13px; border-radius:4px; }
+.fk { display:inline-block; font-family:"Space Grotesk"; font-weight:600; font-size:.6rem; text-transform:uppercase;
+  letter-spacing:.05em; padding:.05rem .4rem; border-radius:999px; margin-right:.35rem; vertical-align:.05em; }
+.fk-b { background:var(--accent-soft); color:var(--accent); }
+.fk-f { background:var(--pop); color:#0b0b12; }
+.kinds { display:block; margin:.15rem 0 .1rem; }
 @media (max-width:760px){ .venn-wrap{ grid-template-columns:1fr; } }
 
 /* ---------- focus toggles ---------- */
@@ -231,12 +230,12 @@ section { padding: 3.2rem 0; }
 .note-illus { color:var(--accent); font-weight:600; }
 .heat-scroll { overflow-x:auto; padding-bottom:.4rem; }
 .heatmap { min-width:660px; display:flex; flex-direction:column; gap:4px; }
-.heat-row { display:grid; grid-template-columns:210px 1fr; gap:12px; align-items:center; }
+.heat-row { display:grid; grid-template-columns:300px 1fr; gap:14px; align-items:center; }
 .hlabel { font-family:"Space Grotesk"; font-weight:600; font-size:.82rem; display:flex; align-items:center; gap:.5rem;
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  line-height:1.15; white-space:nowrap; }
 .hlabel .chip { width:12px; height:12px; border-radius:3px; flex:0 0 auto; }
 .heat-cells { display:grid; grid-template-columns:repeat(19,1fr); gap:3px; }
-.heat-cell { aspect-ratio:1; border-radius:3px; background:var(--c); cursor:pointer; transition:transform .12s ease; }
+.heat-cell { height:38px; width:20px; justify-self:center; border-radius:3px; background:var(--c); cursor:pointer; transition:transform .12s ease; }
 .heat-cell:hover { transform:scale(1.3); outline:2px solid var(--ink); }
 .hyear { font-size:.62rem; color:var(--muted); text-align:center; }
 @media (max-width:680px){ .heat-row{ grid-template-columns:120px 1fr; } .hlabel{ font-size:.7rem; } }
@@ -304,26 +303,24 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 <body class="theme-y2k">
 
 <div class="bar"><div class="wrap">
-  <a class="brand" href="#top"><b>maillart</b>.xyz</a>
+  <a class="brand" href="#top">thomas <b>@ maillart.xyz</b></a>
   <nav class="nav">
     <a href="#focus">Focus</a>
     <a href="#citations">Citations</a>
     <a href="#grants">Grants</a>
     <a href="#talks">Talks</a>
     <div class="swatches" id="swatches">
-      <button class="swatch" data-theme="theme-volt" style="background:#6d28d9" title="Volt — violet + lime"></button>
-      <button class="swatch" data-theme="theme-cyber" style="background:#2563ff" title="Cyber — cobalt + coral"></button>
-      <button class="swatch is-active" data-theme="theme-y2k" style="background:#ff2d9b" title="Y2K — magenta + cyan"></button>
-      <button class="swatch" data-theme="theme-grey" style="background:linear-gradient(135deg,#555 50%,#bbb 50%)" title="Greyscale"></button>
+      <button class="swatch" data-theme="theme-volt" style="background:linear-gradient(90deg,#6d28d9 0 50%,#c6f432 50% 100%)" title="Volt — violet + lime"></button>
+      <button class="swatch is-active" data-theme="theme-grey" style="background:linear-gradient(90deg,#555 0 50%,#bbb 50% 100%)" title="Greyscale"></button>
     </div>
   </nav>
 </div></div>
 
 <a id="top"></a>
 <header class="hero"><div class="wrap">
-  <span class="eyebrow">● Tech foresight · cyber · social interaction</span>
+  <span class="eyebrow">● Tech forecasting · cyber · social interaction</span>
   <h1>I turn weak signals into <span class="hl">science &amp; innovation</span> you can act on.</h1>
-  <p class="lede">Research and translational work connecting technology foresight, cybersecurity economics, and social-interaction science with applied decision-making.</p>
+  <p class="lede">Research and translational work connecting technological forecasting, cybersecurity economics, and social-interaction science with applied decision-making.</p>
   <div class="cta">
     <a class="btn btn--solid" href="#activity">See what I'm building →</a>
     <a class="btn btn--ghost" href="https://github.com/wazaahhh" target="_blank" rel="noopener">GitHub</a>
@@ -338,8 +335,8 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 {% assign hacks = site.sdg_hackathons | where_exp:"i","i.published != false" %}
 
 <section id="focus"><div class="wrap reveal">
-  <div class="shead"><h2>Anticipating emergence</h2><span class="tag">one problem · seven perspectives</span></div>
-  <p class="sub">Seven research threads, each sized by current intensity, all attacking one fundamental problem from a different angle — <b>anticipating emergence in complex human systems</b>. <b>Universe</b> collapses them onto that shared core; <b>Timeline</b> explodes them along time. Hover to bring a thread forward.</p>
+  <div class="shead"><h2>Anticipating emergence</h2><span class="tag">one problem · six perspectives</span></div>
+  <p class="sub">Six research perspectives, each sized by current intensity, all attacking one fundamental problem from a different angle — <b>anticipating emergence in complex human systems</b>. <b>Universe</b> collapses them onto that shared core; <b>Timeline</b> explodes them along time. Hover to bring a perspective forward.</p>
   <div class="toggles">
     <div class="seg" id="focus-views">
       <button class="active" data-view="universe">◎ Universe</button>
@@ -402,8 +399,7 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 </div></section>
 
 <footer><div class="wrap">
-  <strong>maillart.xyz</strong> · University of Geneva ·
-  <a href="mailto:thomas.maillart@unige.ch">thomas.maillart@unige.ch</a>
+  <strong>Thomas Maillart</strong> · University of Geneva
 </div></footer>
 
 <div class="tip" id="tip"></div>
@@ -411,23 +407,41 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 <script>
 // ---- research threads (shared data) ----
 // count ≈ lifetime outputs; intensity ≈ how active the thread is NOW (1–10) → drives circle size
-// axis: 0 = basic science … 1 = field innovation. year = most recent output → paint order. All editable.
+// year = most recent output → paint order. All editable. (axis field is currently unused.)
+// `parts` = original Scholar field keys (in _data/citations.json) summed into this perspective.
 const THEMES = [
-  {name:"Technology forecasting & scientometrics", year:2026, count:9, intensity:10, axis:0.7, color:"#16e0ff", eg:"TechRank · forecasting convergence · GTM papers"},
-  {name:"Hackathons & open innovation", year:2026, count:8, intensity:8, axis:0.95, color:"#a855f7", eg:"Hackathons for good · Open Geneva · SDG hacks"},
-  {name:"Social interaction & digital phenotyping", year:2024, count:7, intensity:7, axis:0.35, color:"#c6f432", eg:"Autism screening · social bio-sensory lab"},
-  {name:"Cyber risks & resilience", year:2024, count:13, intensity:7, axis:0.55, color:"#ff2d9b", eg:"Heavy-tailed cyber risk · bug bounties · cyber insurance"},
-  {name:"Collective intelligence & open source", year:2024, count:11, intensity:6, axis:0.3, color:"#ffd23f", eg:"Zipf in Linux · superlinear production · Wikipedia"},
-  {name:"Complex systems & human dynamics", year:2019, count:7, intensity:4, axis:0.1, color:"#3b82f6", eg:"Heavy tails · self-excited processes · safety limits"},
-  {name:"Privacy, surveillance & neuro-rights", year:2019, count:5, intensity:3, axis:0.35, color:"#ff5c49", eg:"Thought privacy · surveillance incentives"},
+  // Categories 1–2 split into basic + applied (separate Scholar fields); cyber & social stay whole.
+  {name:"Technological forecasting", short:"Tech forecasting", kind:"applied", year:2026, count:9, intensity:10, color:"#16e0ff",
+    eg:"TechRank · forecasting convergence · scientometric foresight",
+    parts:["Technology forecasting & scientometrics"]},
+  {name:"Complex systems & human dynamics", short:"Complex systems", kind:"basic", year:2024, count:7, intensity:6, color:"#3b82f6",
+    eg:"Heavy tails · self-excited processes · safety limits",
+    parts:["Complex systems & human dynamics"]},
+  {name:"Hackathons & open innovation", short:"Hackathons", kind:"applied", year:2026, count:8, intensity:8, color:"#a855f7",
+    eg:"Open Geneva · SDG hacks for impact",
+    parts:["Hackathons & open innovation"]},
+  {name:"Collective intelligence & open source", short:"Collective intelligence", kind:"basic", year:2024, count:11, intensity:6, color:"#ffd23f",
+    eg:"Zipf in Linux · superlinear production · Wikipedia",
+    parts:["Collective intelligence & open source"]},
+  {name:"Cyber risks & resilience", short:"Cyber & resilience", kind:"both", year:2024, count:18, intensity:7, color:"#ff2d9b",
+    eg:"Risk science (heavy-tailed losses) · resilience (bug bounties, insurance)",
+    parts:["Cyber risks & resilience","Privacy, surveillance & neuro-rights"]},
+  {name:"Social interaction & digital phenotyping", short:"Social interaction", kind:"both", year:2024, count:7, intensity:7, color:"#c6f432",
+    eg:"Social interaction (bio-sensory science) · digital phenotyping (autism screening)",
+    parts:["Social interaction & digital phenotyping"]},
 ];
 
 // ---- palette switcher ----
+function applyTheme(theme){
+  document.body.className = theme;
+  document.querySelectorAll('.swatch').forEach(s=>s.classList.toggle('is-active', s.dataset.theme===theme));
+}
 document.getElementById('swatches').addEventListener('click', e => {
   const b = e.target.closest('.swatch'); if(!b) return;
-  document.body.className = b.dataset.theme;
-  document.querySelectorAll('.swatch').forEach(s=>s.classList.toggle('is-active', s===b));
+  applyTheme(b.dataset.theme);
 });
+// greyscale by default on load
+applyTheme('theme-grey');
 
 // ---- pixel divider ----
 document.querySelector('.pixels').innerHTML = Array.from({length:18},()=> '<i></i>').join('');
@@ -437,10 +451,9 @@ document.querySelector('.pixels').innerHTML = Array.from({length:18},()=> '<i></
 // If absent, falls back to an illustrative model.
 const CITES = {{ site.data.citations | jsonify }};
 const Y0=(CITES&&CITES.year_range)?CITES.year_range[0]:2008, Y1=(CITES&&CITES.year_range)?CITES.year_range[1]:2026;
-const SINCE={ "Technology forecasting & scientometrics":2020, "Hackathons & open innovation":2018,
-  "Social interaction & digital phenotyping":2015, "Cyber risks & resilience":2008,
-  "Collective intelligence & open source":2008, "Complex systems & human dynamics":2008,
-  "Privacy, surveillance & neuro-rights":2014 };
+const SINCE={ "Technological forecasting":2008, "Complex systems & human dynamics":2008,
+  "Hackathons & open innovation":2018, "Collective intelligence & open source":2008,
+  "Cyber risks & resilience":2008, "Social interaction & digital phenotyping":2015 };
 function modelIntensity(t,y){
   const s=SINCE[t.name]??Y0; if(y<s) return 0;
   const age=y-s, rise=1/(1+Math.exp(-(age-3)/1.6));
@@ -448,7 +461,10 @@ function modelIntensity(t,y){
   return t.count*rise*Math.max(.4,recent);
 }
 const REAL = !!(CITES && CITES.fields);
-function citeValue(t,y){ return REAL ? (CITES.fields[t.name]?.[y] || 0) : modelIntensity(t,y); }
+function citeValue(t,y){
+  if(!REAL) return modelIntensity(t,y);
+  return (t.parts || [t.name]).reduce((s,k)=> s + (CITES.fields[k]?.[y] || 0), 0);
+}
 (function buildHeatmap(){
   const hm=document.getElementById('heatmap'); if(!hm) return;
   const tip=document.getElementById('tip');
@@ -463,7 +479,10 @@ function citeValue(t,y){ return REAL ? (CITES.fields[t.name]?.[y] || 0) : modelI
       const v=citeValue(t,y), o = max ? v/max : 0;
       const detail = REAL ? `${Math.round(v)} citations` : `intensity ${Math.round(o*100)}%`;
       let topAttr='';
-      if(REAL){ const tp=(CITES.top&&CITES.top[t.name])?CITES.top[t.name][y]:null;
+      if(REAL && CITES.top){
+        let tp=null;
+        (t.parts || [t.name]).forEach(k=>{ const cand=CITES.top[k]?CITES.top[k][y]:null;
+          if(cand && (!tp || cand.c>tp.c)) tp=cand; });
         if(tp) topAttr=` data-top="${escAttr(tp.t)}" data-topc="${Math.round(tp.c)}"`; }
       html+=`<div class="heat-cell" style="--c:${t.color};opacity:${(0.04+o*0.96).toFixed(3)}" data-f="${escAttr(t.name)}" data-y="${y}" data-d="${detail}"${topAttr}></div>`;
     });
@@ -615,11 +634,15 @@ const WRITING = [
   drawCore();
   // legend: most recent first; output counts from real (multi-counted) Scholar data when present
   const PC=(CITES&&CITES.paper_counts)||{};
-  const outc=t=> PC[t.name]??t.count;
+  const outc=t=> (t.parts||[t.name]).reduce((s,k)=> s+(PC[k]??0),0) || t.count;
   const ordered=[...THEMES].sort((a,b)=> b.intensity-a.intensity || b.year-a.year);
+  const kindHTML=t=> t.kind==='both'
+    ? `<span class="fk fk-b">basic</span><span class="fk fk-f">applied</span>`
+    : (t.kind==='basic' ? `<span class="fk fk-b">basic</span>` : `<span class="fk fk-f">applied</span>`);
   leg.innerHTML=ordered.map(t=>`<li data-i="${t.i}">
       <span class="chip" style="background:${t.color}"></span>
       <b>${t.name}</b>
+      <span class="kinds">${kindHTML(t)}</span>
       <span class="yc">${'●'.repeat(Math.round(t.intensity/2))}<span class="dimdot">${'●'.repeat(5-Math.round(t.intensity/2))}</span> intensity · ${outc(t)} papers · latest ${t.year}</span>
     </li>`).join('');
   // interaction: highlight + bring to front
@@ -650,7 +673,7 @@ const WRITING = [
     return `<div class="tl-item ${side}" data-i="${t.i}" style="--c:${t.color};--d:${d}px;--h:${h}px;--i:${idx}">
       <div class="tl-bubble" title="${t.name}"></div>
       <div class="tl-card"><div class="tl-year">${t.year}</div><b>${t.name}</b>
-        <span class="yc">${dots} · ${outc(t)} papers</span><p class="tl-eg">${t.eg}</p></div>
+        <span class="kinds">${kindHTML(t)}</span><span class="yc">${dots} · ${outc(t)} papers</span><p class="tl-eg">${t.eg}</p></div>
     </div>`;
   }).join('');
 
@@ -664,13 +687,13 @@ const WRITING = [
   }
   vseg.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) setView(b.dataset.view); });
 
-  // ---- kind filter (basic science / field innovation) ----
+  // ---- kind toggle: emphasize basic vs applied circles ('both' always shows) ----
   const kseg=document.getElementById('focus-kind');
-  const matches=(t,k)=> k==='all' || (k==='science'? t.axis<0.5 : t.axis>=0.5);
   function setKind(k){
     kseg.querySelectorAll('button').forEach(b=> b.classList.toggle('active', b.dataset.kind===k));
+    const w = k==='science'?'basic':(k==='field'?'applied':null);
     THEMES.forEach(t=>{
-      const off=!matches(t,k);
+      const off = !!w && t.kind!=='both' && t.kind!==w;
       t.el.classList.toggle('faded', off);
       leg.querySelector(`li[data-i="${t.i}"]`).classList.toggle('faded', off);
       tl.querySelector(`.tl-item[data-i="${t.i}"]`).classList.toggle('faded', off);
