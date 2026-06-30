@@ -1,0 +1,703 @@
+---
+layout: null
+title: maillart.xyz
+permalink: /
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{{ site.title }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ---------- palette presets (swappable via switcher) ---------- */
+:root,
+.theme-volt {
+  --bg: #fbfbf8;
+  --panel: #ffffff;
+  --ink: #0b0b12;
+  --muted: #5b5b6b;
+  --line: rgba(11,11,18,.10);
+  --accent: #6d28d9;      /* electric violet */
+  --pop: #c6f432;         /* acid lime */
+  --c3: #22d3ee;          /* third venn circle */
+  --accent-soft: rgba(109,40,217,.12);
+  --wire: #ff7a1a;        /* timeline connector + disc outline (orange) */
+}
+.theme-cyber {
+  --bg: #fafbff; --panel:#fff; --ink:#0a0e1f; --muted:#56607a; --line:rgba(10,14,31,.10);
+  --accent:#2563ff; --pop:#ff5c49; --c3:#ffd23f; --accent-soft:rgba(37,99,255,.12);
+}
+.theme-y2k {
+  --bg: #fffafd; --panel:#fff; --ink:#15030f; --muted:#6b5360; --line:rgba(21,3,15,.10);
+  --accent:#ff2d9b; --pop:#16e0ff; --c3:#ffe14d; --accent-soft:rgba(255,45,155,.12);
+}
+.theme-grey {
+  --bg:#f6f6f6; --panel:#fff; --ink:#141414; --muted:#6a6a6a; --line:rgba(0,0,0,.12);
+  --accent:#2b2b2b; --pop:#cfcfcf; --c3:#9a9a9a; --accent-soft:rgba(0,0,0,.07);
+  --wire:#8a8a8a;
+}
+/* greyscale: desaturate everything (covers CDN/inline colors, images, gradients) */
+body.theme-grey { filter: grayscale(1); }
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: Inter, system-ui, sans-serif; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background .4s ease, color .4s ease;
+}
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 1.5rem; }
+h1,h2,h3,.display { font-family: "Space Grotesk", sans-serif; letter-spacing:-.02em; }
+a { color: var(--accent); }
+
+/* ---------- top bar ---------- */
+.bar { position: sticky; top:0; z-index:50; backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  border-bottom: 1px solid var(--line); }
+.bar .wrap { display:flex; align-items:center; justify-content:space-between; height:60px; }
+.brand { font-family:"Space Grotesk"; font-weight:700; font-size:1.05rem; text-decoration:none; color:var(--ink); }
+.brand b { color: var(--accent); }
+.nav { display:flex; gap:1.2rem; align-items:center; }
+.nav a { text-decoration:none; color:var(--muted); font-weight:600; font-size:.9rem; }
+.nav a:hover { color: var(--ink); }
+.swatches { display:flex; gap:.4rem; }
+.swatch { width:18px; height:18px; border-radius:50%; border:2px solid var(--line); cursor:pointer; padding:0; }
+.swatch.is-active { outline:2px solid var(--ink); outline-offset:1px; }
+
+/* ---------- hero ---------- */
+.hero { padding: 5rem 0 3rem; }
+.eyebrow { display:inline-flex; align-items:center; gap:.5rem; font-family:"Space Grotesk"; font-weight:600;
+  font-size:.78rem; text-transform:uppercase; letter-spacing:.12em; color:var(--accent);
+  background:var(--accent-soft); padding:.35rem .7rem; border-radius:999px; }
+.hero h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); line-height:1.02; margin:1.2rem 0 1rem; font-weight:700; }
+.hero h1 .hl { background:linear-gradient(180deg, transparent 62%, var(--pop) 62%); }
+.hero .lede { font-size:1.18rem; max-width:62ch; color:var(--muted); margin:0 0 1.4rem; }
+.hero .affil { font-size:.95rem; color:var(--muted); max-width:70ch; }
+.hero .affil b { color: var(--ink); }
+.cta { display:flex; gap:.7rem; flex-wrap:wrap; margin-top:1.6rem; }
+.btn { font-family:"Space Grotesk"; font-weight:600; text-decoration:none; padding:.65rem 1.1rem; border-radius:10px;
+  font-size:.95rem; border:1px solid transparent; transition:transform .15s ease, box-shadow .15s ease; }
+.btn--solid { background:var(--accent); color:#fff; }
+.btn--solid:hover { transform:translateY(-2px); box-shadow:0 8px 20px var(--accent-soft); }
+.btn--ghost { background:transparent; color:var(--ink); border-color:var(--line); }
+.btn--ghost:hover { border-color:var(--accent); color:var(--accent); }
+
+/* ---------- pixel divider ---------- */
+.pixels { display:flex; gap:4px; margin:2.5rem 0; }
+.pixels i { width:10px; height:10px; display:block; }
+.pixels i:nth-child(odd){ background:var(--accent); }
+.pixels i:nth-child(even){ background:var(--pop); }
+.pixels i:nth-child(3n){ opacity:.4; }
+
+/* ---------- stat counters ---------- */
+.stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin:1rem 0 0; }
+.stat { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:1.3rem 1.2rem; }
+.stat .num { font-family:"Space Grotesk"; font-weight:700; font-size:2.6rem; line-height:1; color:var(--ink); }
+.stat .num::after { content:"+"; color:var(--accent); }
+.stat.no-plus .num::after { content:""; }
+.stat .lbl { margin-top:.4rem; font-size:.82rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:600; }
+
+/* ---------- section heads ---------- */
+section { padding: 3.2rem 0; }
+.shead { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; margin-bottom:.4rem; flex-wrap:wrap; }
+.shead h2 { font-size: clamp(1.6rem,3.4vw,2.3rem); margin:0; }
+.shead .tag { font-family:"Space Grotesk"; font-size:.8rem; font-weight:600; color:var(--accent); text-transform:uppercase; letter-spacing:.1em; }
+.sub { color:var(--muted); max-width:64ch; margin:.2rem 0 1.6rem; }
+
+/* ---------- research universe (layered circles) ---------- */
+.venn-wrap { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:2rem; align-items:center; }
+.venn { width:100%; max-width:540px; margin:0 auto; display:block; }
+.venn .circle { mix-blend-mode:multiply; opacity:.72; cursor:pointer; transition:opacity .25s ease; }
+.venn.dim .circle { opacity:.22; }
+.venn.dim .circle.active { opacity:.92; }
+.venn .core-disc { fill:var(--ink); }
+.venn .core-text { font-family:"Space Grotesk"; font-weight:700; fill:#fff; font-size:12px; pointer-events:none; text-anchor:middle; }
+.venn-legend { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.55rem; }
+.venn-legend li { padding:.35rem .4rem .35rem 1.5rem; position:relative; border-radius:8px; cursor:pointer; transition:background .15s ease; }
+.venn-legend li:hover, .venn-legend li.active { background:var(--accent-soft); }
+.venn-legend b { font-family:"Space Grotesk"; display:block; font-size:.92rem; }
+.venn-legend .yc { font-size:.76rem; color:var(--muted); }
+.venn-legend .yc .dimdot { opacity:.22; }
+.venn-legend li .chip { content:""; position:absolute; left:.4rem; top:.55rem; width:13px; height:13px; border-radius:4px; }
+@media (max-width:760px){ .venn-wrap{ grid-template-columns:1fr; } }
+
+/* ---------- focus toggles ---------- */
+.toggles { display:flex; gap:.7rem; flex-wrap:wrap; margin-bottom:1.6rem; }
+.seg { display:inline-flex; gap:3px; padding:3px; border:1px solid var(--line); border-radius:999px; background:var(--panel); }
+.seg button { font-family:"Space Grotesk"; font-weight:600; font-size:.84rem; color:var(--muted); background:transparent;
+  border:none; padding:.45rem .95rem; border-radius:999px; cursor:pointer; transition:background .2s, color .2s; }
+.seg button.active { background:var(--accent); color:#fff; }
+
+/* faded (filtered out by kind) */
+.circle.faded { opacity:.06 !important; }
+.venn-legend li.faded, .tl-item.faded { opacity:.28; }
+
+/* ---------- 3D vertical timeline ---------- */
+.tl-scene { perspective:1100px; }
+.tl { position:relative; max-width:760px; margin:0 auto; padding:1rem 0 2.5rem; transform-style:preserve-3d; perspective-origin:50% 22%; }
+.tl::before { content:""; position:absolute; left:50%; top:0; bottom:0; width:1.5px;
+  background:var(--wire); opacity:.85; transform:translateX(-50%); }
+.tl-item { position:relative; width:50%; padding:.9rem 4.6rem; min-height:64px; box-sizing:border-box; transition:opacity .25s ease; }
+.tl-item.left { left:0; text-align:right; }
+.tl-item.right { left:50%; text-align:left; }
+/* spine segment: visible from the top down to the disc CENTRE, hidden below it (over the disc, on top) */
+.tl-item::after { content:""; position:absolute; top:0; width:1.5px; z-index:3;
+  height:calc(1.1rem + var(--h, 30px) / 2);
+  background:var(--wire); opacity:.85; }
+.tl-item.left::after { right:-0.75px; }
+.tl-item.right::after { left:-0.75px; }
+/* universe disc, squashed vertically into a flat solid-colour ellipse */
+.tl-bubble { position:absolute; top:1.1rem; width:var(--d); height:var(--h); border-radius:50%;
+  background:var(--c); border:1.5px solid var(--wire); box-sizing:border-box;
+  transform:scale(.4); opacity:0; cursor:pointer;
+  transition:transform .45s cubic-bezier(.2,.8,.3,1.3), opacity .5s ease; }
+.tl-item.left .tl-bubble { right:calc(var(--d) / -2); }
+.tl-item.right .tl-bubble { left:calc(var(--d) / -2); }
+.tl.show .tl-bubble { transform:scale(1); opacity:.96; transition-delay:calc(var(--i) * 70ms); }
+.tl.show .tl-bubble:hover { transform:scale(1.12); }
+.tl-year { font-family:"Space Grotesk"; font-weight:700; font-size:.78rem; color:var(--accent); }
+.tl-card b { font-family:"Space Grotesk"; display:block; font-size:.95rem; margin:.1rem 0; }
+.tl-card .yc { font-size:.76rem; color:var(--muted); }
+.tl-card .tl-eg { font-size:.82rem; color:var(--muted); margin:.25rem 0 0; }
+@media (max-width:680px){
+  .tl::before { left:24px; }
+  .tl-item, .tl-item.right { width:100%; left:0; text-align:left; padding:.9rem 1rem .9rem 4rem; }
+  .tl-item.left .tl-bubble, .tl-item.right .tl-bubble { left:calc(24px - var(--d)/2); right:auto; }
+}
+
+/* ---------- grants funding timeline ---------- */
+.fund-head { display:flex; align-items:baseline; gap:.6rem; margin:.2rem 0 1rem; flex-wrap:wrap; }
+.fund-total { font-family:"Space Grotesk"; font-weight:700; font-size:2.6rem; line-height:1; color:var(--ink); }
+.fund-sub { color:var(--muted); font-size:.92rem; }
+.fund-legend { display:flex; gap:1.2rem; flex-wrap:wrap; font-size:.8rem; color:var(--muted); margin-bottom:1.4rem; }
+.fund-legend span { display:inline-flex; align-items:center; gap:.4rem; }
+.rdot { width:11px; height:11px; border-radius:3px; display:inline-block; }
+.gantt { display:flex; flex-direction:column; gap:7px; }
+.g-row { display:grid; grid-template-columns:240px 1fr; gap:16px; align-items:center; }
+.g-label { text-align:right; }
+.g-label b { font-family:"Space Grotesk"; font-weight:600; font-size:.82rem; line-height:1.2; display:block; }
+.g-label span { font-size:.72rem; color:var(--muted); }
+.g-track { position:relative; height:34px; border-left:1px solid var(--line); border-right:1px solid var(--line); }
+.g-bar { position:absolute; top:50%; transform:translateY(-50%) scaleX(.2); transform-origin:left center;
+  border-radius:5px; cursor:pointer; opacity:0; transition:opacity .4s ease, transform .5s cubic-bezier(.2,.8,.3,1.2), filter .15s; }
+.gantt.show .g-bar { opacity:.92; transform:translateY(-50%) scaleX(1); transition-delay:calc(var(--i) * 50ms); }
+.gantt.show .g-bar:hover { opacity:1; filter:brightness(1.1); }
+.g-axis { display:grid; grid-template-columns:240px 1fr; gap:16px; margin-top:.4rem; }
+.g-axis .g-ticks { position:relative; height:16px; }
+.g-tick { position:absolute; transform:translateX(-50%); font-size:.66rem; color:var(--muted); }
+.g-tick::before { content:""; position:absolute; top:-6px; left:50%; width:1px; height:5px; background:var(--line); }
+@media (max-width:680px){ .g-row,.g-axis{ grid-template-columns:120px 1fr; gap:8px; } .g-label b{ font-size:.74rem; } }
+
+/* ---------- in-flight carousel ---------- */
+.carousel { display:flex; align-items:center; gap:.5rem; }
+.car-track { display:flex; gap:.7rem; overflow-x:auto; scroll-snap-type:x mandatory; padding:.3rem .1rem; flex:1; scroll-behavior:smooth; }
+.car-track::-webkit-scrollbar { height:6px; }
+.car-track::-webkit-scrollbar-thumb { background:var(--line); border-radius:3px; }
+.fl-tile { flex:0 0 210px; scroll-snap-align:start; background:var(--panel); border:1px solid var(--line);
+  border-top:3px solid var(--tc,var(--accent)); border-radius:12px; padding:.7rem .8rem; text-decoration:none; color:inherit;
+  display:flex; flex-direction:column; gap:.35rem; min-height:132px; transition:transform .15s ease, box-shadow .15s ease; }
+.fl-tile:hover { transform:translateY(-3px); box-shadow:0 10px 22px var(--accent-soft); }
+.fl-tile[data-type=code] { --tc:var(--pop); }
+.fl-tile[data-type=writing] { --tc:var(--accent); }
+.fl-tile[data-type=talk] { --tc:var(--wire); }
+.fl-tag { font-family:"Space Grotesk"; font-weight:700; font-size:.6rem; text-transform:uppercase; letter-spacing:.1em; color:var(--tc,var(--accent)); }
+.fl-title { font-family:"Space Grotesk"; font-weight:600; font-size:.86rem; line-height:1.2;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.fl-meta { font-size:.75rem; color:var(--muted); flex:1; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+.fl-foot { font-family:"Space Grotesk"; font-size:.66rem; color:var(--muted); }
+.car-btn { flex:0 0 auto; width:34px; height:34px; border-radius:50%; border:1px solid var(--line); background:var(--panel);
+  color:var(--ink); cursor:pointer; font-size:1.2rem; line-height:1; transition:border-color .15s, color .15s; }
+.car-btn:hover { border-color:var(--accent); color:var(--accent); }
+@media (max-width:680px){ .car-btn { display:none; } }
+
+/* ---------- public interventions (talks) ---------- */
+.talks { display:flex; flex-direction:column; }
+.tk-group { font-family:"Space Grotesk"; font-weight:700; font-size:.74rem; text-transform:uppercase; letter-spacing:.1em;
+  color:var(--muted); margin:1.2rem 0 .3rem; }
+.tk-group.up { color:var(--wire); margin-top:0; }
+.talk { display:grid; grid-template-columns:84px 1fr; gap:1rem; padding:.7rem 0; border-top:1px solid var(--line); }
+.talk .tk-when { font-family:"Space Grotesk"; font-weight:700; font-size:.9rem; color:var(--accent); }
+.talk.up .tk-when { color:var(--wire); }
+.talk .tk-title { font-family:"Space Grotesk"; font-weight:600; font-size:.95rem; line-height:1.25; }
+.talk .tk-meta { font-size:.82rem; color:var(--muted); margin-top:.1rem; }
+@media (max-width:680px){ .talk{ grid-template-columns:64px 1fr; gap:.7rem; } }
+
+/* ---------- citation intensity heatmap ---------- */
+.note-illus { color:var(--accent); font-weight:600; }
+.heat-scroll { overflow-x:auto; padding-bottom:.4rem; }
+.heatmap { min-width:660px; display:flex; flex-direction:column; gap:4px; }
+.heat-row { display:grid; grid-template-columns:210px 1fr; gap:12px; align-items:center; }
+.hlabel { font-family:"Space Grotesk"; font-weight:600; font-size:.82rem; display:flex; align-items:center; gap:.5rem;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.hlabel .chip { width:12px; height:12px; border-radius:3px; flex:0 0 auto; }
+.heat-cells { display:grid; grid-template-columns:repeat(19,1fr); gap:3px; }
+.heat-cell { aspect-ratio:1; border-radius:3px; background:var(--c); cursor:pointer; transition:transform .12s ease; }
+.heat-cell:hover { transform:scale(1.3); outline:2px solid var(--ink); }
+.hyear { font-size:.62rem; color:var(--muted); text-align:center; }
+@media (max-width:680px){ .heat-row{ grid-template-columns:120px 1fr; } .hlabel{ font-size:.7rem; } }
+
+/* ---------- shared tooltip ---------- */
+.tip { position:fixed; pointer-events:none; z-index:100; background:var(--ink); color:#fff; padding:.6rem .8rem;
+  border-radius:10px; font-size:.82rem; max-width:260px; opacity:0; transform:translateY(4px); transition:opacity .12s; box-shadow:0 10px 30px rgba(0,0,0,.25); }
+.tip b { font-family:"Space Grotesk"; display:block; margin-bottom:.2rem; }
+.tip em { color:var(--pop); font-style:normal; font-size:.74rem; }
+.tip .tip-top { display:block; margin-top:.35rem; padding-top:.35rem; border-top:1px solid rgba(255,255,255,.18);
+  font-size:.74rem; color:rgba(255,255,255,.85); }
+.tip .tip-top .tt { font-style:italic; }
+
+/* ---------- cards ---------- */
+.cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1rem; }
+.card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:1.2rem; text-decoration:none; color:inherit;
+  display:flex; flex-direction:column; gap:.5rem; transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.card:hover { transform:translateY(-4px); border-color:var(--accent); box-shadow:0 12px 28px var(--accent-soft); }
+.card .yr { font-family:"Space Grotesk"; font-weight:700; font-size:.8rem; color:var(--accent); }
+.card .ct { font-family:"Space Grotesk"; font-weight:600; font-size:1.02rem; line-height:1.25; }
+.card .cd { font-size:.88rem; color:var(--muted); margin:0; }
+
+/* ---------- reveal animation ---------- */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity:1; transform:none; }
+
+/* ---------- in-flight feeds ---------- */
+.inflight { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; }
+.feed { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:1.3rem 1.3rem 1rem; }
+.feed > h3 { margin:0 0 .2rem; font-size:1.15rem; display:flex; align-items:center; gap:.5rem; }
+.feed .blink { width:9px; height:9px; border-radius:50%; background:var(--pop); box-shadow:0 0 0 0 var(--pop); animation:blink 1.8s infinite; }
+@keyframes blink { 0%{ box-shadow:0 0 0 0 color-mix(in srgb,var(--pop) 70%,transparent);} 70%{ box-shadow:0 0 0 8px transparent;} 100%{ box-shadow:0 0 0 0 transparent;} }
+.feed .meta { color:var(--muted); font-size:.82rem; margin:0 0 1rem; }
+.row { display:block; text-decoration:none; color:inherit; padding:.7rem 0; border-top:1px solid var(--line); }
+.row:first-of-type { border-top:none; }
+.row .rtop { display:flex; align-items:center; justify-content:space-between; gap:.6rem; }
+.row .rname { font-family:"Space Grotesk"; font-weight:600; font-size:.98rem; }
+.row:hover .rname { color:var(--accent); }
+.row .when { font-size:.74rem; color:var(--muted); white-space:nowrap; }
+.row .rdesc { font-size:.85rem; color:var(--muted); margin:.25rem 0 0; }
+.row .lang { display:inline-flex; align-items:center; gap:.35rem; font-size:.75rem; color:var(--muted); margin-top:.35rem; }
+.row .lang i { width:9px; height:9px; border-radius:50%; background:var(--accent); }
+.pill { font-family:"Space Grotesk"; font-weight:600; font-size:.68rem; text-transform:uppercase; letter-spacing:.06em;
+  padding:.18rem .5rem; border-radius:999px; background:var(--accent-soft); color:var(--accent); white-space:nowrap; }
+.bar-prog { height:6px; border-radius:999px; background:var(--line); margin-top:.55rem; overflow:hidden; }
+.bar-prog i { display:block; height:100%; width:0; border-radius:999px; background:linear-gradient(90deg,var(--accent),var(--pop)); transition:width 1.1s ease; }
+.feed .loading { color:var(--muted); font-size:.85rem; padding:.6rem 0; }
+.gh-repo { padding:.75rem 0; border-top:1px solid var(--line); }
+.gh-repo:first-child { border-top:none; }
+.gh-repo .rname { font-family:"Space Grotesk"; font-weight:600; font-size:.98rem; text-decoration:none; color:var(--ink); }
+.gh-repo .rname:hover { color:var(--accent); }
+.gh-key { font-style:italic; color:var(--ink); font-size:.85rem; margin:.35rem 0; }
+.snip-h { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.66rem; color:var(--muted); margin-top:.4rem; }
+.snip { margin:.2rem 0 0; background:#0e0e18; color:#e6e6f0; border-radius:8px; padding:.6rem .7rem;
+  overflow:auto; max-height:150px; font-size:.72rem; line-height:1.5; }
+.snip code { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; white-space:pre; }
+
+footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted); font-size:.9rem; }
+.preview-flag { background:var(--pop); color:#0b0b12; font-family:"Space Grotesk"; font-weight:600; font-size:.75rem;
+  text-align:center; padding:.4rem; letter-spacing:.05em; }
+
+@media (max-width:680px){ .stats{ grid-template-columns:repeat(2,1fr);} .nav a{ display:none;} }
+</style>
+</head>
+<body class="theme-y2k">
+
+<div class="bar"><div class="wrap">
+  <a class="brand" href="#top"><b>maillart</b>.xyz</a>
+  <nav class="nav">
+    <a href="#focus">Focus</a>
+    <a href="#citations">Citations</a>
+    <a href="#grants">Grants</a>
+    <a href="#talks">Talks</a>
+    <div class="swatches" id="swatches">
+      <button class="swatch" data-theme="theme-volt" style="background:#6d28d9" title="Volt — violet + lime"></button>
+      <button class="swatch" data-theme="theme-cyber" style="background:#2563ff" title="Cyber — cobalt + coral"></button>
+      <button class="swatch is-active" data-theme="theme-y2k" style="background:#ff2d9b" title="Y2K — magenta + cyan"></button>
+      <button class="swatch" data-theme="theme-grey" style="background:linear-gradient(135deg,#555 50%,#bbb 50%)" title="Greyscale"></button>
+    </div>
+  </nav>
+</div></div>
+
+<a id="top"></a>
+<header class="hero"><div class="wrap">
+  <span class="eyebrow">● Tech foresight · cyber · social interaction</span>
+  <h1>I turn weak signals into <span class="hl">science &amp; innovation</span> you can act on.</h1>
+  <p class="lede">Research and translational work connecting technology foresight, cybersecurity economics, and social-interaction science with applied decision-making.</p>
+  <div class="cta">
+    <a class="btn btn--solid" href="#activity">See what I'm building →</a>
+    <a class="btn btn--ghost" href="https://github.com/wazaahhh" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn btn--ghost" href="https://arxiv.org/search/?query=thomas+maillart&searchtype=all&source=header" target="_blank" rel="noopener">arXiv</a>
+  </div>
+  <div class="pixels" aria-hidden="true"></div>
+</div></header>
+
+<!-- data injected from Jekyll collections -->
+{% assign research = site.research | where_exp:"i","i.published != false" %}
+{% assign grants = site.grants | where_exp:"i","i.published != false" %}
+{% assign hacks = site.sdg_hackathons | where_exp:"i","i.published != false" %}
+
+<section id="focus"><div class="wrap reveal">
+  <div class="shead"><h2>Anticipating emergence</h2><span class="tag">one problem · seven perspectives</span></div>
+  <p class="sub">Seven research threads, each sized by current intensity, all attacking one fundamental problem from a different angle — <b>anticipating emergence in complex human systems</b>. <b>Universe</b> collapses them onto that shared core; <b>Timeline</b> explodes them along time. Hover to bring a thread forward.</p>
+  <div class="toggles">
+    <div class="seg" id="focus-views">
+      <button class="active" data-view="universe">◎ Universe</button>
+      <button data-view="timeline">↕ Timeline (3D)</button>
+    </div>
+    <div class="seg" id="focus-kind">
+      <button class="active" data-kind="all">All</button>
+      <button data-kind="science">🔬 Basic science</button>
+      <button data-kind="field">🚀 Field innovation</button>
+    </div>
+  </div>
+  <div id="view-universe">
+  <div class="venn-wrap">
+    <svg class="venn" id="venn" viewBox="0 0 520 470" role="img" aria-label="Layered diagram of research threads">
+      <g id="venn-circles"></g>
+      <g id="venn-core"></g>
+    </svg>
+    <ul class="venn-legend" id="venn-legend"></ul>
+  </div>
+  </div>
+  <div class="tl-scene" id="view-timeline" hidden><div class="tl" id="tl"></div></div>
+</div></section>
+
+<section id="citations"><div class="wrap reveal">
+  <div class="shead"><h2>Citation intensity</h2><span class="tag">Google Scholar · year × field</span></div>
+  <p class="sub">A revisited Scholar timeline — how citation intensity builds across years and shifts between fields. Darker = more intense; hover a cell for detail.
+  {% unless site.data.citations %}<span class="note-illus">Illustrative model for now — run <code>scripts/fetch_scholar.py</code> to populate real Scholar data.</span>{% endunless %}</p>
+  <div class="heat-scroll"><div class="heatmap" id="heatmap"></div></div>
+</div></section>
+
+<section id="grants"><div class="wrap reveal">
+  <div class="shead"><h2>Grants &amp; funded work</h2><span class="tag">funding timeline</span></div>
+  <p class="sub">Competitive research funding across ~15 years. Bar position &amp; length = project period; bar thickness = amount; colour = my role.</p>
+  <div class="fund-head">
+    <span class="fund-total" id="fund-total">—</span>
+    <span class="fund-sub">raised across <b id="fund-n">—</b> grants &amp; contracts</span>
+  </div>
+  <div class="fund-legend">
+    <span><i class="rdot" style="background:var(--accent)"></i> Principal Investigator</span>
+    <span><i class="rdot" style="background:var(--c3)"></i> Project partner</span>
+    <span><i class="rdot" style="background:#9aa0aa"></i> Co-applicant</span>
+  </div>
+  <div class="gantt" id="gantt"></div>
+</div></section>
+
+<section id="inflight"><div class="wrap reveal">
+  <div class="shead"><h2>In flight</h2><span class="tag">code · writing · interventions</span></div>
+  <p class="sub">What's moving right now — recent code, writing in progress, and upcoming interventions.</p>
+  <div class="carousel">
+    <button class="car-btn" id="car-prev" aria-label="previous">‹</button>
+    <div class="car-track" id="flight"></div>
+    <button class="car-btn" id="car-next" aria-label="next">›</button>
+  </div>
+</div></section>
+
+<section id="talks"><div class="wrap reveal">
+  <div class="shead"><h2>Public interventions</h2><span class="tag">up next · past</span></div>
+  <p class="sub">Conferences I chair or organise, hackathons, and invited engagements.</p>
+  <div class="talks" id="talks-list"></div>
+</div></section>
+
+<footer><div class="wrap">
+  <strong>maillart.xyz</strong> · University of Geneva ·
+  <a href="mailto:thomas.maillart@unige.ch">thomas.maillart@unige.ch</a>
+</div></footer>
+
+<div class="tip" id="tip"></div>
+
+<script>
+// ---- research threads (shared data) ----
+// count ≈ lifetime outputs; intensity ≈ how active the thread is NOW (1–10) → drives circle size
+// axis: 0 = basic science … 1 = field innovation. year = most recent output → paint order. All editable.
+const THEMES = [
+  {name:"Technology forecasting & scientometrics", year:2026, count:9, intensity:10, axis:0.7, color:"#16e0ff", eg:"TechRank · forecasting convergence · GTM papers"},
+  {name:"Hackathons & open innovation", year:2026, count:8, intensity:8, axis:0.95, color:"#a855f7", eg:"Hackathons for good · Open Geneva · SDG hacks"},
+  {name:"Social interaction & digital phenotyping", year:2024, count:7, intensity:7, axis:0.35, color:"#c6f432", eg:"Autism screening · social bio-sensory lab"},
+  {name:"Cyber risks & resilience", year:2024, count:13, intensity:7, axis:0.55, color:"#ff2d9b", eg:"Heavy-tailed cyber risk · bug bounties · cyber insurance"},
+  {name:"Collective intelligence & open source", year:2024, count:11, intensity:6, axis:0.3, color:"#ffd23f", eg:"Zipf in Linux · superlinear production · Wikipedia"},
+  {name:"Complex systems & human dynamics", year:2019, count:7, intensity:4, axis:0.1, color:"#3b82f6", eg:"Heavy tails · self-excited processes · safety limits"},
+  {name:"Privacy, surveillance & neuro-rights", year:2019, count:5, intensity:3, axis:0.35, color:"#ff5c49", eg:"Thought privacy · surveillance incentives"},
+];
+
+// ---- palette switcher ----
+document.getElementById('swatches').addEventListener('click', e => {
+  const b = e.target.closest('.swatch'); if(!b) return;
+  document.body.className = b.dataset.theme;
+  document.querySelectorAll('.swatch').forEach(s=>s.classList.toggle('is-active', s===b));
+});
+
+// ---- pixel divider ----
+document.querySelector('.pixels').innerHTML = Array.from({length:18},()=> '<i></i>').join('');
+
+// ---- citation intensity heatmap (year × field) ----
+// Real data from scripts/fetch_scholar.py → _data/citations.json (injected below).
+// If absent, falls back to an illustrative model.
+const CITES = {{ site.data.citations | jsonify }};
+const Y0=(CITES&&CITES.year_range)?CITES.year_range[0]:2008, Y1=(CITES&&CITES.year_range)?CITES.year_range[1]:2026;
+const SINCE={ "Technology forecasting & scientometrics":2020, "Hackathons & open innovation":2018,
+  "Social interaction & digital phenotyping":2015, "Cyber risks & resilience":2008,
+  "Collective intelligence & open source":2008, "Complex systems & human dynamics":2008,
+  "Privacy, surveillance & neuro-rights":2014 };
+function modelIntensity(t,y){
+  const s=SINCE[t.name]??Y0; if(y<s) return 0;
+  const age=y-s, rise=1/(1+Math.exp(-(age-3)/1.6));
+  const recent=1+(t.intensity/10-0.5)*Math.max(0,y-2021)/4;
+  return t.count*rise*Math.max(.4,recent);
+}
+const REAL = !!(CITES && CITES.fields);
+function citeValue(t,y){ return REAL ? (CITES.fields[t.name]?.[y] || 0) : modelIntensity(t,y); }
+(function buildHeatmap(){
+  const hm=document.getElementById('heatmap'); if(!hm) return;
+  const tip=document.getElementById('tip');
+  const years=[]; for(let y=Y0;y<=Y1;y++) years.push(y);
+  const rows=[...THEMES].sort((a,b)=> b.intensity-a.intensity || b.year-a.year);  // same order as the universe legend
+  let max=0; rows.forEach(t=> years.forEach(y=> max=Math.max(max,citeValue(t,y))));
+  const escAttr=s=> String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+  let html='';
+  rows.forEach(t=>{
+    html+=`<div class="heat-row"><div class="hlabel"><span class="chip" style="background:${t.color}"></span>${t.name}</div><div class="heat-cells">`;
+    years.forEach(y=>{
+      const v=citeValue(t,y), o = max ? v/max : 0;
+      const detail = REAL ? `${Math.round(v)} citations` : `intensity ${Math.round(o*100)}%`;
+      let topAttr='';
+      if(REAL){ const tp=(CITES.top&&CITES.top[t.name])?CITES.top[t.name][y]:null;
+        if(tp) topAttr=` data-top="${escAttr(tp.t)}" data-topc="${Math.round(tp.c)}"`; }
+      html+=`<div class="heat-cell" style="--c:${t.color};opacity:${(0.04+o*0.96).toFixed(3)}" data-f="${escAttr(t.name)}" data-y="${y}" data-d="${detail}"${topAttr}></div>`;
+    });
+    html+=`</div></div>`;
+  });
+  html+=`<div class="heat-row"><div class="hlabel"></div><div class="heat-cells heat-axis">`;
+  years.forEach(y=> html+=`<div class="hyear">${y%4===0? "’"+String(y).slice(2):""}</div>`);
+  html+=`</div></div>`;
+  hm.innerHTML=html;
+  hm.addEventListener('mouseover',e=>{ const c=e.target.closest('.heat-cell'); if(!c) return;
+    tip.innerHTML=`<b></b><em>${c.dataset.y}</em><br>${c.dataset.d}`+(c.dataset.top?`<br><span class="tip-top">★ <span class="tt"></span> · ${c.dataset.topc} cites</span>`:'');
+    tip.querySelector('b').textContent=c.dataset.f;
+    if(c.dataset.top) tip.querySelector('.tt').textContent=c.dataset.top;
+    tip.style.opacity='1'; });
+  hm.addEventListener('mousemove',e=>{ tip.style.left=Math.min(e.clientX+14,innerWidth-260)+'px'; tip.style.top=(e.clientY+14)+'px'; });
+  hm.addEventListener('mouseout',()=> tip.style.opacity='0');
+})();
+
+// ---- grants funding timeline (data from CV; amounts in kCHF) ----
+const GRANTS=[
+  {n:"Horizon Europe — ULTIMO", f:"European Commission · SERI", role:"PI", s:2022, e:2026, k:850},
+  {n:"Quant. Cybersecurity Tech Forecasting", f:"armasuisse S+T", role:"PI", s:2022, e:2023, k:145.6},
+  {n:"Digital Phenotyping of Autism (Sinergia)", f:"SNSF", role:"Partner", s:2021, e:2025, k:1672.6},
+  {n:"Tech Forecasting for Cyber-Defence", f:"EPFL", role:"PI", s:2020, e:2022, k:293.7},
+  {n:"Impact Hackathons Asia Pacific", f:"Swiss Dev. & Coop. (SDC)", role:"PI", s:2020, e:2022, k:300},
+  {n:"Future of Teleconferencing", f:"Commission Informatique, UNIGE", role:"Co", s:2020, e:2020, k:15},
+  {n:"Encoding & anonymizing social scenes", f:"Commission Informatique, UNIGE", role:"Co", s:2018, e:2018, k:15},
+  {n:"The Social Bio-Sensory Laboratory", f:"SNSF", role:"PI", s:2016, e:2017, k:100},
+  {n:"Thought-Privacy risks (brain scanners)", f:"SNSF", role:"PI", s:2015, e:2015, k:50},
+  {n:"Incentives for attacks & cyber risk", f:"SNSF", role:"PI", s:2013, e:2013, k:110},
+  {n:"Innovedum", f:"ETH Zurich", role:"Co", s:2013, e:2013, k:180},
+  {n:"Swiss Innovation Agency (CTI)", f:"CTI", role:"Co", s:2012, e:2012, k:220},
+];
+(function buildGrants(){
+  const g=document.getElementById('gantt'); if(!g) return;
+  const tip=document.getElementById('tip');
+  const Y0=2012, Y1=2027, span=Y1-Y0;
+  const roleColor={PI:'var(--accent)', Partner:'var(--c3)', Co:'#9aa0aa'};
+  const roleName={PI:'Principal Investigator', Partner:'Project partner', Co:'Co-applicant'};
+  const fmt=k=> k>=1000 ? 'CHF '+(k/1000).toFixed(2).replace(/\.?0+$/,'')+'M' : 'CHF '+Math.round(k)+'k';
+  const esc=s=> String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+  document.getElementById('fund-total').textContent=fmt(GRANTS.reduce((a,b)=>a+b.k,0));
+  document.getElementById('fund-n').textContent=GRANTS.length;
+  const ks=GRANTS.map(x=>Math.sqrt(x.k)), kmin=Math.min(...ks), kmax=Math.max(...ks);
+  const thick=k=> 6 + (Math.sqrt(k)-kmin)/(kmax-kmin)*22;   // amount → bar thickness 6..28px
+  const rows=[...GRANTS].sort((a,b)=> b.s-a.s || b.k-a.k);  // most recent on top
+  g.innerHTML=rows.map((x,i)=>{
+    const left=(x.s-Y0)/span*100, width=(x.e+1-x.s)/span*100, h=thick(x.k);
+    return `<div class="g-row"><div class="g-label"><b>${x.n}</b><span>${x.f} · ${fmt(x.k)}</span></div>
+      <div class="g-track"><div class="g-bar" style="--i:${i};left:${left}%;width:${width}%;height:${h}px;background:${roleColor[x.role]}"
+        data-n="${esc(x.n)}" data-f="${esc(x.f)}" data-d="${x.s}–${x.e} · ${fmt(x.k)} · ${roleName[x.role]}"></div></div></div>`;
+  }).join('');
+  let ticks=''; for(let y=Y0;y<=2026;y+=2) ticks+=`<div class="g-tick" style="left:${(y-Y0)/span*100}%">’${String(y).slice(2)}</div>`;
+  g.insertAdjacentHTML('afterend', `<div class="g-axis"><div></div><div class="g-ticks">${ticks}</div></div>`);
+  g.addEventListener('mouseover',e=>{ const b=e.target.closest('.g-bar'); if(!b) return;
+    tip.innerHTML='<b></b><em></em><br>'+b.dataset.d; tip.querySelector('b').textContent=b.dataset.n; tip.querySelector('em').textContent=b.dataset.f; tip.style.opacity='1'; });
+  g.addEventListener('mousemove',e=>{ tip.style.left=Math.min(e.clientX+14,innerWidth-260)+'px'; tip.style.top=(e.clientY+14)+'px'; });
+  g.addEventListener('mouseout',()=> tip.style.opacity='0');
+})();
+
+// ---- public interventions (up next / past) — editable ----
+const TALKS=[
+  // up:true = upcoming
+  {when:"2026", up:true, title:"UNITAR SDG Open Hack — certificate programme", role:"Programme design", venue:"UNITAR · Geneva"},
+  {when:"2026–27", up:true, title:"Translational Futures Unit (armasuisse foresight)", role:"Lead researcher", venue:"Tech Hub · Geneva"},
+  {when:"2023", title:"HackTheHack — Int'l Conference on Hackathons", role:"General co-chair", venue:"Geneva"},
+  {when:"2023", title:"WEIS — Workshop on Economics of Information Security", role:"General chair", venue:"Geneva"},
+  {when:"2021", title:"CRITIS — Critical Information Infrastructures Security", role:"General chair", venue:"Lausanne"},
+  {when:"2021", title:"Geneva Trialogue", role:"Organiser", venue:"Geneva"},
+  {when:"2018", title:"Geneva Trialogue", role:"Organiser", venue:"Geneva"},
+  {when:"2017", title:"Algorithmic Design for Hybrid Collective Intelligence (CCS satellite)", role:"Organiser", venue:"Cancún"},
+  {when:"2016", title:"Open Science for an Open Society (CCS satellite)", role:"Organiser", venue:"Amsterdam"},
+  {when:"2015", title:"Collective Intelligence", role:"Speaker", venue:"Santa Clara"},
+  {when:"2014", title:"Systems Resilience in the Digital Society (NetSci)", role:"Organiser", venue:"UC Berkeley"},
+];
+(function renderTalks(){
+  const box=document.getElementById('talks-list'); if(!box) return;
+  const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const up=TALKS.filter(t=>t.up);
+  const past=TALKS.filter(t=>!t.up).sort((a,b)=> parseInt(b.when)-parseInt(a.when));
+  const row=t=>`<div class="talk${t.up?' up':''}"><div class="tk-when">${esc(t.when)}</div>
+    <div><div class="tk-title">${esc(t.title)}</div><div class="tk-meta">${esc(t.role)} · ${esc(t.venue)}</div></div></div>`;
+  box.innerHTML =
+    (up.length?`<div class="tk-group up">▲ Up next</div>`+up.map(row).join(''):'')
+    + `<div class="tk-group">Past</div>` + past.map(row).join('');
+})();
+
+// ---- In flight carousel: code · writing · interventions ----
+const GACT = {{ site.data.github_activity | jsonify }};
+const WRITING = [
+  {% assign latest = research | sort:"year" | reverse %}
+  {% for i in latest limit:5 %}{title:{{ i.title | jsonify }}, meta:{{ i.summary | truncate:70 | jsonify }}, url:{{ i.links[0].url | default: i.url | jsonify }}},{% endfor %}
+];
+(function renderFlight(){
+  const track=document.getElementById('flight'); if(!track) return;
+  const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const codeT=(GACT&&GACT.repos||[]).map(r=>({type:'code', title:r.name, meta:r.key_sentence||r.desc, foot:r.last_push+' · '+r.n_commits+' commits', url:r.url}));
+  const writeT=WRITING.map(w=>({type:'writing', title:w.title, meta:w.meta, foot:'in progress', url:w.url}));
+  const talkT=TALKS.filter(t=>t.up).map(t=>({type:'talk', title:t.title, meta:t.venue+' · '+t.role, foot:t.when, url:'#talks'}));
+  // round-robin interleave, cap 10
+  const lists=[codeT,writeT,talkT], flight=[]; let i=0;
+  while(flight.length<10 && lists.some(l=>l.length)){ const l=lists[i++%3]; if(l.length) flight.push(l.shift()); }
+  const tag={code:'code', writing:'writing', talk:'intervention'};
+  track.innerHTML=flight.map(t=>{
+    const ext=t.url.startsWith('#')?'':'target="_blank" rel="noopener"';
+    return `<a class="fl-tile" data-type="${t.type}" href="${t.url}" ${ext}>
+      <span class="fl-tag">${tag[t.type]}</span>
+      <div class="fl-title">${esc(t.title)}</div>
+      <div class="fl-meta">${esc(t.meta)}</div>
+      <div class="fl-foot">${esc(t.foot)}</div>
+    </a>`;}).join('');
+  const by=460;
+  document.getElementById('car-prev').onclick=()=> track.scrollBy({left:-by,behavior:'smooth'});
+  document.getElementById('car-next').onclick=()=> track.scrollBy({left:by,behavior:'smooth'});
+})();
+
+// ---- research universe: layered circles ----
+(function buildUniverse(){
+  const SVG="http://www.w3.org/2000/svg", cx0=260, cy0=222, Rl=84, N=THEMES.length;
+  const cg=document.getElementById('venn-circles'), core=document.getElementById('venn-core'),
+        leg=document.getElementById('venn-legend'), venn=document.getElementById('venn');
+  // fixed angle per theme (stable layout), index by array position
+  THEMES.forEach((t,i)=>{
+    const a=(-90 + i*360/N)*Math.PI/180;
+    t.cx = cx0 + Rl*Math.cos(a); t.cy = cy0 + Rl*Math.sin(a);
+    t.r  = 52 + t.intensity*7;   // size = current intensity
+    t.i = i;
+  });
+  // paint order: oldest first, newest last (on top)
+  const painted=[...THEMES].sort((a,b)=> a.year-b.year);
+  painted.forEach(t=>{
+    const c=document.createElementNS(SVG,'circle');
+    c.setAttribute('class','circle'); c.setAttribute('cx',t.cx); c.setAttribute('cy',t.cy);
+    c.setAttribute('r',t.r); c.setAttribute('fill',t.color); c.dataset.i=t.i;
+    cg.appendChild(c); t.el=c;
+  });
+  // core (always re-appended last so it stays readable)
+  function drawCore(){
+    core.innerHTML='';
+    const d=document.createElementNS(SVG,'circle');
+    d.setAttribute('class','core-disc'); d.setAttribute('cx',cx0); d.setAttribute('cy',cy0); d.setAttribute('r',60);
+    core.appendChild(d);
+    ["Anticipating","emergence"].forEach((line,k)=>{
+      const tx=document.createElementNS(SVG,'text');
+      tx.setAttribute('class','core-text'); tx.setAttribute('x',cx0); tx.setAttribute('y',cy0-3+k*16);
+      tx.textContent=line; core.appendChild(tx);
+    });
+  }
+  drawCore();
+  // legend: most recent first; output counts from real (multi-counted) Scholar data when present
+  const PC=(CITES&&CITES.paper_counts)||{};
+  const outc=t=> PC[t.name]??t.count;
+  const ordered=[...THEMES].sort((a,b)=> b.intensity-a.intensity || b.year-a.year);
+  leg.innerHTML=ordered.map(t=>`<li data-i="${t.i}">
+      <span class="chip" style="background:${t.color}"></span>
+      <b>${t.name}</b>
+      <span class="yc">${'●'.repeat(Math.round(t.intensity/2))}<span class="dimdot">${'●'.repeat(5-Math.round(t.intensity/2))}</span> intensity · ${outc(t)} papers · latest ${t.year}</span>
+    </li>`).join('');
+  // interaction: highlight + bring to front
+  function focus(i){
+    venn.classList.add('dim');
+    THEMES.forEach(t=> t.el.classList.toggle('active', t.i==i));
+    const t=THEMES[i]; cg.appendChild(t.el); core.parentNode.appendChild(core); // raise circle, keep core on top
+    leg.querySelectorAll('li').forEach(li=> li.classList.toggle('active', li.dataset.i==i));
+  }
+  function clearFocus(){
+    venn.classList.remove('dim');
+    THEMES.forEach(t=> t.el.classList.remove('active'));
+    leg.querySelectorAll('li').forEach(li=> li.classList.remove('active'));
+    // restore paint order
+    painted.forEach(t=> cg.appendChild(t.el)); core.parentNode.appendChild(core);
+  }
+  cg.addEventListener('mouseover',e=>{ const c=e.target.closest('.circle'); if(c) focus(+c.dataset.i); });
+  cg.addEventListener('mouseout', clearFocus);
+  leg.addEventListener('mouseover',e=>{ const li=e.target.closest('li'); if(li) focus(+li.dataset.i); });
+  leg.addEventListener('mouseout', clearFocus);
+
+  // ---- build 3D timeline ----
+  const tl=document.getElementById('tl');
+  const tItems=[...THEMES].sort((a,b)=> b.year-a.year || b.intensity-a.intensity);
+  tl.innerHTML=tItems.map((t,idx)=>{
+    const d=52+t.intensity*7, h=Math.round(d*0.5), side=idx%2?'right':'left';  // d = universe disc size; h = squashed
+    const dots='●'.repeat(Math.round(t.intensity/2))+'<span class="dimdot">'+'●'.repeat(5-Math.round(t.intensity/2))+'</span>';
+    return `<div class="tl-item ${side}" data-i="${t.i}" style="--c:${t.color};--d:${d}px;--h:${h}px;--i:${idx}">
+      <div class="tl-bubble" title="${t.name}"></div>
+      <div class="tl-card"><div class="tl-year">${t.year}</div><b>${t.name}</b>
+        <span class="yc">${dots} · ${outc(t)} papers</span><p class="tl-eg">${t.eg}</p></div>
+    </div>`;
+  }).join('');
+
+  // ---- view toggle (universe / timeline) ----
+  const vseg=document.getElementById('focus-views');
+  function setView(v){
+    document.getElementById('view-universe').hidden = v!=='universe';
+    document.getElementById('view-timeline').hidden = v!=='timeline';
+    vseg.querySelectorAll('button').forEach(b=> b.classList.toggle('active', b.dataset.view===v));
+    if(v==='timeline') requestAnimationFrame(()=> tl.classList.add('show'));
+  }
+  vseg.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) setView(b.dataset.view); });
+
+  // ---- kind filter (basic science / field innovation) ----
+  const kseg=document.getElementById('focus-kind');
+  const matches=(t,k)=> k==='all' || (k==='science'? t.axis<0.5 : t.axis>=0.5);
+  function setKind(k){
+    kseg.querySelectorAll('button').forEach(b=> b.classList.toggle('active', b.dataset.kind===k));
+    THEMES.forEach(t=>{
+      const off=!matches(t,k);
+      t.el.classList.toggle('faded', off);
+      leg.querySelector(`li[data-i="${t.i}"]`).classList.toggle('faded', off);
+      tl.querySelector(`.tl-item[data-i="${t.i}"]`).classList.toggle('faded', off);
+    });
+  }
+  kseg.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) setKind(b.dataset.kind); });
+})();
+
+// ---- reveal + counters + node pop, via IntersectionObserver ----
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(!en.isIntersecting) return;
+    en.target.classList.add('in');
+    // counters
+    en.target.querySelectorAll('.num[data-to]').forEach(el=>{
+      const to=+el.dataset.to; let n=0; const step=Math.max(1,Math.round(to/24));
+      const tick=()=>{ n=Math.min(to,n+step); el.textContent=n; if(n<to) requestAnimationFrame(tick); };
+      tick();
+    });
+    // fill progress bars
+    en.target.querySelectorAll('.bar-prog i[data-w]').forEach(b=> b.style.width=b.dataset.w+'%');
+    // reveal grants gantt bars
+    const gz=en.target.querySelector('#gantt'); if(gz) gz.classList.add('show');
+    io.unobserve(en.target);
+  });
+},{threshold:.18});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

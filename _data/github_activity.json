@@ -1,0 +1,25 @@
+{
+  "generated": "2026-06-17",
+  "window_days": 7,
+  "repos": [
+    {
+      "name": "vibe-coding-crash-course",
+      "url": "https://github.com/wazaahhh/vibe-coding-crash-course",
+      "desc": "A tool-agnostic 60-minute crash course teaching scientists to direct AI to write analysis code \u2014 and catch it when it's confidently wrong.",
+      "lang": "",
+      "last_push": "2026-06-10",
+      "n_commits": 3,
+      "subjects": [
+        "Add CC BY-NC 4.0 LICENSE file and link from README",
+        "Add Further reading slide and annotated RESOURCES.md",
+        "Add cognitive-science slides, usage modes, prompting craft, and footer"
+      ],
+      "key_sentence": "Add cognitive-science slides, usage modes, prompting craft, and footer",
+      "snippet": {
+        "file": "slides.md",
+        "lang": "markdown",
+        "code": "footer: 'CC BY-NC 4.0 \u00b7 Thomas Maillart'\n<style>\n/* Page numbering as \"x / total\" (Marp exposes the total via data attribute) */\nsection::after {\n  content: attr(data-marpit-pagination) ' / ' attr(data-marpit-pagination-total);\n}\n</style>\n# The next 60 minutes\n| # | Section | ~min |"
+      }
+    }
+  ]
+}

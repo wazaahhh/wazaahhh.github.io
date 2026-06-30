@@ -1,13 +1,16 @@
 # Site settings
-title: Thomas Maillart
-email: wazaahhh@protonmail.com
+title: maillart.xyz
+email: thomas@maillart.xyz
 description: Research, grants & awards, and SDG-aligned hackathon impact
-url: "https://thomasmaillart.org"
+url: "https://maillart.xyz"
 baseurl: ""
 github_username: wazaahhh
 
 # Keep theme null; we use lightweight custom HTML/CSS in layouts.
 theme: null
+
+# Ship the custom-domain file (Jekyll excludes CNAME by default).
+include: ["CNAME"]
 
 collections:
   research:

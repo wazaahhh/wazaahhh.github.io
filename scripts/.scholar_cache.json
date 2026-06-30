@@ -1,0 +1,598 @@
+[
+  {
+    "title": "The extreme risk of personal data breaches and the erosion of privacy",
+    "year": 2016,
+    "total": 228,
+    "per_year": {
+      "2016": 4,
+      "2017": 6,
+      "2018": 15,
+      "2019": 18,
+      "2020": 26,
+      "2021": 28,
+      "2022": 23,
+      "2023": 30,
+      "2024": 36,
+      "2025": 26,
+      "2026": 13
+    }
+  },
+  {
+    "title": "Heavy-tailed distribution of cyber-risks",
+    "year": 2010,
+    "total": 193,
+    "per_year": {
+      "2009": 2,
+      "2010": 2,
+      "2011": 3,
+      "2012": 5,
+      "2013": 1,
+      "2014": 6,
+      "2015": 1,
+      "2016": 16,
+      "2017": 7,
+      "2018": 14,
+      "2019": 8,
+      "2020": 24,
+      "2021": 21,
+      "2022": 19,
+      "2023": 24,
+      "2024": 16,
+      "2025": 15,
+      "2026": 6
+    }
+  },
+  {
+    "title": "Given enough eyeballs, all bugs are shallow? Revisiting Eric Raymond with bug bounty programs",
+    "year": 2017,
+    "total": 148,
+    "per_year": {
+      "2016": 2,
+      "2017": 3,
+      "2018": 13,
+      "2019": 10,
+      "2020": 26,
+      "2021": 16,
+      "2022": 18,
+      "2023": 18,
+      "2024": 14,
+      "2025": 21,
+      "2026": 5
+    }
+  },
+  {
+    "title": "Empirical tests of Zipf's law mechanism in open source Linux distribution",
+    "year": 2008,
+    "total": 142,
+    "per_year": {
+      "2007": 1,
+      "2008": 3,
+      "2009": 13,
+      "2010": 11,
+      "2011": 11,
+      "2012": 19,
+      "2013": 12,
+      "2014": 7,
+      "2015": 9,
+      "2016": 5,
+      "2017": 9,
+      "2018": 7,
+      "2019": 4,
+      "2020": 2,
+      "2021": 5,
+      "2022": 5,
+      "2023": 4,
+      "2024": 5,
+      "2025": 2,
+      "2026": 6
+    }
+  },
+  {
+    "title": "Using 2D video-based pose estimation for automated prediction of autism spectrum disorders in young children",
+    "year": 2021,
+    "total": 136,
+    "per_year": {
+      "2020": 1,
+      "2021": 1,
+      "2022": 8,
+      "2023": 21,
+      "2024": 31,
+      "2025": 56,
+      "2026": 17
+    }
+  },
+  {
+    "title": "Cyber risk research impeded by disciplinary barriers",
+    "year": 2019,
+    "total": 120,
+    "per_year": {
+      "2020": 16,
+      "2021": 12,
+      "2022": 19,
+      "2023": 24,
+      "2024": 18,
+      "2025": 21,
+      "2026": 8
+    }
+  },
+  {
+    "title": "Designing organizations for cyber security resilience",
+    "year": 2018,
+    "total": 102,
+    "per_year": {
+      "2016": 3,
+      "2017": 4,
+      "2018": 17,
+      "2019": 12,
+      "2020": 10,
+      "2021": 9,
+      "2022": 8,
+      "2023": 13,
+      "2024": 16,
+      "2025": 5,
+      "2026": 2
+    }
+  },
+  {
+    "title": "Exploring the limits of safety analysis in complex technological systems",
+    "year": 2013,
+    "total": 85,
+    "per_year": {
+      "2012": 1,
+      "2013": 1,
+      "2014": 3,
+      "2015": 7,
+      "2016": 8,
+      "2017": 10,
+      "2018": 9,
+      "2019": 6,
+      "2020": 7,
+      "2021": 7,
+      "2022": 5,
+      "2023": 7,
+      "2024": 6,
+      "2025": 3,
+      "2026": 3
+    }
+  },
+  {
+    "title": "Beyond shannon: Characterizing internet traffic with generalized entropy metrics",
+    "year": 2009,
+    "total": 69,
+    "per_year": {
+      "2009": 2,
+      "2010": 3,
+      "2011": 7,
+      "2012": 6,
+      "2013": 5,
+      "2014": 6,
+      "2015": 10,
+      "2016": 6,
+      "2017": 7,
+      "2018": 5,
+      "2019": 3,
+      "2020": 0,
+      "2021": 4,
+      "2022": 3,
+      "2023": 0,
+      "2024": 1,
+      "2025": 1
+    }
+  },
+  {
+    "title": "How Much is the Whole Really More than the Sum of its Parts? 1+ 1= 2.5: Superlinear Productivity in Collective Group Actions",
+    "year": 2014,
+    "total": 53,
+    "per_year": {
+      "2014": 2,
+      "2015": 4,
+      "2016": 7,
+      "2017": 5,
+      "2018": 1,
+      "2019": 7,
+      "2020": 1,
+      "2021": 5,
+      "2022": 6,
+      "2023": 5,
+      "2024": 5,
+      "2025": 4,
+      "2026": 1
+    }
+  },
+  {
+    "title": "My thoughts are not your thoughts",
+    "year": 2014,
+    "total": 52,
+    "per_year": {
+      "2015": 6,
+      "2016": 5,
+      "2017": 11,
+      "2018": 9,
+      "2019": 5,
+      "2020": 5,
+      "2021": 4,
+      "2022": 5,
+      "2023": 2
+    }
+  },
+  {
+    "title": "Trends in Open Source Software for Data Protection and Encryption Technologies",
+    "year": 2023,
+    "total": 48,
+    "per_year": {
+      "2023": 2,
+      "2024": 20,
+      "2025": 19,
+      "2026": 6
+    }
+  },
+  {
+    "title": "Quantification of deviations from rationality with heavy tails in human dynamics",
+    "year": 2011,
+    "total": 44,
+    "per_year": {
+      "2011": 1,
+      "2012": 5,
+      "2013": 8,
+      "2014": 3,
+      "2015": 5,
+      "2016": 9,
+      "2017": 4,
+      "2018": 1,
+      "2019": 2,
+      "2020": 0,
+      "2021": 1,
+      "2022": 3,
+      "2023": 2
+    }
+  },
+  {
+    "title": "Crowdsourced security vulnerability discovery: Modeling and organizing bug-bounty programs",
+    "year": 2016,
+    "total": 28,
+    "per_year": {
+      "2017": 1,
+      "2018": 2,
+      "2019": 2,
+      "2020": 5,
+      "2021": 6,
+      "2022": 4,
+      "2023": 5,
+      "2024": 1,
+      "2025": 2
+    }
+  },
+  {
+    "title": "An international technical standard for commercial space system cybersecurity-a call to action",
+    "year": 2022,
+    "total": 25,
+    "per_year": {
+      "2023": 7,
+      "2024": 10,
+      "2025": 7,
+      "2026": 1
+    }
+  },
+  {
+    "title": "Measuring security development in information technologies: A scientometric framework using arXiv e-prints",
+    "year": 2023,
+    "total": 22,
+    "per_year": {
+      "2023": 13,
+      "2024": 5,
+      "2025": 3,
+      "2026": 1
+    }
+  },
+  {
+    "title": "Efficient collective action for tackling time-critical cybersecurity threats",
+    "year": 2023,
+    "total": 22,
+    "per_year": {
+      "2022": 2,
+      "2023": 3,
+      "2024": 3,
+      "2025": 11,
+      "2026": 3
+    }
+  },
+  {
+    "title": "Hierarchy of Temporal Responses of Multivariate Self-Excited Epidemic Processes",
+    "year": 2013,
+    "total": 20,
+    "per_year": {
+      "2012": 1,
+      "2013": 0,
+      "2014": 1,
+      "2015": 2,
+      "2016": 1,
+      "2017": 0,
+      "2018": 1,
+      "2019": 3,
+      "2020": 2,
+      "2021": 2,
+      "2022": 1,
+      "2023": 0,
+      "2024": 1,
+      "2025": 2,
+      "2026": 2
+    }
+  },
+  {
+    "title": "The virtuous circle of Wikipedia: recursive measures of collaboration structures",
+    "year": 2015,
+    "total": 18,
+    "per_year": {
+      "2018": 2,
+      "2019": 0,
+      "2020": 1,
+      "2021": 0,
+      "2022": 6,
+      "2023": 5,
+      "2024": 1,
+      "2025": 0,
+      "2026": 1
+    }
+  },
+  {
+    "title": "Aristotle vs. Ringelmann: On superlinear production in open source software",
+    "year": 2019,
+    "total": 16,
+    "per_year": {
+      "2019": 5,
+      "2020": 0,
+      "2021": 0,
+      "2022": 3,
+      "2023": 3,
+      "2024": 2,
+      "2025": 1,
+      "2026": 2
+    }
+  },
+  {
+    "title": "The ai4autism project: A multimodal and interdisciplinary approach to autism diagnosis and stratification",
+    "year": 2023,
+    "total": 14,
+    "per_year": {
+      "2023": 1,
+      "2024": 5,
+      "2025": 5,
+      "2026": 3
+    }
+  },
+  {
+    "title": "Video-audio neural network ensemble for comprehensive screening of autism spectrum disorder in young children",
+    "year": 2024,
+    "total": 11,
+    "per_year": {
+      "2025": 4,
+      "2026": 7
+    }
+  },
+  {
+    "title": "Forecasting labor needs for digitalization: A bi-partite graph machine learning approach",
+    "year": 2023,
+    "total": 6,
+    "per_year": {
+      "2023": 1,
+      "2024": 2,
+      "2025": 3
+    }
+  },
+  {
+    "title": "Computational diplomacy: how \u2018hackathons for good\u2019feed a participatory future for multilateralism in the digital age",
+    "year": 2024,
+    "total": 5,
+    "per_year": {
+      "2024": 1,
+      "2025": 2,
+      "2026": 1
+    }
+  },
+  {
+    "title": "Innovative solutions for global water quality challenges: insights from a collaborative hackathon event",
+    "year": 2024,
+    "total": 5,
+    "per_year": {
+      "2024": 2,
+      "2025": 3
+    }
+  },
+  {
+    "title": "Play and work for greater good: the case of hackathons",
+    "year": 2023,
+    "total": 5,
+    "per_year": {
+      "2023": 1,
+      "2024": 4
+    }
+  },
+  {
+    "title": "Sleep/wake detection by behavioral response to haptic stimuli",
+    "year": 2019,
+    "total": 5,
+    "per_year": {
+      "2020": 3,
+      "2021": 0,
+      "2022": 2
+    }
+  },
+  {
+    "title": "Improving physiological signal classification using logarithmic quantization and a progressive calibration technique",
+    "year": 2015,
+    "total": 5,
+    "per_year": {
+      "2016": 2,
+      "2017": 0,
+      "2018": 2,
+      "2019": 0,
+      "2020": 0,
+      "2021": 1
+    }
+  },
+  {
+    "title": "Altruistic collective intelligence for the betterment of artificial intelligence",
+    "year": 2024,
+    "total": 4,
+    "per_year": {
+      "2025": 3,
+      "2026": 1
+    }
+  },
+  {
+    "title": "TechRank",
+    "year": 2023,
+    "total": 3,
+    "per_year": {
+      "2022": 1,
+      "2023": 0,
+      "2024": 0,
+      "2025": 2
+    }
+  },
+  {
+    "title": "Government Surveillance and Incentives to Abuse Power",
+    "year": 2014,
+    "total": 3,
+    "per_year": {
+      "2018": 1,
+      "2019": 0,
+      "2020": 0,
+      "2021": 0,
+      "2022": 1,
+      "2023": 1
+    }
+  },
+  {
+    "title": "Cybersecurity Technologies: An Overview of Trends & Activities in Switzerland and Abroad",
+    "year": 2022,
+    "total": 1,
+    "per_year": {
+      "2026": 1
+    }
+  },
+  {
+    "title": "Caviar and Yachts: How Your Purchase Data May Come Back to Haunt You.",
+    "year": 2015,
+    "total": 1,
+    "per_year": {
+      "2023": 1
+    }
+  },
+  {
+    "title": "Using Prediction Markets to Incentivize and Measure Collective Knowledge Production",
+    "year": 2014,
+    "total": 1,
+    "per_year": {
+      "2019": 1
+    }
+  },
+  {
+    "title": "Forecasting Conceptual Diffusion in Science: The Case of Quantum Computing",
+    "year": 2026,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "Explainable Forecasting of Scientific Breakthroughs from Concept Network Dynamics",
+    "year": 2026,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "Building Digital Societies as Ecosystems: How Recognition and Repeat Relationships Sustain Cross-Community Work in Open Source",
+    "year": 2026,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "Motivational Dynamics of Collective Action for Sustainability",
+    "year": 2026,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "Atypical Interpersonal Motor Synchrony and Intrapersonal Movement Variability in Autism: Pose Estimation Analysis of Free-play",
+    "year": 2025,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "A Novel Algorithm for Informed Investment in Cybersecurity Companies and Technologies",
+    "year": 2023,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "Reducing Time to Response in Cyber Defense: An Agent-based Model",
+    "year": 2023,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "Anticipating Cyberdefense Capability Requirements by Link Prediction Analysis",
+    "year": 2023,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "Certainty and modification in European antitrust law: the exponential growth of a landmark case system and its determinants",
+    "year": 2022,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "Critical Information Infrastructures Security",
+    "year": 2021,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "Innovation Dynamics of Open Source Software",
+    "year": 2012,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "Innovation Dynamics of Open Source Software",
+    "year": 2012,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "Mechanisms of Internet evolution & cyber risk",
+    "year": 2011,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "Essential criteria for the creation of reliable cyber insurance",
+    "year": 2008,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "INTELLIGENCE FOR THE BETTERMENT OF ARTIFICIAL INTELLIGENCE",
+    "year": null,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "Security Dynamics in Computer Science Technologies",
+    "year": null,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "L\u2019intelligence collective et la veille technologique pour faire face aux d\u00e9fis de la cyberd\u00e9fense",
+    "year": null,
+    "total": 0,
+    "per_year": {}
+  },
+  {
+    "title": "Government Surveillance",
+    "year": null,
+    "total": 0,
+    "per_year": {}
+  }
+]

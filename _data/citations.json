@@ -1,0 +1,522 @@
+{
+  "author": "8qiZ3zMAAAAJ",
+  "year_range": [
+    2008,
+    2026
+  ],
+  "fields": {
+    "Hackathons & open innovation": {
+      "2024": 7,
+      "2025": 5,
+      "2026": 1,
+      "2023": 1
+    },
+    "Technology forecasting & scientometrics": {
+      "2023": 14.0,
+      "2024": 7.0,
+      "2025": 8.0,
+      "2026": 1.0,
+      "2022": 1
+    },
+    "Privacy, surveillance & neuro-rights": {
+      "2016": 9,
+      "2017": 17,
+      "2018": 25,
+      "2019": 23,
+      "2020": 31,
+      "2021": 32,
+      "2022": 29,
+      "2023": 34,
+      "2024": 36,
+      "2025": 26,
+      "2026": 13,
+      "2015": 6
+    },
+    "Social interaction & digital phenotyping": {
+      "2020": 4,
+      "2021": 2,
+      "2022": 10,
+      "2023": 22,
+      "2024": 36,
+      "2025": 65.0,
+      "2026": 27.0,
+      "2016": 2,
+      "2017": 0,
+      "2018": 2,
+      "2019": 0
+    },
+    "Cyber risks & resilience": {
+      "2016": 25.0,
+      "2017": 21.0,
+      "2018": 62.0,
+      "2019": 50.0,
+      "2020": 107.0,
+      "2021": 92.0,
+      "2022": 94.0,
+      "2023": 138.0,
+      "2024": 119.0,
+      "2025": 111.0,
+      "2026": 40.0,
+      "2009": 2.0,
+      "2010": 2.0,
+      "2011": 3.0,
+      "2012": 5.0,
+      "2013": 1.0,
+      "2014": 6.0,
+      "2015": 1.0,
+      "2008": 0.0
+    },
+    "Collective intelligence & open source": {
+      "2016": 14.0,
+      "2017": 17.0,
+      "2018": 23.0,
+      "2019": 27.0,
+      "2020": 30.0,
+      "2021": 26.0,
+      "2022": 40.0,
+      "2023": 40.0,
+      "2024": 50.0,
+      "2025": 61,
+      "2026": 25.0,
+      "2008": 3,
+      "2009": 13,
+      "2010": 11,
+      "2011": 11,
+      "2012": 19.0,
+      "2013": 12.0,
+      "2014": 9.0,
+      "2015": 13.0
+    },
+    "Complex systems & human dynamics": {
+      "2009": 4,
+      "2010": 5,
+      "2011": 11,
+      "2012": 18,
+      "2013": 15,
+      "2014": 19,
+      "2015": 25,
+      "2016": 40,
+      "2017": 28,
+      "2018": 30,
+      "2019": 22,
+      "2020": 33,
+      "2021": 35,
+      "2022": 31.0,
+      "2023": 33.0,
+      "2024": 24.0,
+      "2025": 21.0,
+      "2026": 11.0
+    }
+  },
+  "paper_counts": {
+    "Hackathons & open innovation": 3,
+    "Technology forecasting & scientometrics": 6,
+    "Privacy, surveillance & neuro-rights": 5,
+    "Social interaction & digital phenotyping": 6,
+    "Cyber risks & resilience": 19,
+    "Collective intelligence & open source": 14,
+    "Complex systems & human dynamics": 6
+  },
+  "citation_totals": {
+    "Hackathons & open innovation": 14,
+    "Technology forecasting & scientometrics": 31.0,
+    "Privacy, surveillance & neuro-rights": 281,
+    "Social interaction & digital phenotyping": 170.0,
+    "Cyber risks & resilience": 879.0,
+    "Collective intelligence & open source": 444.0,
+    "Complex systems & human dynamics": 405.0
+  },
+  "top": {
+    "Hackathons & open innovation": {
+      "2024": {
+        "t": "Play and work for greater good: the case of hackathons",
+        "c": 4
+      },
+      "2025": {
+        "t": "Innovative solutions for global water quality challenges: insights from a collaborative hackathon event",
+        "c": 3
+      },
+      "2026": {
+        "t": "Computational diplomacy: how \u2018hackathons for good\u2019feed a participatory future for multilateralism in the digital age",
+        "c": 1
+      },
+      "2023": {
+        "t": "Play and work for greater good: the case of hackathons",
+        "c": 1
+      }
+    },
+    "Technology forecasting & scientometrics": {
+      "2023": {
+        "t": "Measuring security development in information technologies: A scientometric framework using arXiv e-prints",
+        "c": 13
+      },
+      "2024": {
+        "t": "Measuring security development in information technologies: A scientometric framework using arXiv e-prints",
+        "c": 5
+      },
+      "2025": {
+        "t": "Measuring security development in information technologies: A scientometric framework using arXiv e-prints",
+        "c": 3
+      },
+      "2026": {
+        "t": "Measuring security development in information technologies: A scientometric framework using arXiv e-prints",
+        "c": 1
+      },
+      "2022": {
+        "t": "TechRank",
+        "c": 1
+      }
+    },
+    "Privacy, surveillance & neuro-rights": {
+      "2016": {
+        "t": "My thoughts are not your thoughts",
+        "c": 5
+      },
+      "2017": {
+        "t": "My thoughts are not your thoughts",
+        "c": 11
+      },
+      "2018": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 15
+      },
+      "2019": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 18
+      },
+      "2020": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 26
+      },
+      "2021": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 28
+      },
+      "2022": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 23
+      },
+      "2023": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 30
+      },
+      "2024": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 36
+      },
+      "2025": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 26
+      },
+      "2026": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 13
+      },
+      "2015": {
+        "t": "My thoughts are not your thoughts",
+        "c": 6
+      }
+    },
+    "Social interaction & digital phenotyping": {
+      "2020": {
+        "t": "Sleep/wake detection by behavioral response to haptic stimuli",
+        "c": 3
+      },
+      "2021": {
+        "t": "Using 2D video-based pose estimation for automated prediction of autism spectrum disorders in young children",
+        "c": 1
+      },
+      "2022": {
+        "t": "Using 2D video-based pose estimation for automated prediction of autism spectrum disorders in young children",
+        "c": 8
+      },
+      "2023": {
+        "t": "Using 2D video-based pose estimation for automated prediction of autism spectrum disorders in young children",
+        "c": 21
+      },
+      "2024": {
+        "t": "Using 2D video-based pose estimation for automated prediction of autism spectrum disorders in young children",
+        "c": 31
+      },
+      "2025": {
+        "t": "Using 2D video-based pose estimation for automated prediction of autism spectrum disorders in young children",
+        "c": 56
+      },
+      "2026": {
+        "t": "Using 2D video-based pose estimation for automated prediction of autism spectrum disorders in young children",
+        "c": 17
+      },
+      "2016": {
+        "t": "Improving physiological signal classification using logarithmic quantization and a progressive calibration technique",
+        "c": 2
+      },
+      "2017": {
+        "t": "Improving physiological signal classification using logarithmic quantization and a progressive calibration technique",
+        "c": 0
+      },
+      "2018": {
+        "t": "Improving physiological signal classification using logarithmic quantization and a progressive calibration technique",
+        "c": 2
+      },
+      "2019": {
+        "t": "Improving physiological signal classification using logarithmic quantization and a progressive calibration technique",
+        "c": 0
+      }
+    },
+    "Cyber risks & resilience": {
+      "2016": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 16
+      },
+      "2017": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 7
+      },
+      "2018": {
+        "t": "Designing organizations for cyber security resilience",
+        "c": 17
+      },
+      "2019": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 18
+      },
+      "2020": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 26
+      },
+      "2021": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 28
+      },
+      "2022": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 23
+      },
+      "2023": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 30
+      },
+      "2024": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 36
+      },
+      "2025": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 26
+      },
+      "2026": {
+        "t": "The extreme risk of personal data breaches and the erosion of privacy",
+        "c": 13
+      },
+      "2009": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 2
+      },
+      "2010": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 2
+      },
+      "2011": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 3
+      },
+      "2012": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 5
+      },
+      "2013": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 1
+      },
+      "2014": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 6
+      },
+      "2015": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 1
+      },
+      "2008": {
+        "t": "Essential criteria for the creation of reliable cyber insurance",
+        "c": 0.0
+      }
+    },
+    "Collective intelligence & open source": {
+      "2016": {
+        "t": "How Much is the Whole Really More than the Sum of its Parts? 1+ 1= 2.5: Superlinear Productivity in Collective Group Actions",
+        "c": 7
+      },
+      "2017": {
+        "t": "Empirical tests of Zipf's law mechanism in open source Linux distribution",
+        "c": 9
+      },
+      "2018": {
+        "t": "Given enough eyeballs, all bugs are shallow? Revisiting Eric Raymond with bug bounty programs",
+        "c": 13
+      },
+      "2019": {
+        "t": "Given enough eyeballs, all bugs are shallow? Revisiting Eric Raymond with bug bounty programs",
+        "c": 10
+      },
+      "2020": {
+        "t": "Given enough eyeballs, all bugs are shallow? Revisiting Eric Raymond with bug bounty programs",
+        "c": 26
+      },
+      "2021": {
+        "t": "Given enough eyeballs, all bugs are shallow? Revisiting Eric Raymond with bug bounty programs",
+        "c": 16
+      },
+      "2022": {
+        "t": "Given enough eyeballs, all bugs are shallow? Revisiting Eric Raymond with bug bounty programs",
+        "c": 18
+      },
+      "2023": {
+        "t": "Given enough eyeballs, all bugs are shallow? Revisiting Eric Raymond with bug bounty programs",
+        "c": 18
+      },
+      "2024": {
+        "t": "Trends in Open Source Software for Data Protection and Encryption Technologies",
+        "c": 20
+      },
+      "2025": {
+        "t": "Given enough eyeballs, all bugs are shallow? Revisiting Eric Raymond with bug bounty programs",
+        "c": 21
+      },
+      "2026": {
+        "t": "Empirical tests of Zipf's law mechanism in open source Linux distribution",
+        "c": 6
+      },
+      "2008": {
+        "t": "Empirical tests of Zipf's law mechanism in open source Linux distribution",
+        "c": 3
+      },
+      "2009": {
+        "t": "Empirical tests of Zipf's law mechanism in open source Linux distribution",
+        "c": 13
+      },
+      "2010": {
+        "t": "Empirical tests of Zipf's law mechanism in open source Linux distribution",
+        "c": 11
+      },
+      "2011": {
+        "t": "Empirical tests of Zipf's law mechanism in open source Linux distribution",
+        "c": 11
+      },
+      "2012": {
+        "t": "Empirical tests of Zipf's law mechanism in open source Linux distribution",
+        "c": 19
+      },
+      "2013": {
+        "t": "Empirical tests of Zipf's law mechanism in open source Linux distribution",
+        "c": 12
+      },
+      "2014": {
+        "t": "Empirical tests of Zipf's law mechanism in open source Linux distribution",
+        "c": 7
+      },
+      "2015": {
+        "t": "Empirical tests of Zipf's law mechanism in open source Linux distribution",
+        "c": 9
+      }
+    },
+    "Complex systems & human dynamics": {
+      "2009": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 2
+      },
+      "2010": {
+        "t": "Beyond shannon: Characterizing internet traffic with generalized entropy metrics",
+        "c": 3
+      },
+      "2011": {
+        "t": "Beyond shannon: Characterizing internet traffic with generalized entropy metrics",
+        "c": 7
+      },
+      "2012": {
+        "t": "Beyond shannon: Characterizing internet traffic with generalized entropy metrics",
+        "c": 6
+      },
+      "2013": {
+        "t": "Quantification of deviations from rationality with heavy tails in human dynamics",
+        "c": 8
+      },
+      "2014": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 6
+      },
+      "2015": {
+        "t": "Beyond shannon: Characterizing internet traffic with generalized entropy metrics",
+        "c": 10
+      },
+      "2016": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 16
+      },
+      "2017": {
+        "t": "Exploring the limits of safety analysis in complex technological systems",
+        "c": 10
+      },
+      "2018": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 14
+      },
+      "2019": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 8
+      },
+      "2020": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 24
+      },
+      "2021": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 21
+      },
+      "2022": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 19
+      },
+      "2023": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 24
+      },
+      "2024": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 16
+      },
+      "2025": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 15
+      },
+      "2026": {
+        "t": "Heavy-tailed distribution of cyber-risks",
+        "c": 6
+      }
+    }
+  },
+  "totals_by_year": {
+    "2016": 68.0,
+    "2017": 67.0,
+    "2018": 99.0,
+    "2019": 86.0,
+    "2020": 129.0,
+    "2021": 122.0,
+    "2022": 142.0,
+    "2023": 193.0,
+    "2024": 205.0,
+    "2025": 221.0,
+    "2026": 90.0,
+    "2009": 17.0,
+    "2010": 16.0,
+    "2011": 22.0,
+    "2012": 37.0,
+    "2013": 27.0,
+    "2014": 28.0,
+    "2015": 44.0,
+    "2008": 3.0
+  },
+  "unmatched": [
+    "Certainty and modification in European antitrust law: the exponential growth of a landmark case system and its determinants"
+  ],
+  "n_pubs": 52
+}
