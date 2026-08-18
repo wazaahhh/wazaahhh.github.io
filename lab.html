@@ -351,7 +351,6 @@ section { padding: 3.2rem 0; }
 .tk-blob p { margin:0; font-size:.87rem; line-height:1.55; color:var(--ink); }
 .tk-blob .b-head { font-family:"Space Grotesk"; font-weight:700; font-size:.72rem; text-transform:uppercase;
   letter-spacing:.08em; color:var(--muted); margin:0 0 .35rem; }
-.tk-blob .b-draft { font-weight:600; color:var(--wire); text-transform:none; letter-spacing:0; }
 .tk-blob .also { margin:.6rem 0 0; padding:.55rem 0 0; border-top:1px solid var(--line); font-size:.8rem; color:var(--muted); }
 .tk-blob .also b { display:block; font-family:"Space Grotesk"; font-size:.7rem; text-transform:uppercase;
   letter-spacing:.08em; margin-bottom:.3rem; }
@@ -851,9 +850,9 @@ const TOPICS = {{ site.data.topics | jsonify }};
     return `<div class="talk${t.up?' up':''}" data-type="${t.type}" data-time="${bucket(t)}" data-cat="${t.cat||''}"${t.cat?` style="--cat:${CATC[t.cat]||'transparent'}"`:''}>
       <div class="tk-when">${(t.date||t.date_label)?`<b>${dayMon(t)}</b><span class="yr">${esc(t.when)}</span>`:esc(t.when)}</div>
       <div><div class="tk-title">${ex?`<button class="tk-more" type="button" aria-expanded="false" aria-controls="blob-${i}" aria-label="Show details">+</button>`:''}${esc(t.title)}</div>
-        <div class="tk-meta"><span class="tk-type" data-t="${t.type}">${TLAB[t.type]||t.type}</span>${meta}${t.tbc?' · <span class="tk-soon">to be confirmed</span>':(!t.date&&!t.date_label&&bucket(t)==='future'?' · <span class="tk-soon">date to be announced</span>':'')}${t.url&&!ex?` · <a class="tk-link" href="${esc(t.url)}" target="_blank" rel="noopener">${/arxiv\.org/.test(t.url)?'preprint':'link'} ↗</a>`:''}${!ex&&bucket(t)==='future'?' · <span class="tk-soon">details soon</span>':''}</div>
+        <div class="tk-meta"><span class="tk-type" data-t="${t.type}">${TLAB[t.type]||t.type}</span>${meta}${t.tbc?' · <span class="tk-soon">tbc.</span>':(!t.date&&!t.date_label&&bucket(t)==='future'?' · <span class="tk-soon">date tbc.</span>':'')}${t.url&&!ex?` · <a class="tk-link" href="${esc(t.url)}" target="_blank" rel="noopener">${/arxiv\.org/.test(t.url)?'preprint':'link'} ↗</a>`:''}${!ex&&bucket(t)==='future'?' · <span class="tk-soon">details soon</span>':''}</div>
         ${ex?`<div class="tk-blob" id="blob-${i}" hidden>
-          ${ex.head?`<p class="b-head">${esc(ex.head)}${ex.draft?' · <span class="b-draft">draft — needs your review</span>':''}</p>`:(ex.draft?'<p class="b-head"><span class="b-draft">draft — needs your review</span></p>':'')}
+          ${ex.head?`<p class="b-head">${esc(ex.head)}</p>`:''}
           <p>${esc(ex.text)}</p>
           ${ex.url?`<p style="margin-top:.5rem"><a class="tk-link" href="${esc(ex.url)}" target="_blank" rel="noopener">source ↗</a></p>`:''}
           ${alsoHTML(ex.also)}</div>`:''}
