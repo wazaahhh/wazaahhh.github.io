@@ -436,9 +436,9 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
   <a class="brand" href="#top">thomas <b>@ maillart.xyz</b></a>
   <nav class="nav">
     <a href="#focus">Focus</a>
+    <a href="#talks">Events</a>
     <a href="#citations">Citations</a>
     <a href="#grants">Grants</a>
-    <a href="#talks">Talks</a>
     <div class="swatches" id="swatches">
       <button class="swatch" data-theme="theme-volt" style="background:linear-gradient(90deg,#6d28d9 0 50%,#c6f432 50% 100%)" title="Volt — violet + lime"></button>
       <button class="swatch is-active" data-theme="theme-grey" style="background:linear-gradient(90deg,#555 0 50%,#bbb 50% 100%)" title="Greyscale"></button>
@@ -464,7 +464,7 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 {% assign research = site.research | where_exp:"i","i.published != false" %}
 
 <section id="focus"><div class="wrap reveal">
-  <div class="shead"><h2>Anticipating emergence</h2><span class="tag">one sentence · six ways to finish it</span></div>
+  <div class="shead"><h2>Anticipating emergence</h2></div>
   <p class="sub">Six research perspectives, each sized by current intensity, all attacking one fundamental problem from a different angle — <b>anticipating emergence in complex human systems</b>. Every one of them is the same sentence, finished differently. Hover a perspective to complete it.</p>
 
   <!-- the sentence machine: template stays put, the x/y/z slots fill on hover -->
@@ -502,8 +502,20 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
   <div class="tl-scene" id="view-timeline" hidden><div class="tl" id="tl"></div></div>
 </div></section>
 
+<section id="talks"><div class="wrap reveal">
+  <div class="shead"><h2>Future, Present, Past</h2></div>
+  <p class="sub">Research, talks, teaching, and the hackathons and programmes I run. Open one for the story behind it — recurring subjects share a single explanation.</p>
+  <div class="tfilters" id="talks-filter">
+    <button class="tf active" data-filter="time:future">Future</button>
+    <button class="tf" data-filter="time:present">Present</button>
+    <button class="tf" data-filter="time:past">Past</button>
+    <button class="tf" data-filter="all">All</button>
+  </div>
+  <div class="talks" id="talks-list"></div>
+</div></section>
+
 <section id="citations"><div class="wrap reveal">
-  <div class="shead"><h2>Citation intensity</h2><span class="tag">Google Scholar · year × field</span></div>
+  <div class="shead"><h2>Citation intensity</h2></div>
   <p class="sub">A revisited Scholar timeline — how citation intensity builds across years and shifts between fields. Darker = more intense; hover a cell for detail.
   {% unless site.data.citations %}<span class="note-illus">Illustrative model for now — run <code>scripts/fetch_scholar.py</code> to populate real Scholar data.</span>{% endunless %}</p>
   <div class="heat-scroll"><div class="heatmap" id="heatmap"></div></div>
@@ -540,18 +552,6 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
   </div>
 </div></section>
 -->
-
-<section id="talks"><div class="wrap reveal">
-  <div class="shead"><h2>Future, Present, Past</h2></div>
-  <p class="sub">Research, talks, teaching, and the hackathons and programmes I run. Open one for the story behind it — recurring subjects share a single explanation.</p>
-  <div class="tfilters" id="talks-filter">
-    <button class="tf active" data-filter="time:future">Future</button>
-    <button class="tf" data-filter="time:present">Present</button>
-    <button class="tf" data-filter="time:past">Past</button>
-    <button class="tf" data-filter="all">All</button>
-  </div>
-  <div class="talks" id="talks-list"></div>
-</div></section>
 
 <footer><div class="wrap">
   <strong>Thomas Maillart</strong> · University of Geneva

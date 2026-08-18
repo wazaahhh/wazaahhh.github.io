@@ -625,3 +625,22 @@
     sharpens the point rather than settling it: used alone it isolates and produces fast wrong
     answers; used collectively, with peers, review and shared evidence, it lets small teams
     analyse, prototype and localise faster than ever.
+
+- when: "2026"
+  date: "2026-09-08"
+  type: "talk"
+  up: true
+  title: "The science behind vibecoding, and how it has upgraded hackathons"
+  role: "Talk · 14:00"
+  venue: "ETH Zürich Main Building · Hacking Democracy, 7–11 September"
+  cat: "hackathons"
+  draft: true
+  blob: >
+    A talk inside a week-long build at ETH Zürich, organised by Dirk Helbing's group: two mornings
+    of short papers — vTaiwan and participatory budgeting in Winterthur, adaptive preference
+    elicitation, deliberation, voting as pluralistic optimisation, open government data, generative
+    AI — then teams form and spend three supervised days making something, closing with
+    presentations and prizes on the Friday. My slot falls on the Tuesday afternoon, immediately
+    before the building starts, which is the right moment for the question: what does the evidence
+    actually say about vibecoding, and what does AI-assisted building change about what a hackathon
+    can be expected to produce in five days?
