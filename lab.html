@@ -174,6 +174,10 @@ section { padding: 3.2rem 0; }
 /* dim the slots the x·y·z toggle is not asking about */
 .sentence .slot.mute { opacity:.34; }
 .sentence .slot.pick { border-style:solid; border-color:var(--accent); }
+.axis-note { color:var(--muted); font-size:.9rem; line-height:1.5; margin:.7rem 0 0; max-width:66ch;
+  min-height:2.7em; transition:opacity .2s ease; }
+.axis-note b { color:var(--ink); font-weight:600; }
+.axis-note .k { font-family:"Space Grotesk"; font-style:italic; font-weight:700; color:var(--accent); margin-right:.45em; }
 
 /* legend / timeline: the x·y·z triple replaces the old basic|applied badges */
 .xyz { display:block; margin:.15rem 0 .1rem; font-size:0; }
@@ -444,12 +448,13 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
       <button data-view="timeline">↕ Timeline (3D)</button>
     </div>
     <div class="seg" id="focus-slot">
-      <button class="active" data-slot="all">All six</button>
+      <button class="active" data-slot="all">none · all six</button>
       <button data-slot="x">x · the way</button>
       <button data-slot="y">y · the people</button>
       <button data-slot="z">z · the outcome</button>
     </div>
   </div>
+  <p class="axis-note" id="axis-note"></p>
   <div id="view-universe">
   <div class="venn-wrap">
     <svg class="venn" id="venn" viewBox="0 0 520 470" role="img" aria-label="Layered diagram of research threads">
@@ -899,8 +904,18 @@ const WRITING = [
   // No circle is ever hidden -- these are dimensions every perspective has a
   // value on, not buckets some of them fall into.
   const sseg=document.getElementById('focus-slot');
+  // One sentence per dimension: what it sorts on, and what its three values are.
+  // 'none' is the ungrouped default -- not a fourth dimension.
+  const AXIS_NOTE = {
+    all:'<b>Six perspectives, one sentence.</b> Each finishes it differently. Pick a dimension below to sort them by how they finish it — nothing is ever hidden.',
+    x:'<span class="k">x</span><b>How the work is done</b> — build an instrument, model what it shows, or mobilise people around it.',
+    y:'<span class="k">y</span><b>Who it is about</b> — one person, a group, or an entire system.',
+    z:'<span class="k">z</span><b>What it is for</b> — to see, to explain, or to act. Three ends, not three steps.',
+  };
+  const noteEl=document.getElementById('axis-note');
   function setSlot(axis){
     sseg.querySelectorAll('button').forEach(b=> b.classList.toggle('active', b.dataset.slot===axis));
+    if(noteEl) noteEl.innerHTML = AXIS_NOTE[axis] || AXIS_NOTE.all;
     renderLegend(axis);
     ['x','y','z'].forEach(k=>{
       slotEls[k].classList.toggle('mute', axis!=='all' && k!==axis);
@@ -912,6 +927,7 @@ const WRITING = [
     });
   }
   sseg.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) setSlot(b.dataset.slot); });
+  setSlot('all');   // paint the ungrouped note on load
 })();
 
 // ---- reveal + counters + node pop, via IntersectionObserver ----
