@@ -231,7 +231,9 @@ section { padding: 3.2rem 0; }
 .tl-year { font-family:"Space Grotesk"; font-weight:700; font-size:.78rem; color:var(--accent); }
 .tl-card b { font-family:"Space Grotesk"; display:block; font-size:.95rem; margin:.1rem 0; }
 .tl-card .yc { font-size:.76rem; color:var(--muted); }
-.tl-card .tl-eg { font-size:.82rem; color:var(--muted); margin:.25rem 0 0; }
+.tl-card .tl-say { font-size:.86rem; line-height:1.45; color:var(--ink); margin:.35rem 0 0; }
+.tl-card .tl-say i { font-style:normal; color:var(--muted); }
+.tl-card .tl-eg { font-size:.76rem; color:var(--muted); opacity:.8; margin:.3rem 0 0; }
 @media (max-width:680px){
   .tl::before { left:24px; }
   .tl-item, .tl-item.right { width:100%; left:0; text-align:left; padding:.9rem 1rem .9rem 4rem; }
@@ -448,7 +450,7 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
       <button data-view="timeline">↕ Timeline (3D)</button>
     </div>
     <div class="seg" id="focus-slot">
-      <button class="active" data-slot="all">none · all six</button>
+      <button class="active" data-slot="all">All</button>
       <button data-slot="x">x · the way</button>
       <button data-slot="y">y · the people</button>
       <button data-slot="z">z · the outcome</button>
@@ -877,6 +879,10 @@ const WRITING = [
     if(li && li.dataset.i!==undefined) focus(+li.dataset.i); });
   leg.addEventListener('mouseout', clearFocus);
 
+  // Each card states its own sentence, composed from the same say{} clauses the
+  // hover machine uses -- so a card can never contradict the sentence above it.
+  const sayHTML=t=> `<i>${LADDER.x.lead}</i> ${t.say.x}, <i>${LADDER.y.lead}</i> ${t.say.y}, <i>${LADDER.z.lead}</i> ${t.say.z}.`;
+
   // ---- build 3D timeline ----
   const tl=document.getElementById('tl');
   const tItems=[...THEMES].sort((a,b)=> b.year-a.year || b.intensity-a.intensity);
@@ -886,7 +892,8 @@ const WRITING = [
     return `<div class="tl-item ${side}" data-i="${t.i}" style="--c:${t.color};--d:${d}px;--h:${h}px;--i:${idx}">
       <div class="tl-bubble" title="${t.name}"></div>
       <div class="tl-card"><div class="tl-year">${t.year}</div><b>${t.name}</b>
-        <span class="xyz">${xyzHTML(t,null)}</span><span class="yc">${dots} · ${outc(t)} papers</span><p class="tl-eg">${t.eg}</p></div>
+        <span class="xyz">${xyzHTML(t,null)}</span><span class="yc">${dots} · ${outc(t)} papers</span>
+        <p class="tl-say">${sayHTML(t)}</p><p class="tl-eg">${t.eg}</p></div>
     </div>`;
   }).join('');
 
@@ -906,8 +913,11 @@ const WRITING = [
   const sseg=document.getElementById('focus-slot');
   // One sentence per dimension: what it sorts on, and what its three values are.
   // 'none' is the ungrouped default -- not a fourth dimension.
+  // spelled-out count, so the prose stays prose if a perspective is added/removed
+  const NUMW=['no','one','two','three','four','five','six','seven','eight','nine','ten'];
+  const nTh=NUMW[THEMES.length]||String(THEMES.length), NTh=nTh[0].toUpperCase()+nTh.slice(1);
   const AXIS_NOTE = {
-    all:'<b>Six perspectives, one sentence.</b> Each finishes it differently. Pick a dimension below to sort them by how they finish it — nothing is ever hidden.',
+    all:`<b>${NTh} perspectives, one sentence.</b> Each finishes it differently. Pick a dimension to sort them by how they finish it — nothing is ever hidden.`,
     x:'<span class="k">x</span><b>How the work is done</b> — build an instrument, model what it shows, or mobilise people around it.',
     y:'<span class="k">y</span><b>Who it is about</b> — one person, a group, or an entire system.',
     z:'<span class="k">z</span><b>What it is for</b> — to see, to explain, or to act. Three ends, not three steps.',
