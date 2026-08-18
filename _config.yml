@@ -1,5 +1,5 @@
 # Site settings
-title: thomas @ maillart.xyz
+title: maillart.xyz | thomas maillart
 email: thomas@maillart.xyz
 description: Research, grants & awards, and SDG-aligned hackathon impact
 url: "https://maillart.xyz"
@@ -12,13 +12,25 @@ theme: null
 # Ship the custom-domain file (Jekyll excludes CNAME by default).
 include: ["CNAME"]
 
+# Don't publish build/tooling files to the live site.
+exclude:
+  - scripts/
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - README.md
+
+# output:false -> the items stay readable from Liquid (site.research etc.) but
+# no standalone pages are published. They had no layout shell (no doctype/head/
+# CSS), nothing linked to them, and they were still crawlable. Flip back to true
+# once they get a real layout.
 collections:
   research:
-    output: true
+    output: false
   grants:
-    output: true
+    output: false
   sdg_hackathons:
-    output: true
+    output: false
 
 defaults:
   - scope:
