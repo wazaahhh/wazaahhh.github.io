@@ -533,11 +533,14 @@
   topic: "anticipation-briefs"
 
 - when: "2026"
+  date: "2026-09-27"
+  date_end: "2026-09-30"
   type: "research"
   up: true
-  tbc: true
   title: "Anchored Minds, Collective Foresight: How Collective Intelligence Reshapes the Perceived Ruggedness of a Smooth Problem"
-  venue: "Venue to be announced"
+  role: "Paper presentation"
+  venue: "ACM Collective Intelligence 2026 · Virginia Tech Academic Building One, near Washington, D.C."
+  url: "https://ci.acm.org/2026/topics.html"
   cat: "collective"
 
 - when: "2026"
