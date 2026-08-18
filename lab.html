@@ -178,6 +178,15 @@ section { padding: 3.2rem 0; }
   min-height:2.7em; transition:opacity .2s ease; }
 .axis-note b { color:var(--ink); font-weight:600; }
 .axis-note .k { font-family:"Space Grotesk"; font-style:italic; font-weight:700; color:var(--accent); margin-right:.45em; }
+.axis-tally { display:flex; flex-wrap:wrap; gap:.35rem; margin:.45rem 0 0; }
+.axis-tally span { font-family:"Space Grotesk"; font-weight:600; font-size:.7rem; color:var(--muted);
+  border:1px solid var(--line); border-radius:999px; padding:.1rem .5rem; background:var(--panel); }
+.axis-tally span b { color:var(--ink); font-weight:700; }
+/* when a dimension is picked, each card leans on that clause */
+.tl-say .c { transition:opacity .2s ease; }
+.tl-say[data-focus] .c { opacity:.3; }
+.tl-say[data-focus="x"] .c[data-k="x"], .tl-say[data-focus="y"] .c[data-k="y"],
+.tl-say[data-focus="z"] .c[data-k="z"] { opacity:1; }
 
 /* legend / timeline: the x·y·z triple replaces the old basic|applied badges */
 .xyz { display:block; margin:.15rem 0 .1rem; font-size:0; }
@@ -881,7 +890,9 @@ const WRITING = [
 
   // Each card states its own sentence, composed from the same say{} clauses the
   // hover machine uses -- so a card can never contradict the sentence above it.
-  const sayHTML=t=> `<i>${LADDER.x.lead}</i> ${t.say.x}, <i>${LADDER.y.lead}</i> ${t.say.y}, <i>${LADDER.z.lead}</i> ${t.say.z}.`;
+  const sayHTML=t=> `<span class="c" data-k="x"><i>${LADDER.x.lead}</i> ${t.say.x}</span>, `
+    + `<span class="c" data-k="y"><i>${LADDER.y.lead}</i> ${t.say.y}</span>, `
+    + `<span class="c" data-k="z"><i>${LADDER.z.lead}</i> ${t.say.z}</span>.`;
 
   // ---- build 3D timeline ----
   const tl=document.getElementById('tl');
@@ -918,14 +929,21 @@ const WRITING = [
   const nTh=NUMW[THEMES.length]||String(THEMES.length), NTh=nTh[0].toUpperCase()+nTh.slice(1);
   const AXIS_NOTE = {
     all:`<b>${NTh} perspectives, one sentence.</b> Each finishes it differently. Pick a dimension to sort them by how they finish it — nothing is ever hidden.`,
-    x:'<span class="k">x</span><b>How the work is done</b> — build an instrument, model what it shows, or mobilise people around it.',
-    y:'<span class="k">y</span><b>Who it is about</b> — one person, a group, or an entire system.',
-    z:'<span class="k">z</span><b>What it is for</b> — to see, to explain, or to act. Three ends, not three steps.',
+    x:'<span class="k">x</span><b>How the work is done</b> — instrument, model, mobilise. The weight sits in modelling: instruments feed the models, and mobilising is where a model is spent on people.',
+    y:'<span class="k">y</span><b>Who it is about</b> — person, group, system. The same machinery scales from screening one child to pricing risk for a whole sector.',
+    z:'<span class="k">z</span><b>What it is for</b> — see, explain, act. Three ends, not three steps: explaining is a finished outcome, not a stop on the way to acting.',
+  };
+  // live counts, so the numbers under the prose can never contradict the data
+  const tallyHTML=axis=>{
+    if(axis==='all') return '';
+    const m={}; THEMES.forEach(t=> m[t[axis]]=(m[t[axis]]||0)+1);
+    return '<div class="axis-tally">'+LADDER[axis].ordered
+      .map(v=>`<span>${v} <b>×${m[v]||0}</b></span>`).join('')+'</div>';
   };
   const noteEl=document.getElementById('axis-note');
   function setSlot(axis){
     sseg.querySelectorAll('button').forEach(b=> b.classList.toggle('active', b.dataset.slot===axis));
-    if(noteEl) noteEl.innerHTML = AXIS_NOTE[axis] || AXIS_NOTE.all;
+    if(noteEl) noteEl.innerHTML = (AXIS_NOTE[axis] || AXIS_NOTE.all) + tallyHTML(axis);
     renderLegend(axis);
     ['x','y','z'].forEach(k=>{
       slotEls[k].classList.toggle('mute', axis!=='all' && k!==axis);
@@ -934,6 +952,8 @@ const WRITING = [
     tl.querySelectorAll('.tl-item').forEach(it=>{
       const t=THEMES[+it.dataset.i], box=it.querySelector('.xyz');
       if(box) box.innerHTML = xyzHTML(t, axis==='all'?null:axis);
+      const sayEl=it.querySelector('.tl-say');
+      if(sayEl){ if(axis==='all') sayEl.removeAttribute('data-focus'); else sayEl.setAttribute('data-focus', axis); }
     });
   }
   sseg.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) setSlot(b.dataset.slot); });
