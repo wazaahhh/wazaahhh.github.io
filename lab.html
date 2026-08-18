@@ -281,6 +281,9 @@ section { padding: 3.2rem 0; }
 .fund-toggle:hover { color:var(--ink); }
 .fund-toggle:hover .pm { border-color:var(--accent); background:var(--accent-soft); transform:scale(1.06); }
 .fund-toggle:focus-visible { outline:2px solid var(--accent); outline-offset:3px; border-radius:4px; }
+.fx-note { font-size:.74rem; color:var(--muted); margin:.35rem 0 0; }
+.fx-note b { font-weight:600; color:var(--ink); }
+.fx-note .live { color:var(--accent); font-weight:600; }
 .fund-body[hidden] { display:none; }
 .fund-body { margin-top:1.1rem; animation:fundin .4s ease both; }
 @keyframes fundin { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:none; } }
@@ -528,6 +531,7 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
     <span class="fund-total" id="fund-total">—</span>
     <span class="fund-sub">raised across <b id="fund-n">—</b> grants &amp; contracts</span>
   </div>
+  <p class="fx-note" id="fx-note"></p>
   <button class="fund-toggle" id="fund-toggle" type="button" aria-expanded="false" aria-controls="fund-body">
     <span class="pm" aria-hidden="true">+</span><span class="lbl">Show the funding timeline</span>
   </button>
@@ -723,18 +727,51 @@ const GRANTS=[
   const Y0=2012, Y1=2027, span=Y1-Y0;
   const roleColor={PI:'#6d28d9', Partner:'#22d3ee', Co:'#9aa0aa'};  // fixed → stay colored in any theme
   const roleName={PI:'Principal Investigator', Partner:'Project partner', Co:'Co-applicant'};
-  const fmt=k=> k>=1000 ? 'CHF '+(k/1000).toFixed(2).replace(/\.?0+$/,'')+'M' : 'CHF '+Math.round(k)+'k';
+  // Amounts are awarded in CHF and shown in USD. The rate is fetched from the ECB
+  // (via Frankfurter, no key, CORS-open) once a day and cached; the pinned value is
+  // the fallback when that fetch cannot happen. Nothing here needs a server.
+  const FX={ rate:1.2307, date:'2026-08-18', live:false };
+  const fmt=k=>{ const u=k*FX.rate;
+    return u>=1000 ? 'USD '+(u/1000).toFixed(2).replace(/\.?0+$/,'')+'M' : 'USD '+Math.round(u)+'k'; };
+  const fmtCHF=k=> k>=1000 ? 'CHF '+(k/1000).toFixed(2).replace(/\.?0+$/,'')+'M' : 'CHF '+Math.round(k)+'k';
   const esc=s=> String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
-  document.getElementById('fund-total').textContent=fmt(GRANTS.reduce((a,b)=>a+b.k,0));
+  const totalK=GRANTS.reduce((a,b)=>a+b.k,0);
   document.getElementById('fund-n').textContent=GRANTS.length;
+  const paintFx=()=>{
+    document.getElementById('fund-total').textContent=fmt(totalK);
+    g.querySelectorAll('.g-label span[data-k]').forEach(el=>{
+      el.textContent = el.dataset.f + ' · ' + fmt(+el.dataset.k); });
+    g.querySelectorAll('.g-bar[data-k]').forEach(b=>{
+      b.dataset.d = b.dataset.p + ' · ' + fmt(+b.dataset.k) + ' (' + fmtCHF(+b.dataset.k) + ') · ' + b.dataset.r; });
+    const n=document.getElementById('fx-note');
+    if(n) n.innerHTML = `Awarded in CHF, shown in USD at <b>1 CHF = ${FX.rate.toFixed(4)} USD</b> · `
+      + (FX.live ? `<span class="live">live ECB rate</span>, ${FX.date}` : `ECB rate of ${FX.date}`);
+  };
+  paintFx();
+  // refresh the rate at most once a day, and never block the render on it
+  (async()=>{
+    const KEY='fx.chf.usd';
+    try{
+      const c=JSON.parse(localStorage.getItem(KEY)||'null');
+      if(c && (Date.now()-c.t) < 864e5){ FX.rate=c.rate; FX.date=c.date; FX.live=true; paintFx(); return; }
+      const r=await fetch('https://api.frankfurter.dev/v1/latest?base=CHF&symbols=USD', {cache:'no-store'});
+      const j=await r.json();
+      if(j && j.rates && j.rates.USD){
+        FX.rate=j.rates.USD; FX.date=j.date; FX.live=true;
+        localStorage.setItem(KEY, JSON.stringify({rate:j.rates.USD, date:j.date, t:Date.now()}));
+        paintFx();
+      }
+    }catch(e){ /* pinned fallback already on screen */ }
+  })();
   const ks=GRANTS.map(x=>Math.sqrt(x.k)), kmin=Math.min(...ks), kmax=Math.max(...ks);
   const thick=k=> 6 + (Math.sqrt(k)-kmin)/(kmax-kmin)*22;   // amount → bar thickness 6..28px
   const rows=[...GRANTS].sort((a,b)=> b.s-a.s || b.k-a.k);  // most recent on top
   g.innerHTML=rows.map((x,i)=>{
     const left=(x.s-Y0)/span*100, width=(x.e+1-x.s)/span*100, h=thick(x.k);
-    return `<div class="g-row"><div class="g-label"><b>${x.n}</b><span>${x.f} · ${fmt(x.k)}</span></div>
+    return `<div class="g-row"><div class="g-label"><b>${x.n}</b><span data-f="${esc(x.f)}" data-k="${x.k}">${x.f} · ${fmt(x.k)}</span></div>
       <div class="g-track"><div class="g-bar" style="--i:${i};left:${left}%;width:${width}%;height:${h}px;background:${roleColor[x.role]}"
-        data-n="${esc(x.n)}" data-f="${esc(x.f)}" data-d="${x.s}–${x.e} · ${fmt(x.k)} · ${roleName[x.role]}"></div></div></div>`;
+        data-n="${esc(x.n)}" data-f="${esc(x.f)}" data-k="${x.k}" data-p="${x.s}–${x.e}" data-r="${roleName[x.role]}"
+        data-d="${x.s}–${x.e} · ${fmt(x.k)} · ${roleName[x.role]}"></div></div></div>`;
   }).join('');
   let ticks=''; for(let y=Y0;y<=2026;y+=2) ticks+=`<div class="g-tick" style="left:${(y-Y0)/span*100}%">’${String(y).slice(2)}</div>`;
   g.insertAdjacentHTML('afterend', `<div class="g-axis"><div></div><div class="g-ticks">${ticks}</div></div>`);
