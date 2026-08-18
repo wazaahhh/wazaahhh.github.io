@@ -330,6 +330,28 @@ section { padding: 3.2rem 0; }
 .tf .dot { width:9px; height:9px; border-radius:50%; background:var(--tfc, var(--muted)); }
 .tk-type { display:inline-block; font-size:.62rem; font-weight:600; text-transform:uppercase; letter-spacing:.04em;
   padding:.02rem .35rem; border-radius:4px; background:var(--accent-soft); color:var(--accent); margin-right:.45rem; vertical-align:.06em; }
+.tk-type[data-t=research] { background:rgba(34,211,238,.16); color:#0e7490; }
+.tk-type[data-t=talk]     { background:var(--accent-soft); color:var(--accent); }
+.tk-type[data-t=teaching] { background:rgba(255,122,26,.15); color:#c2410c; }
+.tk-type[data-t=impact]   { background:rgba(168,85,247,.16); color:#7e22ce; }
+.tk-more { width:19px; height:19px; flex:0 0 auto; border-radius:50%; border:1px solid var(--line);
+  background:var(--panel); color:var(--accent); font-family:ui-monospace,monospace; font-size:.78rem;
+  line-height:1; cursor:pointer; padding:0; margin-right:.45rem; vertical-align:.1em;
+  transition:border-color .15s, background .15s; }
+.tk-more:hover { border-color:var(--accent); background:var(--accent-soft); }
+.tk-soon { font-size:.72rem; color:var(--muted); opacity:.75; font-style:italic; }
+.tk-blob { margin:.55rem 0 .3rem; padding:.7rem .9rem; border-left:2px solid var(--cat,var(--line));
+  background:var(--panel); border-radius:0 10px 10px 0; }
+.tk-blob[hidden] { display:none; }
+.tk-blob p { margin:0; font-size:.87rem; line-height:1.55; color:var(--ink); }
+.tk-blob .b-head { font-family:"Space Grotesk"; font-weight:700; font-size:.72rem; text-transform:uppercase;
+  letter-spacing:.08em; color:var(--muted); margin:0 0 .35rem; }
+.tk-blob .b-draft { font-weight:600; color:var(--wire); text-transform:none; letter-spacing:0; }
+.tk-blob .also { margin:.6rem 0 0; padding:.55rem 0 0; border-top:1px solid var(--line); font-size:.8rem; color:var(--muted); }
+.tk-blob .also b { display:block; font-family:"Space Grotesk"; font-size:.7rem; text-transform:uppercase;
+  letter-spacing:.08em; margin-bottom:.3rem; }
+.tk-blob .also li { margin:.12rem 0; }
+.tk-blob ul { margin:0; padding-left:1.1rem; }
 @media (max-width:680px){ .talk{ grid-template-columns:64px 1fr; gap:.7rem; } }
 
 /* ---------- citation intensity heatmap ---------- */
@@ -519,7 +541,7 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 
 <section id="talks"><div class="wrap reveal">
   <div class="shead"><h2>Future, Present, Past</h2></div>
-  <p class="sub">Invited talks, conference papers, and the events I chair or organise.</p>
+  <p class="sub">Research, talks, teaching, and the hackathons and programmes I run. Open one for the story behind it — recurring subjects share a single explanation.</p>
   <div class="tfilters" id="talks-filter">
     <button class="tf active" data-filter="time:future">Future</button>
     <button class="tf" data-filter="time:present">Present</button>
@@ -732,21 +754,61 @@ const GRANTS=[
 
 // ---- public interventions (up next / past) — editable ----
 // Editable content lives in _data/talks.yml (injected at build).
-const TALKS = {{ site.data.talks | jsonify }};
-(function renderTalks(){
+const EVENTS = {{ site.data.events | jsonify }};
+const TOPICS = {{ site.data.topics | jsonify }};
+(function renderEvents(){
   const box=document.getElementById('talks-list'); if(!box) return;
   const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const CATC={forecasting:'#16e0ff', complex:'#3b82f6', hackathons:'#a855f7', collective:'#ffd23f', cyber:'#ff2d9b', social:'#c6f432'};
+  const TLAB={research:'Research', talk:'Talk', teaching:'Teaching', impact:'Impact'};
   const byYear=(a,b)=> parseInt(b.when)-parseInt(a.when);
-  const all=[...TALKS].sort((a,b)=> (b.up?1:0)-(a.up?1:0) || byYear(a,b));  // upcoming first, then year desc
-  const tlabel=t=> t.up?'Up next' : t.type==='invited'?'Invited' : t.type==='talk'?'Conference' : 'Chairing';
+  const all=[...EVENTS].sort((a,b)=> (b.up?1:0)-(a.up?1:0) || byYear(a,b));
   const NOW=new Date().getFullYear();
   const bucket=t=>{ const y=parseInt(t.when)||0; return (t.up||y>NOW) ? 'future' : (y===NOW ? 'present' : 'past'); };
-  const row=t=>`<div class="talk${t.up?' up':''}" data-type="${t.type}" data-time="${bucket(t)}" data-cat="${t.cat||''}"${t.cat?` style="--cat:${CATC[t.cat]||'transparent'}"`:''}>
+  const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const nice=d=>{ const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d||''); return m ? (+m[3])+' '+MON[+m[2]-1]+' '+m[1] : ''; };
+  const range=(a,b)=>{ const x=/^(\d{4})-(\d{2})-(\d{2})$/.exec(a||''), y=/^(\d{4})-(\d{2})-(\d{2})$/.exec(b||'');
+    if(!x||!y) return nice(a);
+    return x[1]===y[1] && x[2]===y[2] ? (+x[3])+'–'+(+y[3])+' '+MON[+x[2]-1]+' '+x[1] : nice(a)+' – '+nice(b); };
+
+  // an event explains itself either with its own blob or by pointing at a shared topic
+  const explain=t=>{
+    if(t.blob) return {text:t.blob, url:t.url, draft:t.draft, also:[]};
+    const tp = t.topic && TOPICS ? TOPICS[t.topic] : null;
+    if(!tp) return null;
+    return {text:tp.blob, head:tp.title, url:tp.url||t.url, draft:tp.draft,
+            also:EVENTS.filter(e=> e.topic===t.topic && e!==t)};
+  };
+
+  const alsoHTML=list=> !list.length ? '' :
+    `<div class="also"><b>${list.length} other engagement${list.length>1?'s':''} on this subject</b><ul>`
+    + list.map(e=>`<li>${esc(e.title)} — ${esc(e.venue)}${e.date?' · '+nice(e.date):''}</li>`).join('')
+    + `</ul></div>`;
+
+  const row=(t,i)=>{
+    const ex=explain(t);
+    const meta=[ t.role&&t.role!=='Talk'?esc(t.role):'', esc(t.venue) ].filter(Boolean).join(' · ');
+    const when = t.date ? (t.date_end ? range(t.date, t.date_end) : nice(t.date)) : esc(t.when);
+    return `<div class="talk${t.up?' up':''}" data-type="${t.type}" data-time="${bucket(t)}" data-cat="${t.cat||''}"${t.cat?` style="--cat:${CATC[t.cat]||'transparent'}"`:''}>
       <div class="tk-when">${esc(t.when)}</div>
-      <div><div class="tk-title">${esc(t.title)}</div>
-        <div class="tk-meta"><span class="tk-type">${tlabel(t)}</span>${t.role&&t.role!=='Talk'?esc(t.role)+' · ':''}${esc(t.venue)}${t.url?` · <a class="tk-link" href="${esc(t.url)}" target="_blank" rel="noopener">preprint ↗</a>`:''}</div></div></div>`;
+      <div><div class="tk-title">${ex?`<button class="tk-more" type="button" aria-expanded="false" aria-controls="blob-${i}" aria-label="Show details">+</button>`:''}${esc(t.title)}</div>
+        <div class="tk-meta"><span class="tk-type" data-t="${t.type}">${TLAB[t.type]||t.type}</span>${meta}${t.date?' · '+when:''}${t.tbc?' · <span class="tk-soon">to be confirmed</span>':''}${t.url&&!ex?` · <a class="tk-link" href="${esc(t.url)}" target="_blank" rel="noopener">link ↗</a>`:''}${!ex&&bucket(t)==='future'?' · <span class="tk-soon">details soon</span>':''}</div>
+        ${ex?`<div class="tk-blob" id="blob-${i}" hidden>
+          ${ex.head?`<p class="b-head">${esc(ex.head)}${ex.draft?' · <span class="b-draft">draft — needs your review</span>':''}</p>`:(ex.draft?'<p class="b-head"><span class="b-draft">draft — needs your review</span></p>':'')}
+          <p>${esc(ex.text)}</p>
+          ${ex.url?`<p style="margin-top:.5rem"><a class="tk-link" href="${esc(ex.url)}" target="_blank" rel="noopener">source ↗</a></p>`:''}
+          ${alsoHTML(ex.also)}</div>`:''}
+      </div></div>`;
+  };
   box.innerHTML=`<div class="talks-scroll">`+all.map(row).join('')+`</div>`;
+
+  box.addEventListener('click', e=>{
+    const b=e.target.closest('.tk-more'); if(!b) return;
+    const panel=document.getElementById(b.getAttribute('aria-controls')); if(!panel) return;
+    const open=b.getAttribute('aria-expanded')!=='true';
+    panel.hidden=!open; b.setAttribute('aria-expanded', String(open)); b.textContent = open?'\u2212':'+';
+  });
+
   // filter bar (single-select; future / present / past / all)
   const apply=f=> box.querySelectorAll('.talk').forEach(r=>{
     const show = f==='all'
@@ -778,7 +840,7 @@ const WRITING = [
   const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const codeT=(GACT&&GACT.repos||[]).map(r=>({type:'code', title:r.name, meta:r.key_sentence||r.desc, foot:r.last_push+' · '+r.n_commits+' commits', url:r.url}));
   const writeT=WRITING.map(w=>({type:'writing', title:w.title, meta:w.meta, foot:'in progress', url:w.url}));
-  const talkT=TALKS.filter(t=>t.up).map(t=>({type:'talk', title:t.title, meta:t.venue+' · '+t.role, foot:t.when, url:'#talks'}));
+  const talkT=EVENTS.filter(t=>t.up).map(t=>({type:'talk', title:t.title, meta:t.venue+' · '+t.role, foot:t.when, url:'#talks'}));
   // round-robin interleave, cap 10
   const lists=[codeT,writeT,talkT], flight=[]; let i=0;
   while(flight.length<10 && lists.some(l=>l.length)){ const l=lists[i++%3]; if(l.length) flight.push(l.shift()); }

@@ -1,0 +1,56 @@
+# Shared explanations. An event in _data/events.yml points here with `topic: <key>`,
+# and every event carrying that key is listed under the blob automatically — so a
+# recurring subject is explained once, not once per appearance.
+#
+# Fields: title, blob (~100 words), url (optional), draft (blob not yet reviewed).
+
+computational-diplomacy:
+  title: "Computational diplomacy"
+  draft: true
+  blob: >
+    Diplomacy runs on judgement under uncertainty: too many actors, too many signals, decisions
+    owed before the evidence settles. Computational diplomacy asks what happens when the tools of
+    complex-systems science — network analysis, simulation, collective intelligence, machine
+    reading of the negotiation record — are put at the service of that work rather than around it.
+    The question is not whether a model can replace a diplomat, but which parts of anticipation
+    can be made explicit, shared and contested. Geneva is the natural laboratory: the
+    organisations, the archives and the negotiations are all within walking distance. These
+    sessions bring visiting student cohorts into that laboratory.
+
+anticipation-briefs:
+  title: "Anticipation briefs and the economy of adaptation"
+  draft: true
+  blob: >
+    An anticipation brief is a short, decidable document: a weak signal, what would have to be
+    true for it to matter, who it lands on, and what could be done now rather than later. It is
+    the working unit that turns foresight from an essay into something an organisation can act
+    on. The economy of adaptation is the other half of the argument — adaptation is not free, and
+    the cost of moving early against the cost of being late is itself a thing to be estimated.
+    International Geneva is the test case: mandates are long, budgets are fixed, and the signals
+    arrive first here.
+
+sdg-open-hack:
+  title: "SDG Open Hack"
+  draft: true
+  blob: >
+    SDG Open Hack is a hackathon built as a learning programme rather than a weekend. It runs in
+    four phases: preparation with the partner organisations, pre-hack micro-learning that gets
+    every participant to a shared floor, the hackathon itself where teams co-design projects
+    against SDG-aligned challenges, and a follow-up phase that decides what survives. Quality
+    assurance and certification are part of the design, so participation produces a credential
+    and not just a memory. The model came out of Open Geneva and is now delivered with
+    institutional partners, which is what makes a grand finale in another region possible at all.
+
+geneva-quantum-hack:
+  title: "Geneva Quantum Hack"
+  url: "https://indico.cern.ch/event/1631283/overview"
+  draft: true
+  blob: >
+    A three-day hackathon at CERN IdeaSquare where students work on real problems in quantum
+    technology with a mentor embedded in each team. The 2026 edition put around forty students —
+    CERN summer students alongside participants from Geneva, EPFL, ETH Zurich and Basel — on
+    quantum materials challenges proposed by industry and research partners, with access to
+    actual quantum hardware; for many it was the first time running code on a quantum computer.
+    It is run with the Open Quantum Institute, the CERN Quantum Technology Initiative, openlab,
+    IdeaSquare and Quantum4Purpose, and framed throughout by the SDGs. The third edition turns to
+    space.

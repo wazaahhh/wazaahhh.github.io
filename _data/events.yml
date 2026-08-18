@@ -1,491 +1,593 @@
-# Public interventions.
-#   type: role  -> chairing / organising / programme design (community leadership)
-#   type: talk  -> scientific conference presentation (scraped from the publication list)
-#   up: true    -> upcoming, listed under "▲ Up next" (and surfaced in the In-flight carousel)
-#   cat         -> research category for colour-coding (matches the 6 universe circles):
-#                  forecasting | complex | hackathons | collective | cyber | social
-# Fields: when, type, title, role (optional, defaults to "Talk" for talks), venue, cat.
+# Events — one file for everything I show up to do.
+#
+#   type: research   -> presenting my own work (conference paper, seminar, defence)
+#   type: talk       -> invited talk, keynote, panel
+#   type: teaching   -> courses, student cohorts, executive sessions
+#   type: impact     -> hackathons, chairing, organising, programme design
+#
+#   To appear on the site an event needs a ~100-word explanation. Two ways:
+#     topic: <slug>  -> shared blob in _data/topics.yml. Several events on the same
+#                       subject point at one blob, and the blob lists them all.
+#     blob: >        -> an explanation specific to this event.
+#   An event with neither renders as a title with "details soon" and no expander.
+#
+#   when:    "2026" or "2026–27" (year drives the Future/Present/Past bucket)
+#   date:    "2026-08-10" optional, for a precise day; shown in the meta line
+#   status:  upcoming | ongoing | past — optional, overrides the derived bucket
+#   up:      true -> pin to Future regardless of year
+#   cat:     forecasting | complex | hackathons | collective | cyber | social
+#   tbc:     true -> date not yet confirmed
+#   draft:   true -> blob written from public sources, not yet reviewed by TM
+#
+# Fields: when, date, type, title, role, venue, host, host_url, url, cat,
+#         status, up, tbc, topic, blob, draft.
 
-# ----------------------------------------------------------------------------
-# Chairing & organising
-# ----------------------------------------------------------------------------
 - when: "2026"
-  type: role
+  type: "impact"
   up: true
   title: "SDG Open Hack — certificate programme"
   role: "Programme design"
   venue: "Geneva"
+  cat: "hackathons"
+  topic: "sdg-open-hack"
 
 - when: "2026–27"
-  type: role
+  type: "impact"
   up: true
   title: "Translational Futures"
   role: "Lead researcher"
   venue: "Tech Hub · Geneva"
 
 - when: "2026"
-  type: talk
-  cat: forecasting
+  type: "research"
   title: "Explainable Forecasting of Scientific Breakthroughs from Concept Network Dynamics"
   venue: "Global Tech Mining Conference (GTM2026)"
   url: "https://arxiv.org/abs/2606.03864"
+  cat: "forecasting"
 
 - when: "2026"
-  type: talk
-  cat: forecasting
+  type: "research"
   title: "Forecasting Conceptual Diffusion in Science: The Case of Quantum Computing"
   venue: "Global Tech Mining Conference (GTM2026)"
   url: "https://arxiv.org/abs/2606.03919"
+  cat: "forecasting"
 
 - when: "2023"
-  type: role
+  type: "impact"
   title: "HackTheHack — Int'l Conference on Hackathons"
   role: "General co-chair"
   venue: "Geneva"
 
 - when: "2023"
-  type: role
+  type: "impact"
   title: "WEIS — Workshop on Economics of Information Security"
   role: "General chair"
   venue: "Geneva"
 
 - when: "2021"
-  type: role
+  type: "impact"
   title: "CRITIS — Critical Information Infrastructures Security"
   role: "General chair"
   venue: "Lausanne"
 
 - when: "2021"
-  type: role
+  type: "impact"
   title: "Geneva Trialogue"
   role: "Organiser"
   venue: "Geneva"
 
 - when: "2018"
-  type: role
+  type: "impact"
   title: "Geneva Trialogue"
   role: "Organiser"
   venue: "Geneva"
 
 - when: "2017"
-  type: role
+  type: "impact"
   title: "Algorithmic Design for Hybrid Collective Intelligence (CCS satellite)"
   role: "Organiser"
   venue: "Cancún"
 
 - when: "2016"
-  type: role
+  type: "impact"
   title: "Open Science for an Open Society (CCS satellite)"
   role: "Organiser"
   venue: "Amsterdam"
 
 - when: "2014"
-  type: role
+  type: "impact"
   title: "Systems Resilience in the Digital Society (NetSci)"
   role: "Organiser"
   venue: "UC Berkeley"
 
-# ----------------------------------------------------------------------------
-# Conference talks & papers (from the peer-reviewed publication list)
-# ----------------------------------------------------------------------------
 - when: "2023"
-  type: talk
-  cat: social
+  type: "research"
   title: "The AI4Autism Project: A Multimodal & Interdisciplinary Approach to Autism Diagnosis"
   venue: "Int'l Conference on Multimodal Interaction (ICMI)"
+  cat: "social"
 
 - when: "2022"
-  type: talk
-  cat: forecasting
+  type: "research"
   title: "Forecasting Technological Convergence: A Network-Analytics Approach"
   venue: "Global Tech Mining Conference"
+  cat: "forecasting"
 
 - when: "2022"
-  type: talk
-  cat: forecasting
+  type: "research"
   title: "Forecasting Technology Development in Computer Science: A Carrying-Capacity Indicator"
   venue: "Information Processing & Management Conference (IP&MC)"
+  cat: "forecasting"
 
 - when: "2022"
-  type: talk
-  cat: hackathons
+  type: "research"
   title: "Innovation and Certainty in Law: European Antitrust Enforcement"
   venue: "6th Annual Conference on Competition Policy · Bergen"
+  cat: "hackathons"
 
 - when: "2022"
-  type: talk
-  cat: hackathons
+  type: "research"
   title: "Innovation and Certainty in Law: European Antitrust Enforcement"
   venue: "EARIE · Vienna"
+  cat: "hackathons"
 
 - when: "2022"
-  type: talk
-  cat: cyber
+  type: "research"
   title: "Efficient Collective Action for Tackling Time-Critical Cybersecurity Threats"
   venue: "Workshop on Economics of Information Security (WEIS) · Tulsa"
+  cat: "cyber"
 
 - when: "2021"
-  type: talk
-  cat: hackathons
+  type: "research"
   title: "Play and Work for Greater Good: The Case of Hackathons"
   venue: "European Group for Organizational Studies (EGOS)"
+  cat: "hackathons"
 
 - when: "2019"
-  type: talk
-  cat: cyber
+  type: "research"
   title: "A Research Agenda for Cyber Risk and Cyber Insurance"
   venue: "Workshop on Economics of Information Security (WEIS) · Boston"
+  cat: "cyber"
 
 - when: "2019"
-  type: talk
-  cat: social
+  type: "research"
   title: "Detection by Behavioral Response to Haptic Stimuli"
   venue: "SLEEP (conference abstract)"
+  cat: "social"
 
 - when: "2018"
-  type: talk
-  cat: cyber
+  type: "research"
   title: "Designing Organizations for Cyber Security Resilience"
   venue: "Workshop on Economics of Information Security (WEIS) · Innsbruck"
+  cat: "cyber"
 
 - when: "2017"
-  type: talk
-  cat: collective
+  type: "research"
   title: "Designing Organizations for Productive Bursts"
   venue: "Open User Innovation (OUI) Conference · Innsbruck"
+  cat: "collective"
 
 - when: "2017"
-  type: talk
-  cat: social
+  type: "research"
   title: "The Social Bio-Sensory Lab: Unpacking the Origins of Collective Intelligence"
   venue: "Workshop on Computational Modeling, VR, Robotics & Neuroscience · Campus Biotech, Geneva"
+  cat: "social"
 
 - when: "2017"
-  type: talk
-  cat: complex
+  type: "research"
   title: "On the Stability of the Scale-Free Principle to Fine-Grained Non-Linear Dynamics"
   venue: "NetSci-X · Tel-Aviv"
+  cat: "complex"
 
 - when: "2016"
-  type: talk
-  cat: collective
+  type: "research"
   title: "Enhancing Online Community Building & Long-Term Production with Co-Located Events"
   venue: "Conference on Complex Systems (CCS)"
+  cat: "collective"
 
 - when: "2016"
-  type: talk
-  cat: complex
+  type: "research"
   title: "Cooperation on the Tipping Point: How Rules, Norms & Law Violations Undermine Society"
   venue: "Conference on Complex Systems (CCS) · Law and Complexity"
+  cat: "complex"
 
 - when: "2016"
-  type: talk
-  cat: complex
+  type: "research"
   title: "Patterns of Human Learning in Complex Systems"
   venue: "Conference on Complex Systems (CCS)"
+  cat: "complex"
 
 - when: "2016"
-  type: talk
-  cat: cyber
+  type: "research"
   title: "Given Enough Eyeballs, All Bugs Are Shallow? Revisiting Eric Raymond with Bug Bounties"
   venue: "Workshop on Economics of Information Security (WEIS) · Berkeley"
+  cat: "cyber"
 
 - when: "2016"
-  type: talk
-  cat: hackathons
+  type: "research"
   title: "On the Importance of Co-Located Events for Community Building & Long-Term Online Production"
   venue: "Collective Intelligence · New York"
+  cat: "hackathons"
 
 - when: "2015"
-  type: talk
-  cat: cyber
+  type: "research"
   title: "Caviar and Yachts: How Your Purchase Data May Come Back to Haunt You"
   venue: "Workshop on Economics of Information Security (WEIS) · Delft"
+  cat: "cyber"
 
 - when: "2015"
-  type: talk
-  cat: social
+  type: "research"
   title: "Improving Physiological Signal Classification Using Logarithmic Quantization"
   venue: "Int'l Conference on Physiological Computing Systems (PhyCS)"
+  cat: "social"
 
 - when: "2015"
-  type: talk
-  cat: collective
+  type: "research"
   title: "The Virtuous Circle of Wikipedia: Recursive Measures of Collaboration Structures"
   venue: "CSCW · Vancouver"
+  cat: "collective"
 
 - when: "2014"
-  type: talk
-  cat: cyber
+  type: "research"
   title: "My Thoughts Are Not Your Thoughts"
   venue: "UbiComp · Seattle"
+  cat: "cyber"
 
 - when: "2014"
-  type: talk
-  cat: cyber
+  type: "research"
   title: "Government Surveillance and Incentives to Abuse Power"
   venue: "Workshop on Economics of Information Security (WEIS) · State College"
+  cat: "cyber"
 
 - when: "2014"
-  type: talk
-  cat: collective
+  type: "research"
   title: "Characterizing Contribution Strategies & Quality with Bi-Partite Networks in Wikipedia"
   venue: "NetSci · Berkeley"
+  cat: "collective"
 
 - when: "2014"
-  type: talk
-  cat: collective
+  type: "research"
   title: "Using Prediction Markets to Incentivize & Measure Collective Knowledge Production"
   venue: "Collective Intelligence · Boston"
+  cat: "collective"
 
 - when: "2014"
-  type: talk
-  cat: collective
+  type: "research"
   title: "Productive Bursts in Group Collaboration"
   role: "Poster"
   venue: "IPAM Conference on Mathematics of Social Learning · UCLA"
+  cat: "collective"
 
 - when: "2012"
-  type: talk
-  cat: collective
+  type: "research"
   title: "License Reuse Practices and Violations in Open Source Software"
   venue: "7th Annual EPIP Conference 'IP in Motion' · Leuven"
+  cat: "collective"
 
 - when: "2012"
-  type: talk
-  cat: collective
+  type: "research"
   title: "Disentangling Reuse Practices and License Violations in Open Source Software"
   venue: "Workshop on Law & Economics of IP · Schloss Ringberg"
+  cat: "collective"
 
 - when: "2012"
-  type: talk
-  cat: complex
+  type: "research"
   title: "Exploring the Limits of Safety Analysis in Complex Technological Systems"
   role: "Poster"
   venue: "Latsis Symposium · ETH Zurich"
+  cat: "complex"
 
 - when: "2011"
-  type: talk
-  cat: complex
+  type: "research"
   title: "Long Memory Processes in Human Dynamics & Implications for Fast-Changing Regulation"
   venue: "IMPRS-CI · München / Wildbad Kreuth"
+  cat: "complex"
 
 - when: "2011"
-  type: talk
-  cat: complex
+  type: "research"
   title: "Nuclear Energy and the Stability of Human Societies"
   venue: "Int'l Workshop on Coping with Crises in Complex Socio-Economic Systems · Zurich"
+  cat: "complex"
 
 - when: "2010"
-  type: talk
-  cat: collective
+  type: "research"
   title: "Colliding Cascades in OSS Development — The Virus of Open Source"
   venue: "Conference Knowledge in Organisations (KIO) · Ascona"
+  cat: "collective"
 
 - when: "2009"
-  type: talk
-  cat: complex
+  type: "research"
   title: "Beyond Shannon: Characterizing Internet Traffic with Generalized Entropy Metrics"
   venue: "Passive and Active Network Measurement (PAM)"
+  cat: "complex"
 
 - when: "2009"
-  type: talk
-  cat: cyber
+  type: "research"
   title: "Multi-Scale Approach to Decipher and Understand Cyber-Risks"
   venue: "Int'l Workshop on Coping with Crises in Complex Socio-Economic Systems · Zurich"
+  cat: "cyber"
 
 - when: "2008"
-  type: talk
-  cat: cyber
+  type: "research"
   title: "The Heavy-Tailed Distribution of Cyber-Risks: From Potential Threats to Measurable Damages"
   venue: "ISIS Conference on Information Risk · Ascona"
+  cat: "cyber"
 
-# ----------------------------------------------------------------------------
-# Invited talks & seminars  — DRAFT scraped from /work/Presentations filenames.
-# Titles & venues are INFERRED from file names; please verify / correct.
-# ----------------------------------------------------------------------------
 - when: "2025"
-  type: invited
-  cat: forecasting
+  type: "talk"
   title: "Back to the Future: forecasting technological breakthroughs"
   venue: "ETH Zurich"
+  cat: "forecasting"
 
 - when: "2025"
-  type: invited
-  cat: cyber
+  type: "talk"
   title: "Building a Theory of (Digital) Resilience"
   venue: "ETH Zurich · Helbing group"
+  cat: "cyber"
 
 - when: "2025"
-  type: invited
-  cat: forecasting
+  type: "talk"
   title: "Forecasting breakthroughs"
   venue: "Stanford LEADS"
+  cat: "forecasting"
 
 - when: "2025"
-  type: invited
-  cat: forecasting
+  type: "talk"
   title: "Breakthroughs & stewardship"
   venue: "Singapore GovTech"
+  cat: "forecasting"
 
 - when: "2024"
-  type: invited
-  cat: collective
+  type: "talk"
   title: "Open source, collective action & resilience"
   venue: "Tsinghua Summer School"
+  cat: "collective"
 
 - when: "2024"
-  type: invited
-  cat: cyber
+  type: "talk"
   title: "Organizing Cybersecurity Resilience"
   venue: "InfoSec"
+  cat: "cyber"
 
 - when: "2023"
-  type: invited
-  cat: collective
+  type: "talk"
   title: "Computational Diplomacy: how OSS & collective action make the world resilient"
   venue: "Vienna"
+  cat: "collective"
 
 - when: "2023"
-  type: invited
-  cat: hackathons
+  type: "talk"
   title: "Play and Work for Greater Good"
   venue: "Bayes Business School · London"
+  cat: "hackathons"
 
 - when: "2022"
-  type: invited
-  cat: social
+  type: "talk"
   title: "The AI4Autism Project"
   venue: "University College London (UCL)"
+  cat: "social"
 
 - when: "2022"
-  type: invited
-  cat: cyber
+  type: "talk"
   title: "Cognition: The New Cybersecurity Frontier"
   venue: "InfoSec"
+  cat: "cyber"
 
 - when: "2022"
-  type: invited
-  cat: cyber
+  type: "talk"
   title: "A quantitative future for the management of cyber risks"
   venue: "Cyber Alp Retreat"
+  cat: "cyber"
 
 - when: "2021"
-  type: invited
-  cat: forecasting
+  type: "talk"
   title: "Technological forecasting (job talk)"
   venue: "HEC Lausanne"
+  cat: "forecasting"
 
 - when: "2021"
-  type: invited
-  cat: hackathons
+  type: "talk"
   title: "SDG Open Hack — faculty workshop"
   venue: "Tsinghua"
+  cat: "hackathons"
 
 - when: "2020"
-  type: invited
-  cat: cyber
+  type: "talk"
   title: "A quantitative future for the management of cyber risks"
   venue: "CYD Conference · armasuisse"
+  cat: "cyber"
 
 - when: "2020"
-  type: invited
-  cat: forecasting
+  type: "talk"
   title: "Technology foresight"
   venue: "Swissnex China"
+  cat: "forecasting"
 
 - when: "2018"
-  type: invited
-  cat: cyber
+  type: "talk"
   title: "Cognition: The New Cybersecurity Frontier"
   venue: "Paris"
+  cat: "cyber"
 
 - when: "2018"
-  type: invited
-  cat: complex
+  type: "talk"
   title: "Infrastructure resilience"
   venue: "ETH Zurich"
+  cat: "complex"
 
 - when: "2018"
-  type: invited
-  cat: collective
+  type: "talk"
   title: "Open data & collective action"
   venue: "ITU · Geneva"
+  cat: "collective"
 
 - when: "2017"
-  type: invited
-  cat: complex
+  type: "talk"
   title: "Human dynamics in complex systems"
   venue: "ParisTech"
+  cat: "complex"
 
 - when: "2017"
-  type: invited
-  cat: social
+  type: "talk"
   title: "The Social Bio-Sensory Lab"
   venue: "Idiap Research Institute"
+  cat: "social"
 
 - when: "2016"
-  type: invited
-  cat: cyber
+  type: "talk"
   title: "Bug bounties & the economics of security"
   venue: "CISAC · Stanford"
+  cat: "cyber"
 
 - when: "2016"
-  type: invited
-  cat: cyber
+  type: "talk"
   title: "Rethinking Attackers"
   venue: "Dagstuhl Seminar"
+  cat: "cyber"
 
 - when: "2016"
-  type: invited
-  cat: social
+  type: "talk"
   title: "Brain dynamics & social sensing"
   venue: "OHBM"
+  cat: "social"
 
 - when: "2015"
-  type: invited
-  cat: collective
+  type: "talk"
   title: "Collective intelligence & online production"
   venue: "MIT"
+  cat: "collective"
 
 - when: "2014"
-  type: invited
-  cat: social
+  type: "talk"
   title: "Brainwaves & social sensing"
   venue: "EPFL"
+  cat: "social"
 
 - when: "2014"
-  type: invited
-  cat: cyber
+  type: "talk"
   title: "Cyber risk"
   venue: "EURECOM"
+  cat: "cyber"
 
 - when: "2013"
-  type: invited
-  cat: complex
+  type: "talk"
   title: "Human dynamics in complex systems"
   venue: "Branco Weiss Fellowship"
+  cat: "complex"
 
 - when: "2013"
-  type: invited
-  cat: cyber
+  type: "talk"
   title: "Cyber risk & national security"
   venue: "MELANI · Swiss Confederation"
+  cat: "cyber"
 
 - when: "2012"
-  type: invited
-  cat: cyber
+  type: "talk"
   title: "Cyber risks"
   venue: "University of Oxford"
+  cat: "cyber"
 
 - when: "2010"
-  type: invited
-  cat: collective
+  type: "talk"
   title: "Open source software dynamics"
   venue: "ESF-COST"
+  cat: "collective"
 
 - when: "2009"
-  type: invited
-  cat: complex
+  type: "talk"
   title: "Cyber-risk & complex systems"
   venue: "CCSS Workshop · ETH Zurich"
+  cat: "complex"
+
+- when: "2026"
+  date: "2026-08-10"
+  type: "teaching"
+  status: "past"
+  title: "Computational diplomacy — keynote for Tsinghua IIIS"
+  role: "Keynote"
+  venue: "Campus Biotech, Geneva · 20 bachelor students"
+  host: "Shuran Zheng, Institute for Interdisciplinary Information Sciences, Tsinghua University"
+  host_url: "https://iiis.tsinghua.edu.cn/en/People/Faculty/ZhengShuran.htm"
+  cat: "collective"
+  topic: "computational-diplomacy"
+
+- when: "2026"
+  date: "2026-08-26"
+  type: "teaching"
+  up: true
+  title: "Computational diplomacy for Northwestern Polytechnical University"
+  role: "Session lead"
+  venue: "Geneva Centre for Security Policy · 40 students from NPU, Xi'an"
+  cat: "collective"
+  topic: "computational-diplomacy"
+
+- when: "2026"
+  date: "2026-09-09"
+  type: "teaching"
+  up: true
+  title: "Building Anticipation Briefs and the Economy of Adaptation for International Geneva"
+  role: "Session lead"
+  venue: "Graduate Institute, Geneva · 20 students, Tsinghua School of Economics and Management"
+  host: "Hao Jie, Department of Innovation, Entrepreneurship and Strategy, Tsinghua SEM"
+  host_url: "https://www.sem.tsinghua.edu.cn/en/info/1217/7065.htm"
+  cat: "forecasting"
+  topic: "anticipation-briefs"
+
+- when: "2026"
+  type: "research"
+  up: true
+  tbc: true
+  title: "Anchored Minds, Collective Foresight: How Collective Intelligence Reshapes the Perceived Ruggedness of a Smooth Problem"
+  venue: "Venue to be announced"
+  cat: "collective"
+
+- when: "2026"
+  date: "2026-10-24"
+  type: "impact"
+  up: true
+  tbc: true
+  title: "SDG Open Hack! Singapore — Grand Finale"
+  role: "Programme design"
+  venue: "Singapore"
+  cat: "hackathons"
+  topic: "sdg-open-hack"
+
+- when: "2026"
+  date: "2026-11-06"
+  type: "impact"
+  up: true
+  title: "FacMed Hack #1 — Digital Phenotyping of Mental Health"
+  role: "Hackathon design"
+  venue: "Campus Biotech, Geneva"
+  date_end: "2026-11-07"
+  url: "https://facmed-hack.pages.dev/fr/"
+  cat: "social"
+  blob: >
+    The first hackathon of the UNIGE Faculty of Medicine turns digital phenotyping on mental
+    health into 32 hours of building. Around fifty master's and doctoral students, clinicians,
+    researchers and engineers work in interdisciplinary teams on six challenges submitted by
+    researchers themselves, so the problems are the ones the field actually has. It is run with
+    Campus Neuro, the Synapsy research centre, the Swiss Centre for Affective Sciences, the Wyss
+    Center, the Geneva University Hospitals and EPFL, at Campus Biotech. The aim is deliberately
+    concrete: teams leave not with slideware but with project sketches solid enough to be
+    funded, bridging clinic, laboratory and engineering in one room.
+  draft: true
+
+- when: "2026"
+  type: "impact"
+  up: true
+  tbc: true
+  title: "TU Berlin Social Robotics Hack"
+  role: "Hackathon design"
+  venue: "TU Berlin · autumn semester"
+  cat: "social"
+
+- when: "2027"
+  type: "impact"
+  up: true
+  tbc: true
+  title: "Geneva Quantum Hack #3 — Quantum Technologies for Space"
+  role: "Hackathon design"
+  venue: "CERN IdeaSquare · July 2027"
+  url: "https://indico.cern.ch/event/1631283/overview"
+  cat: "hackathons"
+  topic: "geneva-quantum-hack"
