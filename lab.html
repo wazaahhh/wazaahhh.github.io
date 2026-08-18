@@ -35,11 +35,11 @@ permalink: /
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 <script>
-// Resolve the theme before first paint, so a night-mode visitor never sees a white flash.
+// Resolve the theme before first paint, so nobody sees a white flash before dark loads.
 function pickTheme(){
   try{ const t=localStorage.getItem('theme');
        if(t==='theme-volt'||t==='theme-grey'||t==='theme-dark') return t; }catch(e){}
-  return (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'theme-dark' : 'theme-grey';
+  return 'theme-dark';   // the site's own default; a stored choice above still wins
 }
 document.addEventListener('DOMContentLoaded', ()=>{ document.body.className = pickTheme(); });
 </script>
