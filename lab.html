@@ -766,7 +766,19 @@ const TOPICS = {{ site.data.topics | jsonify }};
   const byYear=(a,b)=> parseInt(b.when)-parseInt(a.when);
   const all=[...EVENTS].sort((a,b)=> (b.up?1:0)-(a.up?1:0) || byYear(a,b));
   const NOW=new Date().getFullYear();
-  const bucket=t=>{ const y=parseInt(t.when)||0; return (t.up||y>NOW) ? 'future' : (y===NOW ? 'present' : 'past'); };
+  const TODAY=new Date().toISOString().slice(0,10);
+  const SMAP={upcoming:'future', ongoing:'present', past:'past'};
+  const bucket=t=>{
+    if(t.status && SMAP[t.status]) return SMAP[t.status];       // explicit wins
+    if(t.up) return 'future';
+    const r=/^(\d{4})[–-](\d{2,4})$/.exec(String(t.when||''));   // "2026–27" spans the present
+    if(r){ const a=+r[1], b=+(r[2].length===2 ? r[1].slice(0,2)+r[2] : r[2]);
+           return (a<=NOW && NOW<=b) ? 'present' : (b<NOW ? 'past' : 'future'); }
+    const d=t.date_end||t.date;                                  // a real date beats the year
+    if(/^\d{4}-\d{2}(-\d{2})?$/.test(d||'')) return ((d.length===7?d+'-28':d) < TODAY) ? 'past' : 'future';
+    const y=parseInt(t.when)||0;
+    return y>NOW ? 'future' : (y===NOW ? 'present' : 'past');
+  };
   const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const nice=d=>{ const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d||''); return m ? (+m[3])+' '+MON[+m[2]-1]+' '+m[1] : ''; };
   const dayMon=t=>{
@@ -783,11 +795,11 @@ const TOPICS = {{ site.data.topics | jsonify }};
 
   // an event explains itself either with its own blob or by pointing at a shared topic
   const explain=t=>{
-    if(t.blob) return {text:t.blob, url:t.url, draft:t.draft, also:[]};
     const tp = t.topic && TOPICS ? TOPICS[t.topic] : null;
+    const also = t.topic ? EVENTS.filter(e=> e.topic===t.topic && e!==t) : [];
+    if(t.blob) return {text:t.blob, url:t.url, draft:t.draft, also};   // own words, still in the cluster
     if(!tp) return null;
-    return {text:tp.blob, head:tp.title, url:tp.url||t.url, draft:tp.draft,
-            also:EVENTS.filter(e=> e.topic===t.topic && e!==t)};
+    return {text:tp.blob, head:tp.title, url:tp.url||t.url, draft:tp.draft, also};
   };
 
   const alsoHTML=list=> !list.length ? '' :

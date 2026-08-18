@@ -605,3 +605,23 @@
   url: "https://indico.cern.ch/event/1631283/overview"
   cat: "hackathons"
   topic: "geneva-quantum-hack"
+
+- when: "2026"
+  date: "2026-04-17"
+  type: "talk"
+  status: "past"
+  title: "Let's rehearse our futures"
+  role: "Keynote"
+  venue: "UC Education · Kunming, Yunnan"
+  cat: "hackathons"
+  topic: "sdg-open-hack"
+  draft: true
+  blob: >
+    A keynote in Kunming on what education owes students who will spend their working lives inside
+    the SDG problem space. The argument: the SDGs are three problems at once — an innovation
+    challenge, a coordination challenge, and a measurement challenge — and none of the three is
+    taught by lecturing at people. Learning by doing is the honest response, which is what ten
+    years of SDG Open Hack across Geneva, Tsinghua, Singapore and Yunnan have been building. AI
+    sharpens the point rather than settling it: used alone it isolates and produces fast wrong
+    answers; used collectively, with peers, review and shared evidence, it lets small teams
+    analyse, prototype and localise faster than ever.
