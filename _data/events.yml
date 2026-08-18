@@ -39,16 +39,20 @@
   venue: "Tech Hub · Geneva"
 
 - when: "2026"
+  date: "2026-05"
   type: "research"
   title: "Explainable Forecasting of Scientific Breakthroughs from Concept Network Dynamics"
-  venue: "Global Tech Mining Conference (GTM2026)"
+  role: "Paper presentation"
+  venue: "16th Global TechMining Conference · Wuhan University, School of Information Management, China"
   url: "https://arxiv.org/abs/2606.03864"
   cat: "forecasting"
 
 - when: "2026"
+  date: "2026-05"
   type: "research"
   title: "Forecasting Conceptual Diffusion in Science: The Case of Quantum Computing"
-  venue: "Global Tech Mining Conference (GTM2026)"
+  role: "Paper presentation"
+  venue: "16th Global TechMining Conference · Wuhan University, School of Information Management, China"
   url: "https://arxiv.org/abs/2606.03919"
   cat: "forecasting"
 
