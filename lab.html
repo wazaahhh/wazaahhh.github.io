@@ -34,10 +34,20 @@ permalink: /
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<script>
+// Resolve the theme before first paint, so a night-mode visitor never sees a white flash.
+function pickTheme(){
+  try{ const t=localStorage.getItem('theme');
+       if(t==='theme-volt'||t==='theme-grey'||t==='theme-dark') return t; }catch(e){}
+  return (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'theme-dark' : 'theme-grey';
+}
+document.addEventListener('DOMContentLoaded', ()=>{ document.body.className = pickTheme(); });
+</script>
 <style>
 /* ---------- palette presets (swappable via switcher) ---------- */
 :root,
 .theme-volt {
+  --on-accent: #ffffff;
   --bg: #fbfbf8;
   --panel: #ffffff;
   --ink: #0b0b12;
@@ -53,6 +63,14 @@ permalink: /
   --bg:#f6f6f6; --panel:#fff; --ink:#141414; --muted:#6a6a6a; --line:rgba(0,0,0,.12);
   --accent:#2b2b2b; --pop:#cfcfcf; --c3:#9a9a9a; --accent-soft:rgba(0,0,0,.07);
   --wire:#8a8a8a;
+  --on-accent: #ffffff;
+}
+.theme-dark {
+  --bg:#0c0c14; --panel:#15151f; --ink:#f0f0f5; --muted:#9a9aae; --line:rgba(255,255,255,.13);
+  --accent:#a78bfa;       /* violet lifted until it reads on a dark ground */
+  --pop:#c6f432; --c3:#22d3ee; --accent-soft:rgba(167,139,250,.18);
+  --wire:#ff9d4d;
+  --on-accent: #12121b;
 }
 /* greyscale theme = neutral chrome via the grey palette vars; the data
    visualisations (Venn, citation heatmap, timeline, talk stripes) keep their
@@ -69,6 +87,21 @@ body {
 .wrap { max-width: 1040px; margin: 0 auto; padding: 0 1.5rem; }
 h1,h2,h3,.display { font-family: "Space Grotesk", sans-serif; letter-spacing:-.02em; }
 a { color: var(--accent); }
+
+/* ---------- dark theme: the places a light ground was assumed ---------- */
+/* multiply darkens toward the paper; on a dark ground the circles would vanish */
+.theme-dark .venn .circle { mix-blend-mode:screen; opacity:.55; }
+.theme-dark .venn.dim .circle { opacity:.16; }
+.theme-dark .venn.dim .circle.active { opacity:.8; }
+.theme-dark .venn .core-text { fill:#0c0c14; }        /* disc is --ink, so the label flips */
+.theme-dark .fund-total { color:#a78bfa; }            /* the fixed PI violet, lifted for dark */
+.theme-dark .tip .tip-top { border-top-color:rgba(0,0,0,.22); color:rgba(0,0,0,.72); }
+.theme-dark .tk-type[data-t=research] { background:rgba(34,211,238,.18);  color:#67e8f9; }
+.theme-dark .tk-type[data-t=talk]     { background:rgba(167,139,250,.20); color:#c4b5fd; }
+.theme-dark .tk-type[data-t=teaching] { background:rgba(255,157,77,.18);  color:#fdba74; }
+.theme-dark .tk-type[data-t=impact]   { background:rgba(168,85,247,.22);  color:#d8b4fe; }
+.theme-dark .snip { background:#080810; }
+.theme-dark .heat-cell:hover { outline-color:var(--pop); }
 
 /* ---------- top bar ---------- */
 .bar { position: sticky; top:0; z-index:50; backdrop-filter: blur(10px);
@@ -97,7 +130,7 @@ a { color: var(--accent); }
 .cta { display:flex; gap:.7rem; flex-wrap:wrap; margin-top:1.6rem; }
 .btn { font-family:"Space Grotesk"; font-weight:600; text-decoration:none; padding:.65rem 1.1rem; border-radius:10px;
   font-size:.95rem; border:1px solid transparent; transition:transform .15s ease, box-shadow .15s ease; }
-.btn--solid { background:var(--accent); color:#fff; }
+.btn--solid { background:var(--accent); color:var(--on-accent); }
 .btn--solid:hover { transform:translateY(-2px); box-shadow:0 8px 20px var(--accent-soft); }
 .btn--ghost { background:transparent; color:var(--ink); border-color:var(--line); }
 .btn--ghost:hover { border-color:var(--accent); color:var(--accent); }
@@ -194,7 +227,7 @@ section { padding: 3.2rem 0; }
   text-transform:lowercase; letter-spacing:.04em; padding:.1rem .42rem; border-radius:999px;
   margin-right:.28rem; background:var(--accent-soft); color:var(--accent); }
 .xyz .sx i { font-style:italic; opacity:.6; margin-right:.2rem; }
-.xyz .sx.on { background:var(--accent); color:#fff; }
+.xyz .sx.on { background:var(--accent); color:var(--on-accent); }
 .xyz .sx.on i { opacity:.75; }
 
 /* group headers when the legend is sliced by one axis */
@@ -208,7 +241,7 @@ section { padding: 3.2rem 0; }
 .seg { display:inline-flex; gap:3px; padding:3px; border:1px solid var(--line); border-radius:999px; background:var(--panel); }
 .seg button { font-family:"Space Grotesk"; font-weight:600; font-size:.84rem; color:var(--muted); background:transparent;
   border:none; padding:.45rem .95rem; border-radius:999px; cursor:pointer; transition:background .2s, color .2s; }
-.seg button.active { background:var(--accent); color:#fff; }
+.seg button.active { background:var(--accent); color:var(--on-accent); }
 
 /* faded (filtered out by kind) */
 .circle.faded { opacity:.06 !important; }
@@ -331,7 +364,7 @@ section { padding: 3.2rem 0; }
   border:1px solid var(--line); background:var(--panel); color:var(--muted); cursor:pointer;
   display:inline-flex; align-items:center; gap:.35rem; transition:all .15s ease; }
 .tf:hover { color:var(--ink); border-color:var(--accent); }
-.tf.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+.tf.active { background:var(--accent); color:var(--on-accent); border-color:var(--accent); }
 .tf .dot { width:9px; height:9px; border-radius:50%; background:var(--tfc, var(--muted)); }
 .tk-type { display:inline-block; font-size:.62rem; font-weight:600; text-transform:uppercase; letter-spacing:.04em;
   padding:.02rem .35rem; border-radius:4px; background:var(--accent-soft); color:var(--accent); margin-right:.45rem; vertical-align:.06em; }
@@ -373,7 +406,7 @@ section { padding: 3.2rem 0; }
 @media (max-width:680px){ .heat-row{ grid-template-columns:120px 1fr; } .hlabel{ font-size:.7rem; } }
 
 /* ---------- shared tooltip ---------- */
-.tip { position:fixed; pointer-events:none; z-index:100; background:var(--ink); color:#fff; padding:.6rem .8rem;
+.tip { position:fixed; pointer-events:none; z-index:100; background:var(--ink); color:var(--bg); padding:.6rem .8rem;
   border-radius:10px; font-size:.82rem; max-width:260px; opacity:0; transform:translateY(4px); transition:opacity .12s; box-shadow:0 10px 30px rgba(0,0,0,.25); }
 .tip b { font-family:"Space Grotesk"; display:block; margin-bottom:.2rem; }
 .tip em { color:var(--pop); font-style:normal; font-size:.74rem; }
@@ -444,6 +477,7 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
     <div class="swatches" id="swatches">
       <button class="swatch" data-theme="theme-volt" style="background:linear-gradient(90deg,#6d28d9 0 50%,#c6f432 50% 100%)" title="Volt — violet + lime"></button>
       <button class="swatch is-active" data-theme="theme-grey" style="background:linear-gradient(90deg,#555 0 50%,#bbb 50% 100%)" title="Greyscale"></button>
+      <button class="swatch" data-theme="theme-dark" style="background:linear-gradient(90deg,#0c0c14 0 50%,#a78bfa 50% 100%)" title="Night"></button>
     </div>
   </nav>
 </div></div>
@@ -638,6 +672,7 @@ const THEMES = [
 // ---- palette switcher ----
 function applyTheme(theme){
   document.body.className = theme;
+  try{ localStorage.setItem('theme', theme); }catch(e){}
   document.querySelectorAll('.swatch').forEach(s=>s.classList.toggle('is-active', s.dataset.theme===theme));
 }
 document.getElementById('swatches').addEventListener('click', e => {
@@ -645,7 +680,7 @@ document.getElementById('swatches').addEventListener('click', e => {
   applyTheme(b.dataset.theme);
 });
 // greyscale by default on load
-applyTheme('theme-grey');
+applyTheme(pickTheme());   // stored choice, else the OS setting, else grey
 
 // ---- pixel divider ----
 document.querySelector('.pixels').innerHTML = Array.from({length:18},()=> '<i></i>').join('');
