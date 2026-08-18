@@ -13,7 +13,10 @@
 #
 #   when:    "2026" or "2026–27" (year drives the Future/Present/Past bucket)
 #   date:    "2026-08-10" optional, for a precise day; shown in the meta line
-#   status:  upcoming | ongoing | past — optional, overrides the derived bucket
+#   status:  upcoming | ongoing | past — optional, overrides the derived bucket.
+#            'ongoing' is the useful one: work that has already started even though
+#            its headline date is still ahead (prep phase open, challenges being
+#            collected, a programme mid-flight). It puts the event under Present.
 #   up:      true -> pin to Future regardless of year
 #   cat:     forecasting | complex | hackathons | collective | cyber | social
 #   tbc:     true -> date not yet confirmed
@@ -25,6 +28,7 @@
 - when: "2026"
   type: "impact"
   up: true
+  status: "ongoing"
   title: "SDG Open Hack"
   role: "Programme design"
   venue: "Geneva"
@@ -34,6 +38,7 @@
 - when: "2026–27"
   type: "impact"
   up: true
+  status: "ongoing"
   title: "Translational Futures"
   role: "Lead researcher"
   venue: "Tech Hub · Geneva"
@@ -562,6 +567,7 @@
   date: "2026-11-06"
   type: "impact"
   up: true
+  status: "ongoing"
   title: "FacMed Hack #1 — Digital Phenotyping of Mental Health"
   role: "Hackathon design"
   venue: "Campus Biotech, Geneva"
