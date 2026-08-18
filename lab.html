@@ -444,19 +444,13 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 -->
 
 <section id="talks"><div class="wrap reveal">
-  <div class="shead"><h2>Public interventions</h2><span class="tag">talks · papers · chairing</span></div>
-  <p class="sub">Invited talks, conference papers, and the events I chair or organise — filter by type or research area.</p>
+  <div class="shead"><h2>Future, Present, Past</h2></div>
+  <p class="sub">Invited talks, conference papers, and the events I chair or organise.</p>
   <div class="tfilters" id="talks-filter">
-    <button class="tf active" data-filter="all">All</button>
-    <button class="tf" data-filter="type:invited">Invited</button>
-    <button class="tf" data-filter="type:talk">Conference</button>
-    <button class="tf" data-filter="type:role">Chairing</button>
-    <button class="tf" data-filter="cat:forecasting"><span class="dot" style="--tfc:#16e0ff"></span>Forecasting</button>
-    <button class="tf" data-filter="cat:complex"><span class="dot" style="--tfc:#3b82f6"></span>Complex systems</button>
-    <button class="tf" data-filter="cat:hackathons"><span class="dot" style="--tfc:#a855f7"></span>Hackathons</button>
-    <button class="tf" data-filter="cat:collective"><span class="dot" style="--tfc:#ffd23f"></span>Collective</button>
-    <button class="tf" data-filter="cat:cyber"><span class="dot" style="--tfc:#ff2d9b"></span>Cyber</button>
-    <button class="tf" data-filter="cat:social"><span class="dot" style="--tfc:#c6f432"></span>Social</button>
+    <button class="tf active" data-filter="time:future">Future</button>
+    <button class="tf" data-filter="time:present">Present</button>
+    <button class="tf" data-filter="time:past">Past</button>
+    <button class="tf" data-filter="all">All</button>
   </div>
   <div class="talks" id="talks-list"></div>
 </div></section>
@@ -626,24 +620,31 @@ const TALKS = {{ site.data.talks | jsonify }};
   const byYear=(a,b)=> parseInt(b.when)-parseInt(a.when);
   const all=[...TALKS].sort((a,b)=> (b.up?1:0)-(a.up?1:0) || byYear(a,b));  // upcoming first, then year desc
   const tlabel=t=> t.up?'Up next' : t.type==='invited'?'Invited' : t.type==='talk'?'Conference' : 'Chairing';
-  const row=t=>`<div class="talk${t.up?' up':''}" data-type="${t.type}" data-cat="${t.cat||''}"${t.cat?` style="--cat:${CATC[t.cat]||'transparent'}"`:''}>
+  const NOW=new Date().getFullYear();
+  const bucket=t=>{ const y=parseInt(t.when)||0; return (t.up||y>NOW) ? 'future' : (y===NOW ? 'present' : 'past'); };
+  const row=t=>`<div class="talk${t.up?' up':''}" data-type="${t.type}" data-time="${bucket(t)}" data-cat="${t.cat||''}"${t.cat?` style="--cat:${CATC[t.cat]||'transparent'}"`:''}>
       <div class="tk-when">${esc(t.when)}</div>
       <div><div class="tk-title">${esc(t.title)}</div>
         <div class="tk-meta"><span class="tk-type">${tlabel(t)}</span>${t.role&&t.role!=='Talk'?esc(t.role)+' · ':''}${esc(t.venue)}${t.url?` · <a class="tk-link" href="${esc(t.url)}" target="_blank" rel="noopener">preprint ↗</a>`:''}</div></div></div>`;
   box.innerHTML=`<div class="talks-scroll">`+all.map(row).join('')+`</div>`;
-  // filter bar (single-select; by type or by research category)
-  const fbar=document.getElementById('talks-filter');
-  if(fbar) fbar.addEventListener('click', e=>{
-    const b=e.target.closest('.tf'); if(!b) return;
-    fbar.querySelectorAll('.tf').forEach(x=> x.classList.toggle('active', x===b));
-    const f=b.dataset.filter;
-    box.querySelectorAll('.talk').forEach(r=>{
-      const show = f==='all'
-        || (f.startsWith('type:') && r.dataset.type===f.slice(5))
-        || (f.startsWith('cat:') && r.dataset.cat===f.slice(4));
-      r.style.display = show ? '' : 'none';
-    });
+  // filter bar (single-select; future / present / past / all)
+  const apply=f=> box.querySelectorAll('.talk').forEach(r=>{
+    const show = f==='all'
+      || (f.startsWith('time:') && r.dataset.time===f.slice(5))
+      || (f.startsWith('type:') && r.dataset.type===f.slice(5))
+      || (f.startsWith('cat:') && r.dataset.cat===f.slice(4));
+    r.style.display = show ? '' : 'none';
   });
+  const fbar=document.getElementById('talks-filter');
+  if(fbar){
+    fbar.addEventListener('click', e=>{
+      const b=e.target.closest('.tf'); if(!b) return;
+      fbar.querySelectorAll('.tf').forEach(x=> x.classList.toggle('active', x===b));
+      apply(b.dataset.filter);
+    });
+    const def=fbar.querySelector('.tf.active');            // land on Future, not the full list
+    if(def) apply(def.dataset.filter);
+  }
 })();
 
 // ---- In flight carousel: code · writing · interventions ----
