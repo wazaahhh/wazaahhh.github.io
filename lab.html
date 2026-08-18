@@ -1,6 +1,6 @@
 ---
 layout: null
-title: thomas @ maillart.xyz
+title: Thomas Maillart
 permalink: /
 ---
 <!doctype html>
@@ -9,6 +9,28 @@ permalink: /
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{{ site.title }}</title>
+<meta name="description" content="{{ site.description }}" />
+<meta name="author" content="Thomas Maillart" />
+<link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+
+<!-- social preview -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="maillart.xyz" />
+<meta property="og:title" content="{{ site.title }}" />
+<meta property="og:description" content="{{ site.description }}" />
+<meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+<meta property="og:image" content="{{ site.url }}/assets/img/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Turning weak signals into science &amp; innovation you can act on. — Thomas Maillart, maillart.xyz" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="{{ site.url }}/assets/img/og.png" />
+<meta name="twitter:title" content="{{ site.title }}" />
+<meta name="twitter:description" content="{{ site.description }}" />
+
+<!-- inline favicon: no extra request, no 404 -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0b12'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23c6f432' stroke-width='5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%23c6f432'/%3E%3C/svg%3E" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -125,6 +147,63 @@ section { padding: 3.2rem 0; }
 @media (max-width:760px){ .venn-wrap{ grid-template-columns:1fr; } }
 
 /* ---------- focus toggles ---------- */
+/* ---------- hero: population phrase ---------- */
+.hero .hl-pop { color:var(--ink); font-weight:600;
+  box-shadow:inset 0 -0.42em 0 var(--accent-soft); }
+.hero .lede-sub { font-size:.98rem; max-width:62ch; color:var(--muted); opacity:.72; margin:-.6rem 0 1.4rem; }
+
+/* ---------- the sentence machine ---------- */
+.sentence { font-family:"Space Grotesk"; font-size:clamp(1.02rem,1.9vw,1.32rem); line-height:1.85;
+  margin:.2rem 0 1.5rem; max-width:70ch; color:var(--muted); }
+.sentence .s-lead { color:var(--muted); font-weight:500; }
+/* inline (not inline-flex) so a long clause wraps like text instead of forcing
+   a horizontal scrollbar on narrow screens; box-decoration-break keeps the pill
+   drawn correctly on every line fragment */
+.sentence .slot { display:inline; margin:0 .28em; padding:.12em .62em;
+  border-radius:999px; border:1px dashed var(--line); background:var(--panel);
+  -webkit-box-decoration-break:clone; box-decoration-break:clone;
+  transition:border-color .25s ease, background .25s ease, color .25s ease; }
+.sentence .s-key { font-size:.72em; font-weight:700; font-style:italic;
+  color:var(--accent); opacity:.85; margin-right:.4em; }
+.sentence .s-val { font-weight:600; color:var(--ink); }
+.sentence .s-val:empty::before { content:"…"; color:var(--muted); opacity:.5; font-weight:400; }
+/* filled = a perspective is hovered; the frame stays, only the fills change */
+.sentence[data-filled="true"] .slot { border-style:solid; border-color:var(--slotc,var(--line));
+  background:color-mix(in srgb, var(--slotc,var(--accent)) 11%, var(--panel)); }
+.sentence[data-filled="true"] .s-key { color:var(--slotc,var(--accent)); opacity:1; }
+/* dim the slots the x·y·z toggle is not asking about */
+.sentence .slot.mute { opacity:.34; }
+.sentence .slot.pick { border-style:solid; border-color:var(--accent); }
+.axis-note { color:var(--muted); font-size:.9rem; line-height:1.5; margin:.7rem 0 0; max-width:66ch;
+  min-height:2.7em; transition:opacity .2s ease; }
+.axis-note b { color:var(--ink); font-weight:600; }
+.axis-note .k { font-family:"Space Grotesk"; font-style:italic; font-weight:700; color:var(--accent); margin-right:.45em; }
+.axis-tally { display:flex; flex-wrap:wrap; gap:.35rem; margin:.45rem 0 0; }
+.axis-tally span { font-family:"Space Grotesk"; font-weight:600; font-size:.7rem; color:var(--muted);
+  border:1px solid var(--line); border-radius:999px; padding:.1rem .5rem; background:var(--panel); }
+.axis-tally span b { color:var(--ink); font-weight:700; }
+/* when a dimension is picked, each card leans on that clause */
+.tl-say .c { transition:opacity .2s ease; }
+.tl-say[data-focus] .c { opacity:.3; }
+.tl-say[data-focus="x"] .c[data-k="x"], .tl-say[data-focus="y"] .c[data-k="y"],
+.tl-say[data-focus="z"] .c[data-k="z"] { opacity:1; }
+
+/* legend / timeline: the x·y·z triple replaces the old basic|applied badges */
+.xyz { display:block; margin:.15rem 0 .1rem; font-size:0; }
+.xyz .sx { display:inline-block; font-family:"Space Grotesk"; font-weight:600; font-size:.62rem;
+  text-transform:lowercase; letter-spacing:.04em; padding:.1rem .42rem; border-radius:999px;
+  margin-right:.28rem; background:var(--accent-soft); color:var(--accent); }
+.xyz .sx i { font-style:italic; opacity:.6; margin-right:.2rem; }
+.xyz .sx.on { background:var(--accent); color:#fff; }
+.xyz .sx.on i { opacity:.75; }
+
+/* group headers when the legend is sliced by one axis */
+.leg-group { list-style:none; font-family:"Space Grotesk"; font-weight:700; font-size:.68rem;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--muted);
+  margin:.6rem 0 .1rem; padding-left:.1rem; }
+.leg-group:first-child { margin-top:0; }
+.leg-group .n { opacity:.5; font-weight:500; letter-spacing:0; text-transform:none; }
+
 .toggles { display:flex; gap:.7rem; flex-wrap:wrap; margin-bottom:1.6rem; }
 .seg { display:inline-flex; gap:3px; padding:3px; border:1px solid var(--line); border-radius:999px; background:var(--panel); }
 .seg button { font-family:"Space Grotesk"; font-weight:600; font-size:.84rem; color:var(--muted); background:transparent;
@@ -161,7 +240,9 @@ section { padding: 3.2rem 0; }
 .tl-year { font-family:"Space Grotesk"; font-weight:700; font-size:.78rem; color:var(--accent); }
 .tl-card b { font-family:"Space Grotesk"; display:block; font-size:.95rem; margin:.1rem 0; }
 .tl-card .yc { font-size:.76rem; color:var(--muted); }
-.tl-card .tl-eg { font-size:.82rem; color:var(--muted); margin:.25rem 0 0; }
+.tl-card .tl-say { font-size:.86rem; line-height:1.45; color:var(--ink); margin:.35rem 0 0; }
+.tl-card .tl-say i { font-style:normal; color:var(--muted); }
+.tl-card .tl-eg { font-size:.76rem; color:var(--muted); opacity:.8; margin:.3rem 0 0; }
 @media (max-width:680px){
   .tl::before { left:24px; }
   .tl-item, .tl-item.right { width:100%; left:0; text-align:left; padding:.9rem 1rem .9rem 4rem; }
@@ -170,7 +251,8 @@ section { padding: 3.2rem 0; }
 
 /* ---------- grants funding timeline ---------- */
 .fund-head { display:flex; align-items:baseline; gap:.6rem; margin:.2rem 0 1rem; flex-wrap:wrap; }
-.fund-total { font-family:"Space Grotesk"; font-weight:700; font-size:2.6rem; line-height:1; color:var(--ink); }
+.fund-total { font-family:"Space Grotesk"; font-weight:700; font-size:2.6rem; line-height:1;
+  color:#6d28d9; }   /* fixed PI violet — a data readout, not a heading; stays coloured in the grey theme */
 .fund-sub { color:var(--muted); font-size:.92rem; }
 .fund-legend { display:flex; gap:1.2rem; flex-wrap:wrap; font-size:.8rem; color:var(--muted); margin-bottom:1.4rem; }
 .fund-legend span { display:inline-flex; align-items:center; gap:.4rem; }
@@ -190,6 +272,21 @@ section { padding: 3.2rem 0; }
 .g-tick { position:absolute; transform:translateX(-50%); font-size:.66rem; color:var(--muted); }
 .g-tick::before { content:""; position:absolute; top:-6px; left:50%; width:1px; height:5px; background:var(--line); }
 @media (max-width:680px){ .g-row,.g-axis{ grid-template-columns:120px 1fr; gap:8px; } .g-label b{ font-size:.74rem; } }
+.fund-toggle { display:inline-flex; align-items:center; gap:.55rem; margin:.2rem 0 0; padding:0;
+  border:0; background:none; color:var(--muted); cursor:pointer; font-family:"Space Grotesk";
+  font-weight:600; font-size:.78rem; transition:color .15s ease; }
+.fund-toggle .pm { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px;
+  border-radius:50%; border:1px solid var(--line); background:var(--panel); color:var(--accent);
+  font-size:1rem; line-height:1; transition:border-color .15s ease, background .15s ease, transform .2s ease; }
+.fund-toggle:hover { color:var(--ink); }
+.fund-toggle:hover .pm { border-color:var(--accent); background:var(--accent-soft); transform:scale(1.06); }
+.fund-toggle:focus-visible { outline:2px solid var(--accent); outline-offset:3px; border-radius:4px; }
+.fx-note { font-size:.74rem; color:var(--muted); margin:.35rem 0 0; }
+.fx-note b { font-weight:600; color:var(--ink); }
+.fx-note .live { color:var(--accent); font-weight:600; }
+.fund-body[hidden] { display:none; }
+.fund-body { margin-top:1.1rem; animation:fundin .4s ease both; }
+@keyframes fundin { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:none; } }
 
 /* ---------- in-flight carousel ---------- */
 .carousel { display:flex; align-items:center; gap:.5rem; }
@@ -218,9 +315,11 @@ section { padding: 3.2rem 0; }
 .tk-group { font-family:"Space Grotesk"; font-weight:700; font-size:.74rem; text-transform:uppercase; letter-spacing:.1em;
   color:var(--muted); margin:1.2rem 0 .3rem; }
 .tk-group.up { color:var(--wire); margin-top:0; }
-.talk { display:grid; grid-template-columns:84px 1fr; gap:1rem; padding:.7rem 0 .7rem .7rem;
+.talk { display:grid; grid-template-columns:96px 1fr; gap:1rem; padding:.7rem 0 .7rem .7rem;
   border-top:1px solid var(--line); border-left:3px solid var(--cat, transparent); }
 .talk .tk-when { font-family:"Space Grotesk"; font-weight:700; font-size:.9rem; color:var(--accent); }
+.talk .tk-when b { display:block; font-weight:700; }
+.talk .tk-when .yr { display:block; font-weight:600; font-size:.76rem; color:var(--muted); }
 .talk.up .tk-when { color:var(--wire); }
 .talk .tk-title { font-family:"Space Grotesk"; font-weight:600; font-size:.95rem; line-height:1.25; }
 .tk-link { color:var(--accent); font-weight:600; text-decoration:none; white-space:nowrap; }
@@ -236,7 +335,29 @@ section { padding: 3.2rem 0; }
 .tf .dot { width:9px; height:9px; border-radius:50%; background:var(--tfc, var(--muted)); }
 .tk-type { display:inline-block; font-size:.62rem; font-weight:600; text-transform:uppercase; letter-spacing:.04em;
   padding:.02rem .35rem; border-radius:4px; background:var(--accent-soft); color:var(--accent); margin-right:.45rem; vertical-align:.06em; }
-@media (max-width:680px){ .talk{ grid-template-columns:64px 1fr; gap:.7rem; } }
+.tk-type[data-t=research] { background:rgba(34,211,238,.16); color:#0e7490; }
+.tk-type[data-t=talk]     { background:var(--accent-soft); color:var(--accent); }
+.tk-type[data-t=teaching] { background:rgba(255,122,26,.15); color:#c2410c; }
+.tk-type[data-t=impact]   { background:rgba(168,85,247,.16); color:#7e22ce; }
+.tk-more { width:19px; height:19px; flex:0 0 auto; border-radius:50%; border:1px solid var(--line);
+  background:var(--panel); color:var(--accent); font-family:ui-monospace,monospace; font-size:.78rem;
+  line-height:1; cursor:pointer; padding:0; margin-right:.45rem; vertical-align:.1em;
+  transition:border-color .15s, background .15s; }
+.tk-more:hover { border-color:var(--accent); background:var(--accent-soft); }
+.tk-soon { font-size:.72rem; color:var(--muted); opacity:.75; font-style:italic; }
+.tk-blob { margin:.55rem 0 .3rem; padding:.7rem .9rem; border-left:2px solid var(--cat,var(--line));
+  background:var(--panel); border-radius:0 10px 10px 0; }
+.tk-blob[hidden] { display:none; }
+.tk-blob p { margin:0; font-size:.87rem; line-height:1.55; color:var(--ink); }
+.tk-blob .b-head { font-family:"Space Grotesk"; font-weight:700; font-size:.72rem; text-transform:uppercase;
+  letter-spacing:.08em; color:var(--muted); margin:0 0 .35rem; }
+.tk-blob .b-draft { font-weight:600; color:var(--wire); text-transform:none; letter-spacing:0; }
+.tk-blob .also { margin:.6rem 0 0; padding:.55rem 0 0; border-top:1px solid var(--line); font-size:.8rem; color:var(--muted); }
+.tk-blob .also b { display:block; font-family:"Space Grotesk"; font-size:.7rem; text-transform:uppercase;
+  letter-spacing:.08em; margin-bottom:.3rem; }
+.tk-blob .also li { margin:.12rem 0; }
+.tk-blob ul { margin:0; padding-left:1.1rem; }
+@media (max-width:680px){ .talk{ grid-template-columns:76px 1fr; gap:.7rem; } }
 
 /* ---------- citation intensity heatmap ---------- */
 .note-illus { color:var(--accent); font-weight:600; }
@@ -318,9 +439,9 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
   <a class="brand" href="#top">thomas <b>@ maillart.xyz</b></a>
   <nav class="nav">
     <a href="#focus">Focus</a>
-    <a href="#citations">Citations</a>
+    <a href="#talks">Events</a>
     <a href="#grants">Grants</a>
-    <a href="#talks">Talks</a>
+    <a href="#citations">Citations</a>
     <div class="swatches" id="swatches">
       <button class="swatch" data-theme="theme-volt" style="background:linear-gradient(90deg,#6d28d9 0 50%,#c6f432 50% 100%)" title="Volt — violet + lime"></button>
       <button class="swatch is-active" data-theme="theme-grey" style="background:linear-gradient(90deg,#555 0 50%,#bbb 50% 100%)" title="Greyscale"></button>
@@ -332,9 +453,10 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 <header class="hero"><div class="wrap">
   <span class="eyebrow">● Tech forecasting · cyber · social interaction</span>
   <h1>Turning weak signals into <span class="hl">science &amp; innovation</span> you can act on.</h1>
-  <p class="lede">Research and translational work connecting technological forecasting, cybersecurity economics, and social-interaction science with applied decision-making.</p>
+  <p class="lede">A way to anticipate emergence in complex human systems &mdash; for <span class="hl-pop">people who must decide before the evidence is in</span>, so that weak signals become action.</p>
+  <p class="lede-sub">Technological forecasting, cybersecurity economics, and social-interaction science &mdash; research and translational work, built for applied decision-making.</p>
   <div class="cta">
-    <a class="btn btn--solid" href="#activity">See what I'm building →</a>
+    <a class="btn btn--solid" href="#focus">See what I'm working on →</a>
     <a class="btn btn--ghost" href="https://github.com/wazaahhh" target="_blank" rel="noopener">GitHub</a>
     <a class="btn btn--ghost" href="https://arxiv.org/search/?query=thomas+maillart&searchtype=all&source=header" target="_blank" rel="noopener">arXiv</a>
   </div>
@@ -343,23 +465,34 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 
 <!-- data injected from Jekyll collections -->
 {% assign research = site.research | where_exp:"i","i.published != false" %}
-{% assign grants = site.grants | where_exp:"i","i.published != false" %}
-{% assign hacks = site.sdg_hackathons | where_exp:"i","i.published != false" %}
 
 <section id="focus"><div class="wrap reveal">
-  <div class="shead"><h2>Anticipating emergence</h2><span class="tag">one problem · six perspectives</span></div>
-  <p class="sub">Six research perspectives, each sized by current intensity, all attacking one fundamental problem from a different angle — <b>anticipating emergence in complex human systems</b>. <b>Universe</b> collapses them onto that shared core; <b>Timeline</b> explodes them along time. Hover to bring a perspective forward.</p>
+  <div class="shead"><h2>Anticipating emergence</h2></div>
+  <p class="sub">Six research perspectives, each sized by current intensity, all attacking one fundamental problem from a different angle — <b>anticipating emergence in complex human systems</b>. Every one of them is the same sentence, finished differently. Hover a perspective to complete it.</p>
+
+  <!-- the sentence machine: template stays put, the x/y/z slots fill on hover -->
+  <div class="sentence" id="sentence" data-filled="false">
+    <span class="s-lead">A way to</span><!--
+    --><span class="slot" data-slot="x"><span class="s-key">x</span><span class="s-val"></span></span><!--
+    --><span class="s-lead">,&nbsp;for</span><!--
+    --><span class="slot" data-slot="y"><span class="s-key">y</span><span class="s-val"></span></span><!--
+    --><span class="s-lead">,&nbsp;so that</span><!--
+    --><span class="slot" data-slot="z"><span class="s-key">z</span><span class="s-val"></span></span>
+  </div>
+
   <div class="toggles">
     <div class="seg" id="focus-views">
       <button class="active" data-view="universe">◎ Universe</button>
       <button data-view="timeline">↕ Timeline (3D)</button>
     </div>
-    <div class="seg" id="focus-kind">
-      <button class="active" data-kind="all">All</button>
-      <button data-kind="science">🔬 Basic science</button>
-      <button data-kind="field">🚀 Field innovation</button>
+    <div class="seg" id="focus-slot">
+      <button class="active" data-slot="all">All</button>
+      <button data-slot="x">x · the way</button>
+      <button data-slot="y">y · the people</button>
+      <button data-slot="z">z · the outcome</button>
     </div>
   </div>
+  <p class="axis-note" id="axis-note"></p>
   <div id="view-universe">
   <div class="venn-wrap">
     <svg class="venn" id="venn" viewBox="0 0 520 470" role="img" aria-label="Layered diagram of research threads">
@@ -372,26 +505,44 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
   <div class="tl-scene" id="view-timeline" hidden><div class="tl" id="tl"></div></div>
 </div></section>
 
-<section id="citations"><div class="wrap reveal">
-  <div class="shead"><h2>Citation intensity</h2><span class="tag">Google Scholar · year × field</span></div>
-  <p class="sub">A revisited Scholar timeline — how citation intensity builds across years and shifts between fields. Darker = more intense; hover a cell for detail.
-  {% unless site.data.citations %}<span class="note-illus">Illustrative model for now — run <code>scripts/fetch_scholar.py</code> to populate real Scholar data.</span>{% endunless %}</p>
-  <div class="heat-scroll"><div class="heatmap" id="heatmap"></div></div>
+<section id="talks"><div class="wrap reveal">
+  <div class="shead"><h2>Future, Present, Past</h2></div>
+  <p class="sub">Research, talks, teaching, and the hackathons and programmes I run. Open one for the story behind it — recurring subjects share a single explanation.</p>
+  <div class="tfilters" id="talks-filter">
+    <button class="tf active" data-filter="time:future">Future</button>
+    <button class="tf" data-filter="time:present">Present</button>
+    <button class="tf" data-filter="time:past">Past</button>
+    <button class="tf" data-filter="all">All</button>
+  </div>
+  <div class="talks" id="talks-list"></div>
 </div></section>
 
 <section id="grants"><div class="wrap reveal">
-  <div class="shead"><h2>Grants &amp; funded work</h2><span class="tag">funding timeline</span></div>
+  <div class="shead"><h2>Grants &amp; funded work</h2></div>
   <p class="sub">Competitive research funding across ~15 years. Bar position &amp; length = project period; bar thickness = amount; colour = my role.</p>
   <div class="fund-head">
     <span class="fund-total" id="fund-total">—</span>
     <span class="fund-sub">raised across <b id="fund-n">—</b> grants &amp; contracts</span>
   </div>
-  <div class="fund-legend">
-    <span><i class="rdot" style="background:#6d28d9"></i> Principal Investigator</span>
-    <span><i class="rdot" style="background:#22d3ee"></i> Project partner</span>
-    <span><i class="rdot" style="background:#9aa0aa"></i> Co-applicant</span>
+  <p class="fx-note" id="fx-note"></p>
+  <button class="fund-toggle" id="fund-toggle" type="button" aria-expanded="false" aria-controls="fund-body">
+    <span class="pm" aria-hidden="true">+</span><span class="lbl">Show the funding timeline</span>
+  </button>
+  <div class="fund-body" id="fund-body" hidden>
+    <div class="fund-legend">
+      <span><i class="rdot" style="background:#6d28d9"></i> Principal Investigator</span>
+      <span><i class="rdot" style="background:#22d3ee"></i> Project partner</span>
+      <span><i class="rdot" style="background:#9aa0aa"></i> Co-applicant</span>
+    </div>
+    <div class="gantt" id="gantt"></div>
   </div>
-  <div class="gantt" id="gantt"></div>
+</div></section>
+
+<section id="citations"><div class="wrap reveal">
+  <div class="shead"><h2>Citation intensity</h2></div>
+  <p class="sub">A revisited Scholar timeline — how citation intensity builds across years and shifts between fields. Darker = more intense; hover a cell for detail.
+  {% unless site.data.citations %}<span class="note-illus">Illustrative model for now — run <code>scripts/fetch_scholar.py</code> to populate real Scholar data.</span>{% endunless %}</p>
+  <div class="heat-scroll"><div class="heatmap" id="heatmap"></div></div>
 </div></section>
 
 <!-- Temporarily unpublished — most links not yet working. Restore when ready.
@@ -406,24 +557,6 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 </div></section>
 -->
 
-<section id="talks"><div class="wrap reveal">
-  <div class="shead"><h2>Public interventions</h2><span class="tag">talks · papers · chairing</span></div>
-  <p class="sub">Invited talks, conference papers, and the events I chair or organise — filter by type or research area.</p>
-  <div class="tfilters" id="talks-filter">
-    <button class="tf active" data-filter="all">All</button>
-    <button class="tf" data-filter="type:invited">Invited</button>
-    <button class="tf" data-filter="type:talk">Conference</button>
-    <button class="tf" data-filter="type:role">Chairing</button>
-    <button class="tf" data-filter="cat:forecasting"><span class="dot" style="--tfc:#16e0ff"></span>Forecasting</button>
-    <button class="tf" data-filter="cat:complex"><span class="dot" style="--tfc:#3b82f6"></span>Complex systems</button>
-    <button class="tf" data-filter="cat:hackathons"><span class="dot" style="--tfc:#a855f7"></span>Hackathons</button>
-    <button class="tf" data-filter="cat:collective"><span class="dot" style="--tfc:#ffd23f"></span>Collective</button>
-    <button class="tf" data-filter="cat:cyber"><span class="dot" style="--tfc:#ff2d9b"></span>Cyber</button>
-    <button class="tf" data-filter="cat:social"><span class="dot" style="--tfc:#c6f432"></span>Social</button>
-  </div>
-  <div class="talks" id="talks-list"></div>
-</div></section>
-
 <footer><div class="wrap">
   <strong>Thomas Maillart</strong> · University of Geneva
 </div></footer>
@@ -435,25 +568,71 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 // count ≈ lifetime outputs; intensity ≈ how active the thread is NOW (1–10) → drives circle size
 // year = most recent output → paint order. All editable. (axis field is currently unused.)
 // `parts` = original Scholar field keys (in _data/citations.json) summed into this perspective.
+// ---- the x/y/z frame ----
+// Every perspective is one sentence: "A way to do X, for population Y, so that Z."
+//   x — the way      : instrument -> model -> mobilise
+//   y — the people   : person -> group -> system
+//   z — the outcome  : see | explain | act   (siblings, NOT a ladder -- "explain"
+//                      is a terminal outcome, not a way-station on the road to "act")
+const LADDER = {
+  x: {key:"x", name:"the way",     ordered:["instrument","model","mobilise"], lead:"A way to"},
+  y: {key:"y", name:"the people",  ordered:["person","group","system"],       lead:"for"},
+  z: {key:"z", name:"the outcome", ordered:["see","explain","act"],           lead:"so that"},
+};
+// The umbrella sentence — shown when nothing is hovered.
+const UMBRELLA = {
+  x:"anticipate emergence in complex human systems",
+  y:"people who must decide before the evidence is in",
+  z:"weak signals become action",
+};
+
 const THEMES = [
-  // Categories 1–2 split into basic + applied (separate Scholar fields); cyber & social stay whole.
-  {name:"Technological forecasting", short:"Tech forecasting", kind:"applied", year:2026, count:9, intensity:10, color:"#16e0ff",
+  {name:"Technological forecasting", short:"Tech forecasting", year:2026, count:9, intensity:10, color:"#16e0ff",
     eg:"TechRank · forecasting convergence · scientometric foresight",
+    x:"model", y:"system", z:"act",
+    say:{x:"model concept-network dynamics in open science data",
+         y:"funders and policymakers",
+         z:"breakthroughs can be anticipated years ahead"},
     parts:["Technology forecasting & scientometrics"]},
-  {name:"Complex systems & human dynamics", short:"Complex systems", kind:"basic", year:2024, count:7, intensity:6, color:"#3b82f6",
+
+  {name:"Complex systems & human dynamics", short:"Complex systems", year:2024, count:7, intensity:6, color:"#3b82f6",
     eg:"Heavy tails · self-excited processes · safety limits",
+    x:"model", y:"system", z:"explain",
+    say:{x:"model heavy-tailed human dynamics",
+         y:"operators of safety-critical systems",
+         z:"the limits of safety analysis become explicit"},
     parts:["Complex systems & human dynamics"]},
-  {name:"Hackathons & open innovation", short:"Hackathons", kind:"applied", year:2026, count:8, intensity:8, color:"#a855f7",
+
+  {name:"Hackathons & open innovation", short:"Hackathons", year:2026, count:8, intensity:8, color:"#a855f7",
     eg:"Open Geneva · SDG hacks for impact",
+    x:"mobilise", y:"group", z:"act",
+    say:{x:"run structured collective sprints",
+         y:"universities and civic organisations",
+         z:"latent expertise becomes prototypes and lasting communities"},
     parts:["Hackathons & open innovation"]},
-  {name:"Collective intelligence & open source", short:"Collective intelligence", kind:"basic", year:2024, count:11, intensity:6, color:"#ffd23f",
+
+  {name:"Collective intelligence & open source", short:"Collective intelligence", year:2024, count:11, intensity:6, color:"#ffd23f",
     eg:"Zipf in Linux · superlinear production · Wikipedia",
+    x:"instrument", y:"group", z:"explain",
+    say:{x:"measure how groups actually produce",
+         y:"open-source and online communities",
+         z:"organisations can be designed for sustained output"},
     parts:["Collective intelligence & open source"]},
-  {name:"Cyber risks & resilience", short:"Cyber & resilience", kind:"both", year:2024, count:18, intensity:7, color:"#ff2d9b",
+
+  {name:"Cyber risks & resilience", short:"Cyber & resilience", year:2024, count:18, intensity:7, color:"#ff2d9b",
     eg:"Risk science (heavy-tailed losses) · resilience (bug bounties, insurance)",
+    x:"model", y:"system", z:"act",
+    say:{x:"quantify loss distributions and the incentives around them",
+         y:"insurers, firms and defence agencies",
+         z:"resilience is priced rather than guessed"},
     parts:["Cyber risks & resilience","Privacy, surveillance & neuro-rights"]},
-  {name:"Social interaction & digital phenotyping", short:"Social interaction", kind:"both", year:2024, count:7, intensity:7, color:"#c6f432",
+
+  {name:"Social interaction & digital phenotyping", short:"Social interaction", year:2024, count:7, intensity:7, color:"#c6f432",
     eg:"Social interaction (bio-sensory science) · digital phenotyping (autism screening)",
+    x:"instrument", y:"person", z:"see",
+    say:{x:"sense real social interaction multimodally",
+         y:"clinicians and families",
+         z:"developmental signals are caught early"},
     parts:["Social interaction & digital phenotyping"]},
 ];
 
@@ -548,21 +727,64 @@ const GRANTS=[
   const Y0=2012, Y1=2027, span=Y1-Y0;
   const roleColor={PI:'#6d28d9', Partner:'#22d3ee', Co:'#9aa0aa'};  // fixed → stay colored in any theme
   const roleName={PI:'Principal Investigator', Partner:'Project partner', Co:'Co-applicant'};
-  const fmt=k=> k>=1000 ? 'CHF '+(k/1000).toFixed(2).replace(/\.?0+$/,'')+'M' : 'CHF '+Math.round(k)+'k';
+  // Amounts are awarded in CHF and shown in USD. The rate is fetched from the ECB
+  // (via Frankfurter, no key, CORS-open) once a day and cached; the pinned value is
+  // the fallback when that fetch cannot happen. Nothing here needs a server.
+  const FX={ rate:1.2307, date:'2026-08-18', live:false };
+  const fmt=k=>{ const u=k*FX.rate;
+    return u>=1000 ? 'USD '+(u/1000).toFixed(2).replace(/\.?0+$/,'')+'M' : 'USD '+Math.round(u)+'k'; };
+  const fmtCHF=k=> k>=1000 ? 'CHF '+(k/1000).toFixed(2).replace(/\.?0+$/,'')+'M' : 'CHF '+Math.round(k)+'k';
   const esc=s=> String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
-  document.getElementById('fund-total').textContent=fmt(GRANTS.reduce((a,b)=>a+b.k,0));
+  const totalK=GRANTS.reduce((a,b)=>a+b.k,0);
   document.getElementById('fund-n').textContent=GRANTS.length;
+  const paintFx=()=>{
+    document.getElementById('fund-total').textContent=fmt(totalK);
+    g.querySelectorAll('.g-label span[data-k]').forEach(el=>{
+      el.textContent = el.dataset.f + ' · ' + fmt(+el.dataset.k); });
+    g.querySelectorAll('.g-bar[data-k]').forEach(b=>{
+      b.dataset.d = b.dataset.p + ' · ' + fmt(+b.dataset.k) + ' (' + fmtCHF(+b.dataset.k) + ') · ' + b.dataset.r; });
+    const n=document.getElementById('fx-note');
+    if(n) n.innerHTML = `Awarded in CHF, shown in USD at <b>1 CHF = ${FX.rate.toFixed(4)} USD</b> · `
+      + (FX.live ? `<span class="live">live ECB rate</span>, ${FX.date}` : `ECB rate of ${FX.date}`);
+  };
+  paintFx();
+  // refresh the rate at most once a day, and never block the render on it
+  (async()=>{
+    const KEY='fx.chf.usd';
+    try{
+      const c=JSON.parse(localStorage.getItem(KEY)||'null');
+      if(c && (Date.now()-c.t) < 864e5){ FX.rate=c.rate; FX.date=c.date; FX.live=true; paintFx(); return; }
+      const r=await fetch('https://api.frankfurter.dev/v1/latest?base=CHF&symbols=USD', {cache:'no-store'});
+      const j=await r.json();
+      if(j && j.rates && j.rates.USD){
+        FX.rate=j.rates.USD; FX.date=j.date; FX.live=true;
+        localStorage.setItem(KEY, JSON.stringify({rate:j.rates.USD, date:j.date, t:Date.now()}));
+        paintFx();
+      }
+    }catch(e){ /* pinned fallback already on screen */ }
+  })();
   const ks=GRANTS.map(x=>Math.sqrt(x.k)), kmin=Math.min(...ks), kmax=Math.max(...ks);
   const thick=k=> 6 + (Math.sqrt(k)-kmin)/(kmax-kmin)*22;   // amount → bar thickness 6..28px
   const rows=[...GRANTS].sort((a,b)=> b.s-a.s || b.k-a.k);  // most recent on top
   g.innerHTML=rows.map((x,i)=>{
     const left=(x.s-Y0)/span*100, width=(x.e+1-x.s)/span*100, h=thick(x.k);
-    return `<div class="g-row"><div class="g-label"><b>${x.n}</b><span>${x.f} · ${fmt(x.k)}</span></div>
+    return `<div class="g-row"><div class="g-label"><b>${x.n}</b><span data-f="${esc(x.f)}" data-k="${x.k}">${x.f} · ${fmt(x.k)}</span></div>
       <div class="g-track"><div class="g-bar" style="--i:${i};left:${left}%;width:${width}%;height:${h}px;background:${roleColor[x.role]}"
-        data-n="${esc(x.n)}" data-f="${esc(x.f)}" data-d="${x.s}–${x.e} · ${fmt(x.k)} · ${roleName[x.role]}"></div></div></div>`;
+        data-n="${esc(x.n)}" data-f="${esc(x.f)}" data-k="${x.k}" data-p="${x.s}–${x.e}" data-r="${roleName[x.role]}"
+        data-d="${x.s}–${x.e} · ${fmt(x.k)} · ${roleName[x.role]}"></div></div></div>`;
   }).join('');
   let ticks=''; for(let y=Y0;y<=2026;y+=2) ticks+=`<div class="g-tick" style="left:${(y-Y0)/span*100}%">’${String(y).slice(2)}</div>`;
   g.insertAdjacentHTML('afterend', `<div class="g-axis"><div></div><div class="g-ticks">${ticks}</div></div>`);
+  // the timeline itself stays folded away; '+' opens the full record
+  const btn=document.getElementById('fund-toggle'), body=document.getElementById('fund-body');
+  if(btn && body) btn.addEventListener('click', ()=>{
+    const open=btn.getAttribute('aria-expanded')!=='true';
+    body.hidden=!open;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.querySelector('.pm').textContent = open ? '−' : '+';
+    btn.querySelector('.lbl').textContent = open ? 'Hide the funding timeline' : 'Show the funding timeline';
+    if(open){ g.classList.remove('show'); void g.offsetWidth; g.classList.add('show'); }  // replay the bar sweep
+  });
   g.addEventListener('mouseover',e=>{ const b=e.target.closest('.g-bar'); if(!b) return;
     tip.innerHTML='<b></b><em></em><br>'+b.dataset.d; tip.querySelector('b').textContent=b.dataset.n; tip.querySelector('em').textContent=b.dataset.f; tip.style.opacity='1'; });
   g.addEventListener('mousemove',e=>{ tip.style.left=Math.min(e.clientX+14,innerWidth-260)+'px'; tip.style.top=(e.clientY+14)+'px'; });
@@ -571,32 +793,99 @@ const GRANTS=[
 
 // ---- public interventions (up next / past) — editable ----
 // Editable content lives in _data/talks.yml (injected at build).
-const TALKS = {{ site.data.talks | jsonify }};
-(function renderTalks(){
+const EVENTS = {{ site.data.events | jsonify }};
+const TOPICS = {{ site.data.topics | jsonify }};
+(function renderEvents(){
   const box=document.getElementById('talks-list'); if(!box) return;
   const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const CATC={forecasting:'#16e0ff', complex:'#3b82f6', hackathons:'#a855f7', collective:'#ffd23f', cyber:'#ff2d9b', social:'#c6f432'};
+  const TLAB={research:'Research', talk:'Talk', teaching:'Teaching', impact:'Impact'};
   const byYear=(a,b)=> parseInt(b.when)-parseInt(a.when);
-  const all=[...TALKS].sort((a,b)=> (b.up?1:0)-(a.up?1:0) || byYear(a,b));  // upcoming first, then year desc
-  const tlabel=t=> t.up?'Up next' : t.type==='invited'?'Invited' : t.type==='talk'?'Conference' : 'Chairing';
-  const row=t=>`<div class="talk${t.up?' up':''}" data-type="${t.type}" data-cat="${t.cat||''}"${t.cat?` style="--cat:${CATC[t.cat]||'transparent'}"`:''}>
-      <div class="tk-when">${esc(t.when)}</div>
-      <div><div class="tk-title">${esc(t.title)}</div>
-        <div class="tk-meta"><span class="tk-type">${tlabel(t)}</span>${t.role&&t.role!=='Talk'?esc(t.role)+' · ':''}${esc(t.venue)}${t.url?` · <a class="tk-link" href="${esc(t.url)}" target="_blank" rel="noopener">preprint ↗</a>`:''}</div></div></div>`;
+  const all=[...EVENTS].sort((a,b)=> (b.up?1:0)-(a.up?1:0) || byYear(a,b));
+  const NOW=new Date().getFullYear();
+  const TODAY=new Date().toISOString().slice(0,10);
+  const SMAP={upcoming:'future', ongoing:'present', past:'past'};
+  const bucket=t=>{
+    if(t.status && SMAP[t.status]) return SMAP[t.status];       // explicit wins
+    if(t.up) return 'future';
+    const r=/^(\d{4})[–-](\d{2,4})$/.exec(String(t.when||''));   // "2026–27" spans the present
+    if(r){ const a=+r[1], b=+(r[2].length===2 ? r[1].slice(0,2)+r[2] : r[2]);
+           return (a<=NOW && NOW<=b) ? 'present' : (b<NOW ? 'past' : 'future'); }
+    const d=t.date_end||t.date;                                  // a real date beats the year
+    if(/^\d{4}-\d{2}(-\d{2})?$/.test(d||'')) return ((d.length===7?d+'-28':d) < TODAY) ? 'past' : 'future';
+    const y=parseInt(t.when)||0;
+    return y>NOW ? 'future' : (y===NOW ? 'present' : 'past');
+  };
+  const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const nice=d=>{ const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d||''); return m ? (+m[3])+' '+MON[+m[2]-1]+' '+m[1] : ''; };
+  const dayMon=t=>{
+    if(t.date_label) return esc(t.date_label);
+    const mo=/^(\d{4})-(\d{2})$/.exec(t.date||'');            // month precision
+    if(mo) return MON[+mo[2]-1];
+    const x=/^(\d{4})-(\d{2})-(\d{2})$/.exec(t.date||''); if(!x) return '';
+    const y=/^(\d{4})-(\d{2})-(\d{2})$/.exec(t.date_end||'');
+    return (y && y[1]===x[1] && y[2]===x[2]) ? `${+x[3]}–${+y[3]} ${MON[+x[2]-1]}` : `${+x[3]} ${MON[+x[2]-1]}`;
+  };
+  const range=(a,b)=>{ const x=/^(\d{4})-(\d{2})-(\d{2})$/.exec(a||''), y=/^(\d{4})-(\d{2})-(\d{2})$/.exec(b||'');
+    if(!x||!y) return nice(a);
+    return x[1]===y[1] && x[2]===y[2] ? (+x[3])+'–'+(+y[3])+' '+MON[+x[2]-1]+' '+x[1] : nice(a)+' – '+nice(b); };
+
+  // an event explains itself either with its own blob or by pointing at a shared topic
+  const explain=t=>{
+    const tp = t.topic && TOPICS ? TOPICS[t.topic] : null;
+    const also = t.topic ? EVENTS.filter(e=> e.topic===t.topic && e!==t) : [];
+    if(t.blob) return {text:t.blob, url:t.url, draft:t.draft, also};   // own words, still in the cluster
+    if(!tp) return null;
+    return {text:tp.blob, head:tp.title, url:tp.url||t.url, draft:tp.draft, also};
+  };
+
+  const alsoHTML=list=> !list.length ? '' :
+    `<div class="also"><b>${list.length} other engagement${list.length>1?'s':''} on this subject</b><ul>`
+    + list.map(e=>`<li>${esc(e.title)} — ${esc(e.venue)}${e.date?' · '+nice(e.date):''}</li>`).join('')
+    + `</ul></div>`;
+
+  const row=(t,i)=>{
+    const ex=explain(t);
+    const meta=[ t.role&&t.role!=='Talk'?esc(t.role):'', esc(t.venue) ].filter(Boolean).join(' · ');
+    const when = t.date ? (t.date_end ? range(t.date, t.date_end) : nice(t.date)) : esc(t.when);  // meta line, unused when the column shows it
+    return `<div class="talk${t.up?' up':''}" data-type="${t.type}" data-time="${bucket(t)}" data-cat="${t.cat||''}"${t.cat?` style="--cat:${CATC[t.cat]||'transparent'}"`:''}>
+      <div class="tk-when">${(t.date||t.date_label)?`<b>${dayMon(t)}</b><span class="yr">${esc(t.when)}</span>`:esc(t.when)}</div>
+      <div><div class="tk-title">${ex?`<button class="tk-more" type="button" aria-expanded="false" aria-controls="blob-${i}" aria-label="Show details">+</button>`:''}${esc(t.title)}</div>
+        <div class="tk-meta"><span class="tk-type" data-t="${t.type}">${TLAB[t.type]||t.type}</span>${meta}${t.tbc?' · <span class="tk-soon">to be confirmed</span>':(!t.date&&!t.date_label&&bucket(t)==='future'?' · <span class="tk-soon">date to be announced</span>':'')}${t.url&&!ex?` · <a class="tk-link" href="${esc(t.url)}" target="_blank" rel="noopener">${/arxiv\.org/.test(t.url)?'preprint':'link'} ↗</a>`:''}${!ex&&bucket(t)==='future'?' · <span class="tk-soon">details soon</span>':''}</div>
+        ${ex?`<div class="tk-blob" id="blob-${i}" hidden>
+          ${ex.head?`<p class="b-head">${esc(ex.head)}${ex.draft?' · <span class="b-draft">draft — needs your review</span>':''}</p>`:(ex.draft?'<p class="b-head"><span class="b-draft">draft — needs your review</span></p>':'')}
+          <p>${esc(ex.text)}</p>
+          ${ex.url?`<p style="margin-top:.5rem"><a class="tk-link" href="${esc(ex.url)}" target="_blank" rel="noopener">source ↗</a></p>`:''}
+          ${alsoHTML(ex.also)}</div>`:''}
+      </div></div>`;
+  };
   box.innerHTML=`<div class="talks-scroll">`+all.map(row).join('')+`</div>`;
-  // filter bar (single-select; by type or by research category)
-  const fbar=document.getElementById('talks-filter');
-  if(fbar) fbar.addEventListener('click', e=>{
-    const b=e.target.closest('.tf'); if(!b) return;
-    fbar.querySelectorAll('.tf').forEach(x=> x.classList.toggle('active', x===b));
-    const f=b.dataset.filter;
-    box.querySelectorAll('.talk').forEach(r=>{
-      const show = f==='all'
-        || (f.startsWith('type:') && r.dataset.type===f.slice(5))
-        || (f.startsWith('cat:') && r.dataset.cat===f.slice(4));
-      r.style.display = show ? '' : 'none';
-    });
+
+  box.addEventListener('click', e=>{
+    const b=e.target.closest('.tk-more'); if(!b) return;
+    const panel=document.getElementById(b.getAttribute('aria-controls')); if(!panel) return;
+    const open=b.getAttribute('aria-expanded')!=='true';
+    panel.hidden=!open; b.setAttribute('aria-expanded', String(open)); b.textContent = open?'\u2212':'+';
   });
+
+  // filter bar (single-select; future / present / past / all)
+  const apply=f=> box.querySelectorAll('.talk').forEach(r=>{
+    const show = f==='all'
+      || (f.startsWith('time:') && r.dataset.time===f.slice(5))
+      || (f.startsWith('type:') && r.dataset.type===f.slice(5))
+      || (f.startsWith('cat:') && r.dataset.cat===f.slice(4));
+    r.style.display = show ? '' : 'none';
+  });
+  const fbar=document.getElementById('talks-filter');
+  if(fbar){
+    fbar.addEventListener('click', e=>{
+      const b=e.target.closest('.tf'); if(!b) return;
+      fbar.querySelectorAll('.tf').forEach(x=> x.classList.toggle('active', x===b));
+      apply(b.dataset.filter);
+    });
+    const def=fbar.querySelector('.tf.active');            // land on Future, not the full list
+    if(def) apply(def.dataset.filter);
+  }
 })();
 
 // ---- In flight carousel: code · writing · interventions ----
@@ -610,7 +899,7 @@ const WRITING = [
   const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const codeT=(GACT&&GACT.repos||[]).map(r=>({type:'code', title:r.name, meta:r.key_sentence||r.desc, foot:r.last_push+' · '+r.n_commits+' commits', url:r.url}));
   const writeT=WRITING.map(w=>({type:'writing', title:w.title, meta:w.meta, foot:'in progress', url:w.url}));
-  const talkT=TALKS.filter(t=>t.up).map(t=>({type:'talk', title:t.title, meta:t.venue+' · '+t.role, foot:t.when, url:'#talks'}));
+  const talkT=EVENTS.filter(t=>t.up).map(t=>({type:'talk', title:t.title, meta:t.venue+' · '+t.role, foot:t.when, url:'#talks'}));
   // round-robin interleave, cap 10
   const lists=[codeT,writeT,talkT], flight=[]; let i=0;
   while(flight.length<10 && lists.some(l=>l.length)){ const l=lists[i++%3]; if(l.length) flight.push(l.shift()); }
@@ -665,21 +954,46 @@ const WRITING = [
   const PC=(CITES&&CITES.paper_counts)||{};
   const outc=t=> (t.parts||[t.name]).reduce((s,k)=> s+(PC[k]??0),0) || t.count;
   const ordered=[...THEMES].sort((a,b)=> b.intensity-a.intensity || b.year-a.year);
-  const kindHTML=t=> t.kind==='both'
-    ? `<span class="fk fk-b">basic</span><span class="fk fk-f">applied</span>`
-    : (t.kind==='basic' ? `<span class="fk fk-b">basic</span>` : `<span class="fk fk-f">applied</span>`);
-  leg.innerHTML=ordered.map(t=>`<li data-i="${t.i}">
+  // the x·y·z triple replaces the old basic|applied badges
+  const xyzHTML=(t,hi)=> ['x','y','z'].map(k=>
+    `<span class="sx${hi===k?' on':''}"><i>${k}</i>${t[k]}</span>`).join('');
+  const legRow=t=>`<li data-i="${t.i}">
       <span class="chip" style="background:${t.color}"></span>
       <b>${t.name}</b>
-      <span class="kinds">${kindHTML(t)}</span>
+      <span class="xyz">${xyzHTML(t,null)}</span>
       <span class="yc">${'●'.repeat(Math.round(t.intensity/2))}<span class="dimdot">${'●'.repeat(5-Math.round(t.intensity/2))}</span> intensity · ${outc(t)} papers · latest ${t.year}</span>
-    </li>`).join('');
+    </li>`;
+  // default = most active first; picking an axis regroups the same six along it
+  function renderLegend(axis){
+    if(!axis || axis==='all'){ leg.innerHTML=ordered.map(legRow).join(''); return; }
+    leg.innerHTML = LADDER[axis].ordered.map(v=>{
+      const grp = ordered.filter(t=> t[axis]===v);
+      if(!grp.length) return '';
+      return `<li class="leg-group"><i>${axis}</i> · ${v} <span class="n">(${grp.length})</span></li>`
+           + grp.map(legRow).join('');
+    }).join('');
+  }
+  renderLegend('all');
+
+  // ---- sentence machine: template stays put, only the fills change ----
+  const sentEl=document.getElementById('sentence'), slotEls={};
+  sentEl.querySelectorAll('.slot').forEach(el=> slotEls[el.dataset.slot]=el);
+  function setSentence(t){
+    const src = t ? t.say : UMBRELLA;
+    ['x','y','z'].forEach(k=>{
+      slotEls[k].querySelector('.s-val').textContent = src[k];
+      slotEls[k].style.setProperty('--slotc', t ? t.color : '');
+    });
+    sentEl.dataset.filled = t ? 'true' : 'false';
+  }
+  setSentence(null);
   // interaction: highlight + bring to front
   function focus(i){
     venn.classList.add('dim');
     THEMES.forEach(t=> t.el.classList.toggle('active', t.i==i));
     const t=THEMES[i]; cg.appendChild(t.el); core.parentNode.appendChild(core); // raise circle, keep core on top
     leg.querySelectorAll('li').forEach(li=> li.classList.toggle('active', li.dataset.i==i));
+    setSentence(t);
   }
   function clearFocus(){
     venn.classList.remove('dim');
@@ -687,11 +1001,19 @@ const WRITING = [
     leg.querySelectorAll('li').forEach(li=> li.classList.remove('active'));
     // restore paint order
     painted.forEach(t=> cg.appendChild(t.el)); core.parentNode.appendChild(core);
+    setSentence(null);  // back to the umbrella sentence
   }
   cg.addEventListener('mouseover',e=>{ const c=e.target.closest('.circle'); if(c) focus(+c.dataset.i); });
   cg.addEventListener('mouseout', clearFocus);
-  leg.addEventListener('mouseover',e=>{ const li=e.target.closest('li'); if(li) focus(+li.dataset.i); });
+  leg.addEventListener('mouseover',e=>{ const li=e.target.closest('li');
+    if(li && li.dataset.i!==undefined) focus(+li.dataset.i); });
   leg.addEventListener('mouseout', clearFocus);
+
+  // Each card states its own sentence, composed from the same say{} clauses the
+  // hover machine uses -- so a card can never contradict the sentence above it.
+  const sayHTML=t=> `<span class="c" data-k="x"><i>${LADDER.x.lead}</i> ${t.say.x}</span>, `
+    + `<span class="c" data-k="y"><i>${LADDER.y.lead}</i> ${t.say.y}</span>, `
+    + `<span class="c" data-k="z"><i>${LADDER.z.lead}</i> ${t.say.z}</span>.`;
 
   // ---- build 3D timeline ----
   const tl=document.getElementById('tl');
@@ -702,7 +1024,8 @@ const WRITING = [
     return `<div class="tl-item ${side}" data-i="${t.i}" style="--c:${t.color};--d:${d}px;--h:${h}px;--i:${idx}">
       <div class="tl-bubble" title="${t.name}"></div>
       <div class="tl-card"><div class="tl-year">${t.year}</div><b>${t.name}</b>
-        <span class="kinds">${kindHTML(t)}</span><span class="yc">${dots} · ${outc(t)} papers</span><p class="tl-eg">${t.eg}</p></div>
+        <span class="xyz">${xyzHTML(t,null)}</span><span class="yc">${dots} · ${outc(t)} papers</span>
+        <p class="tl-say">${sayHTML(t)}</p><p class="tl-eg">${t.eg}</p></div>
     </div>`;
   }).join('');
 
@@ -716,19 +1039,46 @@ const WRITING = [
   }
   vseg.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) setView(b.dataset.view); });
 
-  // ---- kind toggle: emphasize basic vs applied circles ('both' always shows) ----
-  const kseg=document.getElementById('focus-kind');
-  function setKind(k){
-    kseg.querySelectorAll('button').forEach(b=> b.classList.toggle('active', b.dataset.kind===k));
-    const w = k==='science'?'basic':(k==='field'?'applied':null);
-    THEMES.forEach(t=>{
-      const off = !!w && t.kind!=='both' && t.kind!==w;
-      t.el.classList.toggle('faded', off);
-      leg.querySelector(`li[data-i="${t.i}"]`).classList.toggle('faded', off);
-      tl.querySelector(`.tl-item[data-i="${t.i}"]`).classList.toggle('faded', off);
+  // ---- x·y·z toggle: same six, sliced three ways ----
+  // No circle is ever hidden -- these are dimensions every perspective has a
+  // value on, not buckets some of them fall into.
+  const sseg=document.getElementById('focus-slot');
+  // One sentence per dimension: what it sorts on, and what its three values are.
+  // 'none' is the ungrouped default -- not a fourth dimension.
+  // spelled-out count, so the prose stays prose if a perspective is added/removed
+  const NUMW=['no','one','two','three','four','five','six','seven','eight','nine','ten'];
+  const nTh=NUMW[THEMES.length]||String(THEMES.length), NTh=nTh[0].toUpperCase()+nTh.slice(1);
+  const AXIS_NOTE = {
+    all:`<b>${NTh} perspectives, one sentence.</b> Each finishes it differently. Pick a dimension to sort them by how they finish it — nothing is ever hidden.`,
+    x:'<span class="k">x</span><b>How the work is done</b> — instrument, model, mobilise. The weight sits in modelling: instruments feed the models, and mobilising is where a model is spent on people.',
+    y:'<span class="k">y</span><b>Who it is about</b> — person, group, system. The same machinery scales from screening one child to pricing risk for a whole sector.',
+    z:'<span class="k">z</span><b>What it is for</b> — see, explain, act. Three ends, not three steps: explaining is a finished outcome, not a stop on the way to acting.',
+  };
+  // live counts, so the numbers under the prose can never contradict the data
+  const tallyHTML=axis=>{
+    if(axis==='all') return '';
+    const m={}; THEMES.forEach(t=> m[t[axis]]=(m[t[axis]]||0)+1);
+    return '<div class="axis-tally">'+LADDER[axis].ordered
+      .map(v=>`<span>${v} <b>×${m[v]||0}</b></span>`).join('')+'</div>';
+  };
+  const noteEl=document.getElementById('axis-note');
+  function setSlot(axis){
+    sseg.querySelectorAll('button').forEach(b=> b.classList.toggle('active', b.dataset.slot===axis));
+    if(noteEl) noteEl.innerHTML = (AXIS_NOTE[axis] || AXIS_NOTE.all) + tallyHTML(axis);
+    renderLegend(axis);
+    ['x','y','z'].forEach(k=>{
+      slotEls[k].classList.toggle('mute', axis!=='all' && k!==axis);
+      slotEls[k].classList.toggle('pick', axis!=='all' && k===axis);
+    });
+    tl.querySelectorAll('.tl-item').forEach(it=>{
+      const t=THEMES[+it.dataset.i], box=it.querySelector('.xyz');
+      if(box) box.innerHTML = xyzHTML(t, axis==='all'?null:axis);
+      const sayEl=it.querySelector('.tl-say');
+      if(sayEl){ if(axis==='all') sayEl.removeAttribute('data-focus'); else sayEl.setAttribute('data-focus', axis); }
     });
   }
-  kseg.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) setKind(b.dataset.kind); });
+  sseg.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) setSlot(b.dataset.slot); });
+  setSlot('all');   // paint the ungrouped note on load
 })();
 
 // ---- reveal + counters + node pop, via IntersectionObserver ----

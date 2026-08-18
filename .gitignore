@@ -2,3 +2,6 @@
 _site/
 .jekyll-cache/
 .jekyll-metadata
+
+# Local preview build (mini-renderer)
+_preview/
