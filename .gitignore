@@ -5,3 +5,6 @@ _site/
 
 # Local preview build (mini-renderer)
 _preview/
+
+# Claude Code session state (worktrees, local settings)
+.claude/
