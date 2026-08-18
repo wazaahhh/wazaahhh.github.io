@@ -147,6 +147,50 @@ section { padding: 3.2rem 0; }
 @media (max-width:760px){ .venn-wrap{ grid-template-columns:1fr; } }
 
 /* ---------- focus toggles ---------- */
+/* ---------- hero: population phrase ---------- */
+.hero .hl-pop { color:var(--ink); font-weight:600;
+  box-shadow:inset 0 -0.42em 0 var(--accent-soft); }
+.hero .lede-sub { font-size:.98rem; max-width:62ch; color:var(--muted); opacity:.72; margin:-.6rem 0 1.4rem; }
+
+/* ---------- the sentence machine ---------- */
+.sentence { font-family:"Space Grotesk"; font-size:clamp(1.02rem,1.9vw,1.32rem); line-height:1.85;
+  margin:.2rem 0 1.5rem; max-width:70ch; color:var(--muted); }
+.sentence .s-lead { color:var(--muted); font-weight:500; }
+/* inline (not inline-flex) so a long clause wraps like text instead of forcing
+   a horizontal scrollbar on narrow screens; box-decoration-break keeps the pill
+   drawn correctly on every line fragment */
+.sentence .slot { display:inline; margin:0 .28em; padding:.12em .62em;
+  border-radius:999px; border:1px dashed var(--line); background:var(--panel);
+  -webkit-box-decoration-break:clone; box-decoration-break:clone;
+  transition:border-color .25s ease, background .25s ease, color .25s ease; }
+.sentence .s-key { font-size:.72em; font-weight:700; font-style:italic;
+  color:var(--accent); opacity:.85; margin-right:.4em; }
+.sentence .s-val { font-weight:600; color:var(--ink); }
+.sentence .s-val:empty::before { content:"…"; color:var(--muted); opacity:.5; font-weight:400; }
+/* filled = a perspective is hovered; the frame stays, only the fills change */
+.sentence[data-filled="true"] .slot { border-style:solid; border-color:var(--slotc,var(--line));
+  background:color-mix(in srgb, var(--slotc,var(--accent)) 11%, var(--panel)); }
+.sentence[data-filled="true"] .s-key { color:var(--slotc,var(--accent)); opacity:1; }
+/* dim the slots the x·y·z toggle is not asking about */
+.sentence .slot.mute { opacity:.34; }
+.sentence .slot.pick { border-style:solid; border-color:var(--accent); }
+
+/* legend / timeline: the x·y·z triple replaces the old basic|applied badges */
+.xyz { display:block; margin:.15rem 0 .1rem; font-size:0; }
+.xyz .sx { display:inline-block; font-family:"Space Grotesk"; font-weight:600; font-size:.62rem;
+  text-transform:lowercase; letter-spacing:.04em; padding:.1rem .42rem; border-radius:999px;
+  margin-right:.28rem; background:var(--accent-soft); color:var(--accent); }
+.xyz .sx i { font-style:italic; opacity:.6; margin-right:.2rem; }
+.xyz .sx.on { background:var(--accent); color:#fff; }
+.xyz .sx.on i { opacity:.75; }
+
+/* group headers when the legend is sliced by one axis */
+.leg-group { list-style:none; font-family:"Space Grotesk"; font-weight:700; font-size:.68rem;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--muted);
+  margin:.6rem 0 .1rem; padding-left:.1rem; }
+.leg-group:first-child { margin-top:0; }
+.leg-group .n { opacity:.5; font-weight:500; letter-spacing:0; text-transform:none; }
+
 .toggles { display:flex; gap:.7rem; flex-wrap:wrap; margin-bottom:1.6rem; }
 .seg { display:inline-flex; gap:3px; padding:3px; border:1px solid var(--line); border-radius:999px; background:var(--panel); }
 .seg button { font-family:"Space Grotesk"; font-weight:600; font-size:.84rem; color:var(--muted); background:transparent;
@@ -367,7 +411,8 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 <header class="hero"><div class="wrap">
   <span class="eyebrow">● Tech forecasting · cyber · social interaction</span>
   <h1>Turning weak signals into <span class="hl">science &amp; innovation</span> you can act on.</h1>
-  <p class="lede">Research and translational work connecting technological forecasting, cybersecurity economics, and social-interaction science with applied decision-making.</p>
+  <p class="lede">A way to anticipate emergence in complex human systems &mdash; for <span class="hl-pop">people who must decide before the evidence is in</span>, so that weak signals become action.</p>
+  <p class="lede-sub">Technological forecasting, cybersecurity economics, and social-interaction science &mdash; research and translational work, built for applied decision-making.</p>
   <div class="cta">
     <a class="btn btn--solid" href="#focus">See what I'm working on →</a>
     <a class="btn btn--ghost" href="https://github.com/wazaahhh" target="_blank" rel="noopener">GitHub</a>
@@ -380,17 +425,29 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 {% assign research = site.research | where_exp:"i","i.published != false" %}
 
 <section id="focus"><div class="wrap reveal">
-  <div class="shead"><h2>Anticipating emergence</h2><span class="tag">one problem · six perspectives</span></div>
-  <p class="sub">Six research perspectives, each sized by current intensity, all attacking one fundamental problem from a different angle — <b>anticipating emergence in complex human systems</b>. <b>Universe</b> collapses them onto that shared core; <b>Timeline</b> explodes them along time. Hover to bring a perspective forward.</p>
+  <div class="shead"><h2>Anticipating emergence</h2><span class="tag">one sentence · six ways to finish it</span></div>
+  <p class="sub">Six research perspectives, each sized by current intensity, all attacking one fundamental problem from a different angle — <b>anticipating emergence in complex human systems</b>. Every one of them is the same sentence, finished differently. Hover a perspective to complete it.</p>
+
+  <!-- the sentence machine: template stays put, the x/y/z slots fill on hover -->
+  <div class="sentence" id="sentence" data-filled="false">
+    <span class="s-lead">A way to</span><!--
+    --><span class="slot" data-slot="x"><span class="s-key">x</span><span class="s-val"></span></span><!--
+    --><span class="s-lead">,&nbsp;for</span><!--
+    --><span class="slot" data-slot="y"><span class="s-key">y</span><span class="s-val"></span></span><!--
+    --><span class="s-lead">,&nbsp;so that</span><!--
+    --><span class="slot" data-slot="z"><span class="s-key">z</span><span class="s-val"></span></span>
+  </div>
+
   <div class="toggles">
     <div class="seg" id="focus-views">
       <button class="active" data-view="universe">◎ Universe</button>
       <button data-view="timeline">↕ Timeline (3D)</button>
     </div>
-    <div class="seg" id="focus-kind">
-      <button class="active" data-kind="all">All</button>
-      <button data-kind="science">🔬 Basic science</button>
-      <button data-kind="field">🚀 Field innovation</button>
+    <div class="seg" id="focus-slot">
+      <button class="active" data-slot="all">All six</button>
+      <button data-slot="x">x · the way</button>
+      <button data-slot="y">y · the people</button>
+      <button data-slot="z">z · the outcome</button>
     </div>
   </div>
   <div id="view-universe">
@@ -467,25 +524,71 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 // count ≈ lifetime outputs; intensity ≈ how active the thread is NOW (1–10) → drives circle size
 // year = most recent output → paint order. All editable. (axis field is currently unused.)
 // `parts` = original Scholar field keys (in _data/citations.json) summed into this perspective.
+// ---- the x/y/z frame ----
+// Every perspective is one sentence: "A way to do X, for population Y, so that Z."
+//   x — the way      : instrument -> model -> mobilise
+//   y — the people   : person -> group -> system
+//   z — the outcome  : see | explain | act   (siblings, NOT a ladder -- "explain"
+//                      is a terminal outcome, not a way-station on the road to "act")
+const LADDER = {
+  x: {key:"x", name:"the way",     ordered:["instrument","model","mobilise"], lead:"A way to"},
+  y: {key:"y", name:"the people",  ordered:["person","group","system"],       lead:"for"},
+  z: {key:"z", name:"the outcome", ordered:["see","explain","act"],           lead:"so that"},
+};
+// The umbrella sentence — shown when nothing is hovered.
+const UMBRELLA = {
+  x:"anticipate emergence in complex human systems",
+  y:"people who must decide before the evidence is in",
+  z:"weak signals become action",
+};
+
 const THEMES = [
-  // Categories 1–2 split into basic + applied (separate Scholar fields); cyber & social stay whole.
-  {name:"Technological forecasting", short:"Tech forecasting", kind:"applied", year:2026, count:9, intensity:10, color:"#16e0ff",
+  {name:"Technological forecasting", short:"Tech forecasting", year:2026, count:9, intensity:10, color:"#16e0ff",
     eg:"TechRank · forecasting convergence · scientometric foresight",
+    x:"model", y:"system", z:"act",
+    say:{x:"model concept-network dynamics in open science data",
+         y:"funders and policymakers",
+         z:"breakthroughs can be anticipated years ahead"},
     parts:["Technology forecasting & scientometrics"]},
-  {name:"Complex systems & human dynamics", short:"Complex systems", kind:"basic", year:2024, count:7, intensity:6, color:"#3b82f6",
+
+  {name:"Complex systems & human dynamics", short:"Complex systems", year:2024, count:7, intensity:6, color:"#3b82f6",
     eg:"Heavy tails · self-excited processes · safety limits",
+    x:"model", y:"system", z:"explain",
+    say:{x:"model heavy-tailed human dynamics",
+         y:"operators of safety-critical systems",
+         z:"the limits of safety analysis become explicit"},
     parts:["Complex systems & human dynamics"]},
-  {name:"Hackathons & open innovation", short:"Hackathons", kind:"applied", year:2026, count:8, intensity:8, color:"#a855f7",
+
+  {name:"Hackathons & open innovation", short:"Hackathons", year:2026, count:8, intensity:8, color:"#a855f7",
     eg:"Open Geneva · SDG hacks for impact",
+    x:"mobilise", y:"group", z:"act",
+    say:{x:"run structured collective sprints",
+         y:"universities and civic organisations",
+         z:"latent expertise becomes prototypes and lasting communities"},
     parts:["Hackathons & open innovation"]},
-  {name:"Collective intelligence & open source", short:"Collective intelligence", kind:"basic", year:2024, count:11, intensity:6, color:"#ffd23f",
+
+  {name:"Collective intelligence & open source", short:"Collective intelligence", year:2024, count:11, intensity:6, color:"#ffd23f",
     eg:"Zipf in Linux · superlinear production · Wikipedia",
+    x:"instrument", y:"group", z:"explain",
+    say:{x:"measure how groups actually produce",
+         y:"open-source and online communities",
+         z:"organisations can be designed for sustained output"},
     parts:["Collective intelligence & open source"]},
-  {name:"Cyber risks & resilience", short:"Cyber & resilience", kind:"both", year:2024, count:18, intensity:7, color:"#ff2d9b",
+
+  {name:"Cyber risks & resilience", short:"Cyber & resilience", year:2024, count:18, intensity:7, color:"#ff2d9b",
     eg:"Risk science (heavy-tailed losses) · resilience (bug bounties, insurance)",
+    x:"model", y:"system", z:"act",
+    say:{x:"quantify loss distributions and the incentives around them",
+         y:"insurers, firms and defence agencies",
+         z:"resilience is priced rather than guessed"},
     parts:["Cyber risks & resilience","Privacy, surveillance & neuro-rights"]},
-  {name:"Social interaction & digital phenotyping", short:"Social interaction", kind:"both", year:2024, count:7, intensity:7, color:"#c6f432",
+
+  {name:"Social interaction & digital phenotyping", short:"Social interaction", year:2024, count:7, intensity:7, color:"#c6f432",
     eg:"Social interaction (bio-sensory science) · digital phenotyping (autism screening)",
+    x:"instrument", y:"person", z:"see",
+    say:{x:"sense real social interaction multimodally",
+         y:"clinicians and families",
+         z:"developmental signals are caught early"},
     parts:["Social interaction & digital phenotyping"]},
 ];
 
@@ -714,21 +817,46 @@ const WRITING = [
   const PC=(CITES&&CITES.paper_counts)||{};
   const outc=t=> (t.parts||[t.name]).reduce((s,k)=> s+(PC[k]??0),0) || t.count;
   const ordered=[...THEMES].sort((a,b)=> b.intensity-a.intensity || b.year-a.year);
-  const kindHTML=t=> t.kind==='both'
-    ? `<span class="fk fk-b">basic</span><span class="fk fk-f">applied</span>`
-    : (t.kind==='basic' ? `<span class="fk fk-b">basic</span>` : `<span class="fk fk-f">applied</span>`);
-  leg.innerHTML=ordered.map(t=>`<li data-i="${t.i}">
+  // the x·y·z triple replaces the old basic|applied badges
+  const xyzHTML=(t,hi)=> ['x','y','z'].map(k=>
+    `<span class="sx${hi===k?' on':''}"><i>${k}</i>${t[k]}</span>`).join('');
+  const legRow=t=>`<li data-i="${t.i}">
       <span class="chip" style="background:${t.color}"></span>
       <b>${t.name}</b>
-      <span class="kinds">${kindHTML(t)}</span>
+      <span class="xyz">${xyzHTML(t,null)}</span>
       <span class="yc">${'●'.repeat(Math.round(t.intensity/2))}<span class="dimdot">${'●'.repeat(5-Math.round(t.intensity/2))}</span> intensity · ${outc(t)} papers · latest ${t.year}</span>
-    </li>`).join('');
+    </li>`;
+  // default = most active first; picking an axis regroups the same six along it
+  function renderLegend(axis){
+    if(!axis || axis==='all'){ leg.innerHTML=ordered.map(legRow).join(''); return; }
+    leg.innerHTML = LADDER[axis].ordered.map(v=>{
+      const grp = ordered.filter(t=> t[axis]===v);
+      if(!grp.length) return '';
+      return `<li class="leg-group"><i>${axis}</i> · ${v} <span class="n">(${grp.length})</span></li>`
+           + grp.map(legRow).join('');
+    }).join('');
+  }
+  renderLegend('all');
+
+  // ---- sentence machine: template stays put, only the fills change ----
+  const sentEl=document.getElementById('sentence'), slotEls={};
+  sentEl.querySelectorAll('.slot').forEach(el=> slotEls[el.dataset.slot]=el);
+  function setSentence(t){
+    const src = t ? t.say : UMBRELLA;
+    ['x','y','z'].forEach(k=>{
+      slotEls[k].querySelector('.s-val').textContent = src[k];
+      slotEls[k].style.setProperty('--slotc', t ? t.color : '');
+    });
+    sentEl.dataset.filled = t ? 'true' : 'false';
+  }
+  setSentence(null);
   // interaction: highlight + bring to front
   function focus(i){
     venn.classList.add('dim');
     THEMES.forEach(t=> t.el.classList.toggle('active', t.i==i));
     const t=THEMES[i]; cg.appendChild(t.el); core.parentNode.appendChild(core); // raise circle, keep core on top
     leg.querySelectorAll('li').forEach(li=> li.classList.toggle('active', li.dataset.i==i));
+    setSentence(t);
   }
   function clearFocus(){
     venn.classList.remove('dim');
@@ -736,10 +864,12 @@ const WRITING = [
     leg.querySelectorAll('li').forEach(li=> li.classList.remove('active'));
     // restore paint order
     painted.forEach(t=> cg.appendChild(t.el)); core.parentNode.appendChild(core);
+    setSentence(null);  // back to the umbrella sentence
   }
   cg.addEventListener('mouseover',e=>{ const c=e.target.closest('.circle'); if(c) focus(+c.dataset.i); });
   cg.addEventListener('mouseout', clearFocus);
-  leg.addEventListener('mouseover',e=>{ const li=e.target.closest('li'); if(li) focus(+li.dataset.i); });
+  leg.addEventListener('mouseover',e=>{ const li=e.target.closest('li');
+    if(li && li.dataset.i!==undefined) focus(+li.dataset.i); });
   leg.addEventListener('mouseout', clearFocus);
 
   // ---- build 3D timeline ----
@@ -751,7 +881,7 @@ const WRITING = [
     return `<div class="tl-item ${side}" data-i="${t.i}" style="--c:${t.color};--d:${d}px;--h:${h}px;--i:${idx}">
       <div class="tl-bubble" title="${t.name}"></div>
       <div class="tl-card"><div class="tl-year">${t.year}</div><b>${t.name}</b>
-        <span class="kinds">${kindHTML(t)}</span><span class="yc">${dots} · ${outc(t)} papers</span><p class="tl-eg">${t.eg}</p></div>
+        <span class="xyz">${xyzHTML(t,null)}</span><span class="yc">${dots} · ${outc(t)} papers</span><p class="tl-eg">${t.eg}</p></div>
     </div>`;
   }).join('');
 
@@ -765,19 +895,23 @@ const WRITING = [
   }
   vseg.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) setView(b.dataset.view); });
 
-  // ---- kind toggle: emphasize basic vs applied circles ('both' always shows) ----
-  const kseg=document.getElementById('focus-kind');
-  function setKind(k){
-    kseg.querySelectorAll('button').forEach(b=> b.classList.toggle('active', b.dataset.kind===k));
-    const w = k==='science'?'basic':(k==='field'?'applied':null);
-    THEMES.forEach(t=>{
-      const off = !!w && t.kind!=='both' && t.kind!==w;
-      t.el.classList.toggle('faded', off);
-      leg.querySelector(`li[data-i="${t.i}"]`).classList.toggle('faded', off);
-      tl.querySelector(`.tl-item[data-i="${t.i}"]`).classList.toggle('faded', off);
+  // ---- x·y·z toggle: same six, sliced three ways ----
+  // No circle is ever hidden -- these are dimensions every perspective has a
+  // value on, not buckets some of them fall into.
+  const sseg=document.getElementById('focus-slot');
+  function setSlot(axis){
+    sseg.querySelectorAll('button').forEach(b=> b.classList.toggle('active', b.dataset.slot===axis));
+    renderLegend(axis);
+    ['x','y','z'].forEach(k=>{
+      slotEls[k].classList.toggle('mute', axis!=='all' && k!==axis);
+      slotEls[k].classList.toggle('pick', axis!=='all' && k===axis);
+    });
+    tl.querySelectorAll('.tl-item').forEach(it=>{
+      const t=THEMES[+it.dataset.i], box=it.querySelector('.xyz');
+      if(box) box.innerHTML = xyzHTML(t, axis==='all'?null:axis);
     });
   }
-  kseg.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) setKind(b.dataset.kind); });
+  sseg.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) setSlot(b.dataset.slot); });
 })();
 
 // ---- reveal + counters + node pop, via IntersectionObserver ----
