@@ -1,10 +1,16 @@
 # Public interventions.
 #   type: role  -> chairing / organising / programme design (community leadership)
 #   type: talk  -> scientific conference presentation (scraped from the publication list)
-#   up: true    -> upcoming, listed under "▲ Up next" (and surfaced in the In-flight carousel)
+#   up: true    -> upcoming (also surfaced in the In-flight carousel)
+#   status      -> upcoming | ongoing | past. Optional: overrides the automatic bucket.
+#                  Without it, the bucket is derived from `when` against the current year:
+#                    starts later                  -> upcoming
+#                    range across now ("2026–27")  -> ongoing
+#                    finished                      -> past
+#                    single current year           -> upcoming if `up: true`, else past
 #   cat         -> research category for colour-coding (matches the 6 universe circles):
 #                  forecasting | complex | hackathons | collective | cyber | social
-# Fields: when, type, title, role (optional, defaults to "Talk" for talks), venue, cat.
+# Fields: when, type, title, role (optional, defaults to "Talk" for talks), venue, cat, status.
 
 # ----------------------------------------------------------------------------
 # Chairing & organising
@@ -19,12 +25,14 @@
 - when: "2026–27"
   type: role
   up: true
+  status: ongoing
   title: "Translational Futures"
   role: "Lead researcher"
   venue: "Tech Hub · Geneva"
 
 - when: "2026"
   type: talk
+  status: upcoming
   cat: forecasting
   title: "Explainable Forecasting of Scientific Breakthroughs from Concept Network Dynamics"
   venue: "Global Tech Mining Conference (GTM2026)"
@@ -32,6 +40,7 @@
 
 - when: "2026"
   type: talk
+  status: upcoming
   cat: forecasting
   title: "Forecasting Conceptual Diffusion in Science: The Case of Quantum Computing"
   venue: "Global Tech Mining Conference (GTM2026)"

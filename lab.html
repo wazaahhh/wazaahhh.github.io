@@ -216,18 +216,31 @@ section { padding: 3.2rem 0; }
 /* ---------- public interventions (talks) ---------- */
 .talks { display:flex; flex-direction:column; }
 .tk-group { font-family:"Space Grotesk"; font-weight:700; font-size:.74rem; text-transform:uppercase; letter-spacing:.1em;
-  color:var(--muted); margin:1.2rem 0 .3rem; }
-.tk-group.up { color:var(--wire); margin-top:0; }
+  color:var(--muted); margin:1.2rem 0 .3rem; display:flex; align-items:center; gap:.55rem;
+  position:sticky; top:0; z-index:2; background:var(--bg); padding:.35rem 0 .3rem; }
+.tk-group::after { content:""; flex:1; height:1px; background:var(--line); }
+.tk-group .tk-n { font-size:.68rem; font-weight:600; letter-spacing:0; color:var(--muted);
+  background:var(--line); border-radius:999px; padding:.05rem .4rem; }
+.talk-group:first-child .tk-group { margin-top:0; }
+.tk-group.up { color:var(--wire); }
+.tk-group.ongoing { color:var(--accent); }
+.talks-empty { color:var(--muted); font-size:.85rem; padding:1rem .2rem; }
 .talk { display:grid; grid-template-columns:84px 1fr; gap:1rem; padding:.7rem 0 .7rem .7rem;
   border-top:1px solid var(--line); border-left:3px solid var(--cat, transparent); }
 .talk .tk-when { font-family:"Space Grotesk"; font-weight:700; font-size:.9rem; color:var(--accent); }
 .talk.up .tk-when { color:var(--wire); }
+.talk.ongoing .tk-when { color:var(--accent); }
+.talk.ongoing .tk-when::after { content:" \2192"; opacity:.55; }
 .talk .tk-title { font-family:"Space Grotesk"; font-weight:600; font-size:.95rem; line-height:1.25; }
 .tk-link { color:var(--accent); font-weight:600; text-decoration:none; white-space:nowrap; }
 .talk .tk-meta { font-size:.82rem; color:var(--muted); margin-top:.1rem; }
 .talks-scroll { max-height:420px; overflow-y:auto; padding-right:.5rem;
   border-top:1px solid var(--line); border-bottom:1px solid var(--line); -webkit-overflow-scrolling:touch; }
-.tfilters { display:flex; flex-wrap:wrap; gap:.4rem; margin:0 0 1rem; }
+.tfilters { display:flex; flex-wrap:wrap; align-items:center; gap:.4rem; margin:0 0 1rem; }
+.tfilters--when { margin-bottom:.55rem; }
+.tf-label { font-family:"Space Grotesk"; font-weight:700; font-size:.66rem; text-transform:uppercase;
+  letter-spacing:.1em; color:var(--muted); margin-right:.15rem; }
+.tf--when.active { background:var(--wire); border-color:var(--wire); }
 .tf { font-family:"Space Grotesk"; font-weight:600; font-size:.74rem; padding:.3rem .7rem; border-radius:999px;
   border:1px solid var(--line); background:var(--panel); color:var(--muted); cursor:pointer;
   display:inline-flex; align-items:center; gap:.35rem; transition:all .15s ease; }
@@ -408,8 +421,16 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 
 <section id="talks"><div class="wrap reveal">
   <div class="shead"><h2>Public interventions</h2><span class="tag">talks · papers · chairing</span></div>
-  <p class="sub">Invited talks, conference papers, and the events I chair or organise — filter by type or research area.</p>
+  <p class="sub">Invited talks, conference papers, and the events I chair or organise — filter by moment, type, or research area.</p>
+  <div class="tfilters tfilters--when" id="talks-when">
+    <span class="tf-label">When</span>
+    <button class="tf tf--when active" data-when="all">All</button>
+    <button class="tf tf--when" data-when="upcoming">Upcoming</button>
+    <button class="tf tf--when" data-when="ongoing">Ongoing</button>
+    <button class="tf tf--when" data-when="past">Past</button>
+  </div>
   <div class="tfilters" id="talks-filter">
+    <span class="tf-label">What</span>
     <button class="tf active" data-filter="all">All</button>
     <button class="tf" data-filter="type:invited">Invited</button>
     <button class="tf" data-filter="type:talk">Conference</button>
@@ -569,34 +590,83 @@ const GRANTS=[
   g.addEventListener('mouseout',()=> tip.style.opacity='0');
 })();
 
-// ---- public interventions (up next / past) — editable ----
+// ---- public interventions (upcoming / ongoing / past) — editable ----
 // Editable content lives in _data/talks.yml (injected at build).
 const TALKS = {{ site.data.talks | jsonify }};
+// Temporal bucket for an intervention. `status:` in the YAML always wins; otherwise it is derived
+// from `when` (a single year, or a range like "2026–27") against the current year:
+//   starts after this year -> upcoming · runs across this year -> ongoing · finished -> past
+//   single current year: `up: true` -> upcoming, otherwise past.
+function talkStatus(t){
+  if(t.status && ['upcoming','ongoing','past'].indexOf(t.status)>=0) return t.status;
+  const parts=String(t.when||'').split(/[–—-]/).map(x=>x.trim()).filter(Boolean);
+  const a=parseInt(parts[0],10);
+  if(isNaN(a)) return t.up ? 'upcoming' : 'past';
+  let b=a;
+  if(parts[1]){ const p=parseInt(parts[1],10);
+    if(!isNaN(p)) b = p<100 ? Math.floor(a/100)*100+p : p; }
+  const y=new Date().getFullYear();
+  if(a>y) return 'upcoming';           // starts after this year
+  if(b>y) return 'ongoing';            // started, still running past this year
+  if(b<y) return 'past';
+  if(a<y) return 'ongoing';            // multi-year, wraps up this year
+  return t.up ? 'upcoming' : 'past';   // single current year
+}
 (function renderTalks(){
   const box=document.getElementById('talks-list'); if(!box) return;
   const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const CATC={forecasting:'#16e0ff', complex:'#3b82f6', hackathons:'#a855f7', collective:'#ffd23f', cyber:'#ff2d9b', social:'#c6f432'};
-  const byYear=(a,b)=> parseInt(b.when)-parseInt(a.when);
-  const all=[...TALKS].sort((a,b)=> (b.up?1:0)-(a.up?1:0) || byYear(a,b));  // upcoming first, then year desc
-  const tlabel=t=> t.up?'Up next' : t.type==='invited'?'Invited' : t.type==='talk'?'Conference' : 'Chairing';
-  const row=t=>`<div class="talk${t.up?' up':''}" data-type="${t.type}" data-cat="${t.cat||''}"${t.cat?` style="--cat:${CATC[t.cat]||'transparent'}"`:''}>
+  const y0=t=> parseInt(String(t.when),10)||0;
+  const GROUPS=[['upcoming','Upcoming','up'], ['ongoing','Ongoing','ongoing'], ['past','Past','']];
+  const bucket={upcoming:[], ongoing:[], past:[]};
+  TALKS.forEach(t=> bucket[talkStatus(t)].push(t));
+  bucket.upcoming.sort((a,b)=> y0(a)-y0(b));   // soonest first
+  bucket.ongoing.sort((a,b)=> y0(b)-y0(a));
+  bucket.past.sort((a,b)=> y0(b)-y0(a));       // most recent first
+  const tlabel=t=> t.type==='invited'?'Invited' : t.type==='talk'?'Conference' : 'Chairing';
+  const row=(t,st)=>`<div class="talk${st==='upcoming'?' up':st==='ongoing'?' ongoing':''}" data-type="${t.type}" data-cat="${t.cat||''}"${t.cat?` style="--cat:${CATC[t.cat]||'transparent'}"`:''}>
       <div class="tk-when">${esc(t.when)}</div>
       <div><div class="tk-title">${esc(t.title)}</div>
         <div class="tk-meta"><span class="tk-type">${tlabel(t)}</span>${t.role&&t.role!=='Talk'?esc(t.role)+' · ':''}${esc(t.venue)}${t.url?` · <a class="tk-link" href="${esc(t.url)}" target="_blank" rel="noopener">preprint ↗</a>`:''}</div></div></div>`;
-  box.innerHTML=`<div class="talks-scroll">`+all.map(row).join('')+`</div>`;
-  // filter bar (single-select; by type or by research category)
-  const fbar=document.getElementById('talks-filter');
-  if(fbar) fbar.addEventListener('click', e=>{
-    const b=e.target.closest('.tf'); if(!b) return;
-    fbar.querySelectorAll('.tf').forEach(x=> x.classList.toggle('active', x===b));
-    const f=b.dataset.filter;
-    box.querySelectorAll('.talk').forEach(r=>{
-      const show = f==='all'
-        || (f.startsWith('type:') && r.dataset.type===f.slice(5))
-        || (f.startsWith('cat:') && r.dataset.cat===f.slice(4));
-      r.style.display = show ? '' : 'none';
+  box.innerHTML=`<div class="talks-scroll">`+GROUPS.map(([k,label,cls])=>{
+    const rows=bucket[k]; if(!rows.length) return '';
+    return `<div class="talk-group" data-when="${k}">
+      <h3 class="tk-group ${cls}">${label}<span class="tk-n">${rows.length}</span></h3>
+      ${rows.map(t=> row(t,k)).join('')}</div>`;
+  }).join('')+`<p class="talks-empty" id="talks-empty" hidden>Nothing matches this combination — try another filter.</p></div>`;
+
+  // two filter axes, combined: when (upcoming / ongoing / past) × what (type or research category)
+  let fWhen='all', fWhat='all';
+  const empty=document.getElementById('talks-empty');
+  function apply(){
+    let total=0;
+    box.querySelectorAll('.talk-group').forEach(g=>{
+      let vis=0;
+      g.querySelectorAll('.talk').forEach(r=>{
+        const show = (fWhen==='all' || g.dataset.when===fWhen)
+          && (fWhat==='all'
+            || (fWhat.startsWith('type:') && r.dataset.type===fWhat.slice(5))
+            || (fWhat.startsWith('cat:') && r.dataset.cat===fWhat.slice(4)));
+        r.style.display = show ? '' : 'none';
+        if(show) vis++;
+      });
+      g.style.display = vis ? '' : 'none';
+      g.querySelector('.tk-n').textContent = vis;
+      total += vis;
     });
-  });
+    if(empty) empty.hidden = total>0;
+  }
+  function wire(id, set){
+    const bar=document.getElementById(id); if(!bar) return;
+    bar.addEventListener('click', e=>{
+      const b=e.target.closest('.tf'); if(!b) return;
+      bar.querySelectorAll('.tf').forEach(x=> x.classList.toggle('active', x===b));
+      set(b); apply();
+    });
+  }
+  wire('talks-when', b=> fWhen=b.dataset.when);
+  wire('talks-filter', b=> fWhat=b.dataset.filter);
+  apply();
 })();
 
 // ---- In flight carousel: code · writing · interventions ----
@@ -610,7 +680,7 @@ const WRITING = [
   const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const codeT=(GACT&&GACT.repos||[]).map(r=>({type:'code', title:r.name, meta:r.key_sentence||r.desc, foot:r.last_push+' · '+r.n_commits+' commits', url:r.url}));
   const writeT=WRITING.map(w=>({type:'writing', title:w.title, meta:w.meta, foot:'in progress', url:w.url}));
-  const talkT=TALKS.filter(t=>t.up).map(t=>({type:'talk', title:t.title, meta:t.venue+' · '+t.role, foot:t.when, url:'#talks'}));
+  const talkT=TALKS.filter(t=> talkStatus(t)!=='past').map(t=>({type:'talk', title:t.title, meta:t.venue+' · '+t.role, foot:t.when, url:'#talks'}));
   // round-robin interleave, cap 10
   const lists=[codeT,writeT,talkT], flight=[]; let i=0;
   while(flight.length<10 && lists.some(l=>l.length)){ const l=lists[i++%3]; if(l.length) flight.push(l.shift()); }
