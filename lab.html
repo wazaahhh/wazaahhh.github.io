@@ -312,9 +312,11 @@ section { padding: 3.2rem 0; }
 .tk-group { font-family:"Space Grotesk"; font-weight:700; font-size:.74rem; text-transform:uppercase; letter-spacing:.1em;
   color:var(--muted); margin:1.2rem 0 .3rem; }
 .tk-group.up { color:var(--wire); margin-top:0; }
-.talk { display:grid; grid-template-columns:84px 1fr; gap:1rem; padding:.7rem 0 .7rem .7rem;
+.talk { display:grid; grid-template-columns:96px 1fr; gap:1rem; padding:.7rem 0 .7rem .7rem;
   border-top:1px solid var(--line); border-left:3px solid var(--cat, transparent); }
 .talk .tk-when { font-family:"Space Grotesk"; font-weight:700; font-size:.9rem; color:var(--accent); }
+.talk .tk-when b { display:block; font-weight:700; }
+.talk .tk-when .yr { display:block; font-weight:600; font-size:.76rem; color:var(--muted); }
 .talk.up .tk-when { color:var(--wire); }
 .talk .tk-title { font-family:"Space Grotesk"; font-weight:600; font-size:.95rem; line-height:1.25; }
 .tk-link { color:var(--accent); font-weight:600; text-decoration:none; white-space:nowrap; }
@@ -352,7 +354,7 @@ section { padding: 3.2rem 0; }
   letter-spacing:.08em; margin-bottom:.3rem; }
 .tk-blob .also li { margin:.12rem 0; }
 .tk-blob ul { margin:0; padding-left:1.1rem; }
-@media (max-width:680px){ .talk{ grid-template-columns:64px 1fr; gap:.7rem; } }
+@media (max-width:680px){ .talk{ grid-template-columns:76px 1fr; gap:.7rem; } }
 
 /* ---------- citation intensity heatmap ---------- */
 .note-illus { color:var(--accent); font-weight:600; }
@@ -767,6 +769,14 @@ const TOPICS = {{ site.data.topics | jsonify }};
   const bucket=t=>{ const y=parseInt(t.when)||0; return (t.up||y>NOW) ? 'future' : (y===NOW ? 'present' : 'past'); };
   const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const nice=d=>{ const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d||''); return m ? (+m[3])+' '+MON[+m[2]-1]+' '+m[1] : ''; };
+  const dayMon=t=>{
+    if(t.date_label) return esc(t.date_label);
+    const mo=/^(\d{4})-(\d{2})$/.exec(t.date||'');            // month precision
+    if(mo) return MON[+mo[2]-1];
+    const x=/^(\d{4})-(\d{2})-(\d{2})$/.exec(t.date||''); if(!x) return '';
+    const y=/^(\d{4})-(\d{2})-(\d{2})$/.exec(t.date_end||'');
+    return (y && y[1]===x[1] && y[2]===x[2]) ? `${+x[3]}–${+y[3]} ${MON[+x[2]-1]}` : `${+x[3]} ${MON[+x[2]-1]}`;
+  };
   const range=(a,b)=>{ const x=/^(\d{4})-(\d{2})-(\d{2})$/.exec(a||''), y=/^(\d{4})-(\d{2})-(\d{2})$/.exec(b||'');
     if(!x||!y) return nice(a);
     return x[1]===y[1] && x[2]===y[2] ? (+x[3])+'–'+(+y[3])+' '+MON[+x[2]-1]+' '+x[1] : nice(a)+' – '+nice(b); };
@@ -788,11 +798,11 @@ const TOPICS = {{ site.data.topics | jsonify }};
   const row=(t,i)=>{
     const ex=explain(t);
     const meta=[ t.role&&t.role!=='Talk'?esc(t.role):'', esc(t.venue) ].filter(Boolean).join(' · ');
-    const when = t.date ? (t.date_end ? range(t.date, t.date_end) : nice(t.date)) : esc(t.when);
+    const when = t.date ? (t.date_end ? range(t.date, t.date_end) : nice(t.date)) : esc(t.when);  // meta line, unused when the column shows it
     return `<div class="talk${t.up?' up':''}" data-type="${t.type}" data-time="${bucket(t)}" data-cat="${t.cat||''}"${t.cat?` style="--cat:${CATC[t.cat]||'transparent'}"`:''}>
-      <div class="tk-when">${esc(t.when)}</div>
+      <div class="tk-when">${(t.date||t.date_label)?`<b>${dayMon(t)}</b><span class="yr">${esc(t.when)}</span>`:esc(t.when)}</div>
       <div><div class="tk-title">${ex?`<button class="tk-more" type="button" aria-expanded="false" aria-controls="blob-${i}" aria-label="Show details">+</button>`:''}${esc(t.title)}</div>
-        <div class="tk-meta"><span class="tk-type" data-t="${t.type}">${TLAB[t.type]||t.type}</span>${meta}${t.date?' · '+when:''}${t.tbc?' · <span class="tk-soon">to be confirmed</span>':''}${t.url&&!ex?` · <a class="tk-link" href="${esc(t.url)}" target="_blank" rel="noopener">link ↗</a>`:''}${!ex&&bucket(t)==='future'?' · <span class="tk-soon">details soon</span>':''}</div>
+        <div class="tk-meta"><span class="tk-type" data-t="${t.type}">${TLAB[t.type]||t.type}</span>${meta}${t.tbc?' · <span class="tk-soon">to be confirmed</span>':(!t.date&&!t.date_label&&bucket(t)==='future'?' · <span class="tk-soon">date to be announced</span>':'')}${t.url&&!ex?` · <a class="tk-link" href="${esc(t.url)}" target="_blank" rel="noopener">link ↗</a>`:''}${!ex&&bucket(t)==='future'?' · <span class="tk-soon">details soon</span>':''}</div>
         ${ex?`<div class="tk-blob" id="blob-${i}" hidden>
           ${ex.head?`<p class="b-head">${esc(ex.head)}${ex.draft?' · <span class="b-draft">draft — needs your review</span>':''}</p>`:(ex.draft?'<p class="b-head"><span class="b-draft">draft — needs your review</span></p>':'')}
           <p>${esc(ex.text)}</p>

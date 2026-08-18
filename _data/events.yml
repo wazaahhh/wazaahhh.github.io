@@ -25,7 +25,7 @@
 - when: "2026"
   type: "impact"
   up: true
-  title: "SDG Open Hack — certificate programme"
+  title: "SDG Open Hack"
   role: "Programme design"
   venue: "Geneva"
   cat: "hackathons"
@@ -575,19 +575,30 @@
 - when: "2026"
   type: "impact"
   up: true
-  tbc: true
+  date_label: "Autumn"
   title: "TU Berlin Social Robotics Hack"
-  role: "Hackathon design"
-  venue: "TU Berlin · autumn semester"
+  role: "Co-instructor (Lehrbeauftragter)"
+  venue: "TU Berlin, MAR campus · Cognitive Psychology & Cognitive Ergonomics (KKE)"
   cat: "social"
+  draft: true
+  blob: >
+    A build course rather than a lecture: Vibe-Coding Social Robots, run with Eva Wiese's
+    cognitive ergonomics group at TU Berlin and taught with Matt Huebert. It opens with a needs
+    library seeded from the lab's own research problems — validating and sharpening those needs
+    is also how students earn one of the credit-bearing seats. Then five teaching sessions on
+    AI-assisted building and on AI stewardship, delegating, verifying, overriding and refusing;
+    an on-site hackathon at the MAR campus; and three supervised weeks hardening the result.
+    Every team ships a runnable artefact the group can actually pick up — a stimulus generator,
+    a gaze-cueing harness, an evaluation probe for LLM participants.
 
 - when: "2027"
   type: "impact"
   up: true
   tbc: true
+  date: "2027-07"
   title: "Geneva Quantum Hack #3 — Quantum Technologies for Space"
   role: "Hackathon design"
-  venue: "CERN IdeaSquare · July 2027"
+  venue: "CERN IdeaSquare"
   url: "https://indico.cern.ch/event/1631283/overview"
   cat: "hackathons"
   topic: "geneva-quantum-hack"
