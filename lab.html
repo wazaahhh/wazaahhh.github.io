@@ -35,12 +35,19 @@ permalink: /
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 <script>
-// Resolve the theme before first paint, so nobody sees a white flash before dark loads.
-function pickTheme(){
+// Theme resolves before first paint, so the page never flashes the wrong one.
+// Default is automatic: light by day, dark at night, on the visitor's own clock.
+// Picking a swatch stores an override that wins until they choose Auto again.
+const NIGHT_FROM = 19, NIGHT_UNTIL = 7;          // dark from 19:00 to 07:00 local
+const DAY_THEME = 'theme-grey', NIGHT_THEME = 'theme-dark';
+function isNight(d){ const h=(d||new Date()).getHours(); return h>=NIGHT_FROM || h<NIGHT_UNTIL; }
+function autoTheme(){ return isNight() ? NIGHT_THEME : DAY_THEME; }
+function storedTheme(){
   try{ const t=localStorage.getItem('theme');
-       if(t==='theme-volt'||t==='theme-grey'||t==='theme-dark') return t; }catch(e){}
-  return 'theme-dark';   // the site's own default; a stored choice above still wins
+       if(t==='theme-volt'||t==='theme-grey'||t==='theme-dark') return t; }catch(e){ }
+  return null;
 }
+function pickTheme(){ return storedTheme() || autoTheme(); }
 document.addEventListener('DOMContentLoaded', ()=>{ document.body.className = pickTheme(); });
 </script>
 <style>
@@ -475,8 +482,9 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
     <a href="#grants">Grants</a>
     <a href="#citations">Citations</a>
     <div class="swatches" id="swatches">
+      <button class="swatch is-active" data-theme="auto" style="background:linear-gradient(90deg,#f6f6f6 0 50%,#0c0c14 50% 100%)" title="Auto — light by day, dark at night"></button>
       <button class="swatch" data-theme="theme-volt" style="background:linear-gradient(90deg,#6d28d9 0 50%,#c6f432 50% 100%)" title="Volt — violet + lime"></button>
-      <button class="swatch is-active" data-theme="theme-grey" style="background:linear-gradient(90deg,#555 0 50%,#bbb 50% 100%)" title="Greyscale"></button>
+      <button class="swatch" data-theme="theme-grey" style="background:linear-gradient(90deg,#555 0 50%,#bbb 50% 100%)" title="Greyscale"></button>
       <button class="swatch" data-theme="theme-dark" style="background:linear-gradient(90deg,#0c0c14 0 50%,#a78bfa 50% 100%)" title="Night"></button>
     </div>
   </nav>
@@ -670,17 +678,31 @@ const THEMES = [
 ];
 
 // ---- palette switcher ----
-function applyTheme(theme){
+function applyTheme(theme, remember){
   document.body.className = theme;
-  try{ localStorage.setItem('theme', theme); }catch(e){}
-  document.querySelectorAll('.swatch').forEach(s=>s.classList.toggle('is-active', s.dataset.theme===theme));
+  if(remember){ try{ localStorage.setItem('theme', theme); }catch(e){} }
+  markSwatches();
+}
+// In auto mode the Auto swatch is the active one, not whichever theme the clock chose.
+function markSwatches(){
+  const chosen = storedTheme();
+  document.querySelectorAll('.swatch').forEach(s=>
+    s.classList.toggle('is-active', chosen ? s.dataset.theme===chosen : s.dataset.theme==='auto'));
 }
 document.getElementById('swatches').addEventListener('click', e => {
   const b = e.target.closest('.swatch'); if(!b) return;
-  applyTheme(b.dataset.theme);
+  if(b.dataset.theme==='auto'){                      // hand the clock back the wheel
+    try{ localStorage.removeItem('theme'); }catch(e){}
+    applyTheme(autoTheme(), false);
+  } else {
+    applyTheme(b.dataset.theme, true);
+  }
 });
-// greyscale by default on load
-applyTheme(pickTheme());   // stored choice, else the OS setting, else grey
+applyTheme(pickTheme(), false);                      // load: never writes, so auto stays auto
+
+// A tab left open should cross dusk on its own; only while nobody has overridden.
+setInterval(()=>{ if(!storedTheme()){ const t=autoTheme();
+  if(document.body.className!==t) applyTheme(t, false); } }, 60000);
 
 // ---- pixel divider ----
 document.querySelector('.pixels').innerHTML = Array.from({length:18},()=> '<i></i>').join('');
