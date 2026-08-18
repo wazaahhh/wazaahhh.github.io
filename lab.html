@@ -212,15 +212,18 @@ section { padding: 3.2rem 0; }
 .g-tick { position:absolute; transform:translateX(-50%); font-size:.66rem; color:var(--muted); }
 .g-tick::before { content:""; position:absolute; top:-6px; left:50%; width:1px; height:5px; background:var(--line); }
 @media (max-width:680px){ .g-row,.g-axis{ grid-template-columns:120px 1fr; gap:8px; } .g-label b{ font-size:.74rem; } }
-.g-row.g-hide { display:none; }
-.g-row.g-in { animation:gfade .38s ease both; animation-delay:calc(var(--j,0) * 45ms); }
-@keyframes gfade { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
-.g-morebar { margin-top:.9rem; }
-.g-more { font-family:"Space Grotesk"; font-weight:600; font-size:.76rem; padding:.34rem .8rem; border-radius:999px;
-  border:1px solid var(--line); background:var(--panel); color:var(--muted); cursor:pointer;
-  display:inline-flex; align-items:center; gap:.45rem; transition:color .15s ease, border-color .15s ease; }
-.g-more:hover { color:var(--ink); border-color:var(--accent); }
-.g-more .pm { font-family:ui-monospace,monospace; font-size:.95rem; line-height:1; color:var(--accent); }
+.fund-toggle { display:inline-flex; align-items:center; gap:.55rem; margin:.2rem 0 0; padding:0;
+  border:0; background:none; color:var(--muted); cursor:pointer; font-family:"Space Grotesk";
+  font-weight:600; font-size:.78rem; transition:color .15s ease; }
+.fund-toggle .pm { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px;
+  border-radius:50%; border:1px solid var(--line); background:var(--panel); color:var(--accent);
+  font-size:1rem; line-height:1; transition:border-color .15s ease, background .15s ease, transform .2s ease; }
+.fund-toggle:hover { color:var(--ink); }
+.fund-toggle:hover .pm { border-color:var(--accent); background:var(--accent-soft); transform:scale(1.06); }
+.fund-toggle:focus-visible { outline:2px solid var(--accent); outline-offset:3px; border-radius:4px; }
+.fund-body[hidden] { display:none; }
+.fund-body { margin-top:1.1rem; animation:fundin .4s ease both; }
+@keyframes fundin { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:none; } }
 
 /* ---------- in-flight carousel ---------- */
 .carousel { display:flex; align-items:center; gap:.5rem; }
@@ -409,18 +412,23 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 </div></section>
 
 <section id="grants"><div class="wrap reveal">
-  <div class="shead"><h2>Grants &amp; funded work</h2><span class="tag">funding timeline</span></div>
+  <div class="shead"><h2>Grants &amp; funded work</h2></div>
   <p class="sub">Competitive research funding across ~15 years. Bar position &amp; length = project period; bar thickness = amount; colour = my role.</p>
   <div class="fund-head">
     <span class="fund-total" id="fund-total">—</span>
     <span class="fund-sub">raised across <b id="fund-n">—</b> grants &amp; contracts</span>
   </div>
-  <div class="fund-legend">
-    <span><i class="rdot" style="background:#6d28d9"></i> Principal Investigator</span>
-    <span><i class="rdot" style="background:#22d3ee"></i> Project partner</span>
-    <span><i class="rdot" style="background:#9aa0aa"></i> Co-applicant</span>
+  <button class="fund-toggle" id="fund-toggle" type="button" aria-expanded="false" aria-controls="fund-body">
+    <span class="pm" aria-hidden="true">+</span><span class="lbl">Show the funding timeline</span>
+  </button>
+  <div class="fund-body" id="fund-body" hidden>
+    <div class="fund-legend">
+      <span><i class="rdot" style="background:#6d28d9"></i> Principal Investigator</span>
+      <span><i class="rdot" style="background:#22d3ee"></i> Project partner</span>
+      <span><i class="rdot" style="background:#9aa0aa"></i> Co-applicant</span>
+    </div>
+    <div class="gantt" id="gantt"></div>
   </div>
-  <div class="gantt" id="gantt"></div>
 </div></section>
 
 <!-- Temporarily unpublished — most links not yet working. Restore when ready.
@@ -592,25 +600,16 @@ const GRANTS=[
   }).join('');
   let ticks=''; for(let y=Y0;y<=2026;y+=2) ticks+=`<div class="g-tick" style="left:${(y-Y0)/span*100}%">’${String(y).slice(2)}</div>`;
   g.insertAdjacentHTML('afterend', `<div class="g-axis"><div></div><div class="g-ticks">${ticks}</div></div>`);
-  // collapse to the N most recent; '+' reveals the full record
-  const SHOW=6;
-  if(rows.length>SHOW){
-    const hidden=[...g.children].slice(SHOW);
-    hidden.forEach((r,j)=>{ r.classList.add('g-hide'); r.style.setProperty('--j', j); });
-    const bar=document.createElement('div');
-    bar.className='g-axis g-morebar';
-    bar.innerHTML=`<div></div><div><button class="g-more" type="button" aria-expanded="false" aria-controls="gantt">
-      <span class="pm">+</span><span class="lbl">Show all ${rows.length} grants</span></button></div>`;
-    g.nextElementSibling.insertAdjacentElement('afterend', bar);
-    const btn=bar.querySelector('.g-more');
-    btn.addEventListener('click', ()=>{
-      const open=btn.getAttribute('aria-expanded')!=='true';
-      hidden.forEach(r=>{ r.classList.toggle('g-hide', !open); r.classList.toggle('g-in', open); });
-      btn.setAttribute('aria-expanded', String(open));
-      btn.querySelector('.pm').textContent = open ? '−' : '+';
-      btn.querySelector('.lbl').textContent = open ? `Show ${SHOW} most recent` : `Show all ${rows.length} grants`;
-    });
-  }
+  // the timeline itself stays folded away; '+' opens the full record
+  const btn=document.getElementById('fund-toggle'), body=document.getElementById('fund-body');
+  if(btn && body) btn.addEventListener('click', ()=>{
+    const open=btn.getAttribute('aria-expanded')!=='true';
+    body.hidden=!open;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.querySelector('.pm').textContent = open ? '−' : '+';
+    btn.querySelector('.lbl').textContent = open ? 'Hide the funding timeline' : 'Show the funding timeline';
+    if(open){ g.classList.remove('show'); void g.offsetWidth; g.classList.add('show'); }  // replay the bar sweep
+  });
   g.addEventListener('mouseover',e=>{ const b=e.target.closest('.g-bar'); if(!b) return;
     tip.innerHTML='<b></b><em></em><br>'+b.dataset.d; tip.querySelector('b').textContent=b.dataset.n; tip.querySelector('em').textContent=b.dataset.f; tip.style.opacity='1'; });
   g.addEventListener('mousemove',e=>{ tip.style.left=Math.min(e.clientX+14,innerWidth-260)+'px'; tip.style.top=(e.clientY+14)+'px'; });
