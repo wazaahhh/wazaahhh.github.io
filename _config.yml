@@ -29,6 +29,7 @@ exclude:
   - Gemfile.lock
   - vendor/
   - README.md
+  - .mailbox/          # private mail store; never built, never published
 
 # output:false -> the items stay readable from Liquid (site.research etc.) but
 # no standalone pages are published. They had no layout shell (no doctype/head/

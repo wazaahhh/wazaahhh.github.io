@@ -8,3 +8,8 @@ _preview/
 
 # Claude Code session state (worktrees, local settings)
 .claude/
+
+# Private correspondence store (see .mailbox/README.md).
+# This repo is PUBLIC and is the source of maillart.xyz. Nothing under
+# .mailbox/ may ever be committed; a pre-commit hook enforces it.
+.mailbox/
