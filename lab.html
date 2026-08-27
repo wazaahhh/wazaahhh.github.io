@@ -28,6 +28,85 @@ permalink: /
 <meta name="twitter:title" content="{{ site.title }}" />
 <meta name="twitter:description" content="{{ site.description }}" />
 
+<!-- Structured data: tells Google this page IS the person, and ties it to the
+     profiles that already rank (Scholar, ORCID, UNIGE, LinkedIn). Entity
+     resolution is what gets a personal site attached to a name query. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://maillart.xyz/#thomas-maillart",
+      "name": "Thomas Maillart",
+      "givenName": "Thomas",
+      "familyName": "Maillart",
+      "url": "https://maillart.xyz/",
+      "image": "https://maillart.xyz/assets/img/og.png",
+      "jobTitle": "Senior Lecturer",
+      "email": "mailto:thomas.maillart@unige.ch",
+      "description": "Researcher working on technological forecasting, the economics of cybersecurity, collective intelligence and social-interaction science.",
+      "worksFor": {
+        "@type": "CollegeOrUniversity",
+        "name": "University of Geneva",
+        "url": "https://www.unige.ch/",
+        "department": {
+          "@type": "Organization",
+          "name": "Geneva School of Economics and Management (GSEM)",
+          "url": "https://www.unige.ch/gsem/en/"
+        }
+      },
+      "alumniOf": [
+        { "@type": "CollegeOrUniversity", "name": "ETH Zurich", "url": "https://ethz.ch/" }
+      ],
+      "knowsAbout": [
+        "Technological forecasting",
+        "Economics of information security",
+        "Cyber risk",
+        "Collective intelligence",
+        "Complex systems",
+        "Open source software dynamics",
+        "Hackathons",
+        "Social interaction science"
+      ],
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "ORCID",
+        "value": "0000-0002-5747-9927"
+      },
+      "sameAs": [
+        "https://scholar.google.com/citations?user=8qiZ3zMAAAAJ&hl=en",
+        "https://orcid.org/0000-0002-5747-9927",
+        "https://github.com/wazaahhh",
+        "https://www.linkedin.com/in/thomasmaillart/",
+        "https://www.unige.ch/gsem/en/research/faculty/all/thomas-maillart",
+        "https://www.researchgate.net/profile/Thomas-Maillart",
+        "https://dl.acm.org/profile/81418598883",
+        "https://data.snf.ch/grants/person/540213",
+        "https://arxiv.org/a/maillart_t_1"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://maillart.xyz/#website",
+      "url": "https://maillart.xyz/",
+      "name": "Thomas Maillart",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://maillart.xyz/#thomas-maillart" },
+      "about": { "@id": "https://maillart.xyz/#thomas-maillart" }
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://maillart.xyz/#profilepage",
+      "url": "https://maillart.xyz/",
+      "name": "{{ site.title }}",
+      "isPartOf": { "@id": "https://maillart.xyz/#website" },
+      "mainEntity": { "@id": "https://maillart.xyz/#thomas-maillart" }
+    }
+  ]
+}
+</script>
+
 <!-- inline favicon: no extra request, no 404 -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0b12'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23c6f432' stroke-width='5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%23c6f432'/%3E%3C/svg%3E" />
 
@@ -51,6 +130,12 @@ function pickTheme(){ return storedTheme() || autoTheme(); }
 document.addEventListener('DOMContentLoaded', ()=>{ document.body.className = pickTheme(); });
 </script>
 <style>
+/* server-rendered events fallback: replaced by renderEvents() on load */
+.talks-noscript{list-style:none;margin:0;padding:0;display:grid;gap:.6rem}
+.talks-noscript li{font-size:.92rem;line-height:1.45;padding:.55rem 0;border-bottom:1px solid rgba(128,128,128,.18)}
+.talks-noscript i{opacity:.6;font-style:normal}
+.talks-noscript p{margin:.35rem 0 0;opacity:.75;font-size:.86rem}
+
 /* ---------- palette presets (swappable via switcher) ---------- */
 :root,
 .theme-volt {
@@ -500,6 +585,11 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
     <a class="btn btn--solid" href="#focus">See what I'm working on →</a>
     <a class="btn btn--ghost" href="https://github.com/wazaahhh" target="_blank" rel="noopener">GitHub</a>
     <a class="btn btn--ghost" href="https://arxiv.org/search/?query=thomas+maillart&searchtype=all&source=header" target="_blank" rel="noopener">arXiv</a>
+    <!-- Outbound links to the canonical profiles: they confirm to crawlers that this
+         page and those already-ranking profiles are the same person. -->
+    <a class="btn btn--ghost" href="https://scholar.google.com/citations?user=8qiZ3zMAAAAJ&amp;hl=en" target="_blank" rel="me noopener">Scholar</a>
+    <a class="btn btn--ghost" href="https://orcid.org/0000-0002-5747-9927" target="_blank" rel="me noopener">ORCID</a>
+    <a class="btn btn--ghost" href="https://www.unige.ch/gsem/en/research/faculty/all/thomas-maillart" target="_blank" rel="me noopener">UNIGE</a>
   </div>
   <div class="pixels" aria-hidden="true"></div>
 </div></header>
@@ -555,7 +645,25 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
     <button class="tf" data-filter="time:past">Past</button>
     <button class="tf" data-filter="all">All</button>
   </div>
-  <div class="talks" id="talks-list"></div>
+  <div class="talks" id="talks-list">
+    {%- comment -%}
+      Server-rendered record. Every entry below is otherwise built client-side from
+      the EVENTS array, which leaves crawlers (and no-JS readers) an empty div —
+      ~270 words of indexable text for a page whose substance is 100+ items.
+      renderEvents() replaces this wholesale via innerHTML, so it never double-paints.
+    {%- endcomment -%}
+    <ul class="talks-noscript">
+      {%- for e in site.data.events -%}
+      <li>
+        <b>{{ e.title | escape }}</b>
+        {%- if e.role %} — {{ e.role | escape }}{% endif -%}
+        {%- if e.venue %} · {{ e.venue | escape }}{% endif -%}
+        {%- if e.when %} <i>{{ e.when | escape }}</i>{% endif -%}
+        {%- if e.blob %}<p>{{ e.blob | strip_newlines | escape }}</p>{% endif -%}
+      </li>
+      {%- endfor -%}
+    </ul>
+  </div>
 </div></section>
 
 <section id="grants"><div class="wrap reveal">

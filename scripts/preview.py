@@ -62,6 +62,30 @@ def _unless(m):
     return "" if data["citations"] else m.group(1)
 body = re.sub(r"\{%\s*unless site\.data\.citations\s*%\}(.*?)\{%\s*endunless\s*%\}", _unless, body, flags=re.S)
 
+# --- {%- comment -%} ... {%- endcomment -%} ---
+body = re.sub(r"\{%-?\s*comment\s*-?%\}.*?\{%-?\s*endcomment\s*-?%\}", "", body, flags=re.S)
+
+# --- server-rendered events fallback: {% for e in site.data.events %} ... {% endfor %} ---
+def _esc(v):
+    return (str(v or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            .replace('"', "&quot;").replace("'", "&#39;"))
+
+def _events_fallback(m):
+    out = []
+    for e in data["events"]:
+        row = ["<li>", "<b>%s</b>" % _esc(e.get("title"))]
+        if e.get("role"):  row.append(" \u2014 %s" % _esc(e["role"]))
+        if e.get("venue"): row.append(" \u00b7 %s" % _esc(e["venue"]))
+        if e.get("when"):  row.append(" <i>%s</i>" % _esc(e["when"]))
+        if e.get("blob"):
+            row.append("<p>%s</p>" % _esc(" ".join(str(e["blob"]).split("\n"))))
+        row.append("</li>")
+        out.append("".join(row))
+    return "\n".join(out)
+
+body = re.sub(r"\{%-?\s*for e in site\.data\.events\s*-?%\}.*?\{%-?\s*endfor\s*-?%\}",
+              _events_fallback, body, flags=re.S)
+
 # --- WRITING loop: research | sort:"year" | reverse, limit 5 ---
 latest = sorted(research, key=lambda i: i.get("year", 0))[::-1]
 def _writing(m):

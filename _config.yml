@@ -1,7 +1,12 @@
 # Site settings
-title: maillart.xyz | thomas maillart
+# Name first: people search the person, not the domain. The title is the single
+# strongest on-page ranking signal and what shows as the blue link in results.
+title: "Thomas Maillart — technological forecasting, cyber risk & collective intelligence"
 email: thomas@maillart.xyz
-description: Research, grants & awards, and SDG-aligned hackathon impact
+description: >-
+  Thomas Maillart, senior lecturer at the University of Geneva (GSEM). Research on
+  technological forecasting, the economics of cybersecurity, collective intelligence and
+  social-interaction science — plus grants, talks, teaching and SDG hackathon programmes.
 url: "https://maillart.xyz"
 baseurl: ""
 github_username: wazaahhh
@@ -9,8 +14,13 @@ github_username: wazaahhh
 # Keep theme null; we use lightweight custom HTML/CSS in layouts.
 theme: null
 
+# jekyll-sitemap ships inside the github-pages gem and is whitelisted on GitHub
+# Pages, so /sitemap.xml is generated on every build with no extra dependency.
+plugins:
+  - jekyll-sitemap
+
 # Ship the custom-domain file (Jekyll excludes CNAME by default).
-include: ["CNAME"]
+include: ["CNAME", "robots.txt"]
 
 # Don't publish build/tooling files to the live site.
 exclude:
