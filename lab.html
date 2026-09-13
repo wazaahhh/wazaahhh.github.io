@@ -202,6 +202,8 @@ a { color: var(--accent); }
 .bar .wrap { display:flex; align-items:center; justify-content:space-between; height:60px; }
 .brand { font-family:"Space Grotesk"; font-weight:700; font-size:1.05rem; text-decoration:none; color:var(--ink); }
 .brand b { color: var(--accent); }
+/* Phones: the full "Name | handle" line would wrap mid-handle, so stack name over handle. */
+@media (max-width:680px){ .brand{ display:flex; flex-direction:column; line-height:1.15; } .brand-sep{ display:none; } .brand-handle{ font-size:.78rem; font-weight:600; } }
 .nav { display:flex; gap:1.2rem; align-items:center; }
 .nav a { text-decoration:none; color:var(--muted); font-weight:600; font-size:.9rem; }
 .nav a:hover { color: var(--ink); }
@@ -560,7 +562,7 @@ footer { border-top:1px solid var(--line); padding:2.5rem 0; color:var(--muted);
 <body class="theme-y2k">
 
 <div class="bar"><div class="wrap">
-  <a class="brand" href="#top">thomas <b>@ maillart.xyz</b></a>
+  <a class="brand" href="#top">Thomas Maillart<span class="brand-sep"> | </span><span class="brand-handle">thomas <b>@ maillart.xyz</b></span></a>
   <nav class="nav">
     <a href="#focus">Focus</a>
     <a href="#talks">Events</a>
